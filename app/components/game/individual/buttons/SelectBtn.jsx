@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 import {
   selectedBirdsAtom,
   resourceQuantityAtom,
@@ -20,7 +21,7 @@ const SelectBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
-  const [birdDeck, setBirdDeck] = useAtom(birdDeckAtom);
+  const [birdDeck] = useAtom(birdDeckAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
@@ -32,19 +33,22 @@ const SelectBtn = () => {
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   let disableSave;
-  switch (currentAction) {
-    case "wetland":
-      disableSave = selectedBirds.length === resourceQuantity;
-      break;
-    case "forest":
-      disableSave = selectedFood.length === resourceQuantity;
-      break;
-    case "playBird":
-      disableSave =
-        selectedBirds.length === 1 &&
-        selectedBirds[0].habitat.includes(playBirdState.habitat);
-      break;
-  }
+  const updateDisable = () => {
+    switch (currentAction) {
+      case "wetland":
+        disableSave = selectedBirds.length === resourceQuantity;
+        break;
+      case "forest":
+        disableSave = selectedFood.length === resourceQuantity;
+        break;
+      case "playBird":
+        disableSave =
+          selectedBirds.length === 1 &&
+          selectedBirds[0].habitat.includes(playBirdState.habitat);
+        break;
+    }
+  };
+  updateDisable();
 
   const selectBtnClick = () => {
     switch (currentAction) {
@@ -74,6 +78,10 @@ const SelectBtn = () => {
       setPlayBirdState
     );
   };
+
+  useEffect(() => {
+    updateDisable();
+  }, [selectedBirds]);
 
   return (
     <button

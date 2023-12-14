@@ -6,16 +6,18 @@ import {
   playerBirdHandAtom,
   disableClickAtom,
   resourceQuantityAtom,
+  playerEggSupplyAtom,
 } from "../../../../utils/jotaiStore";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 
 const CancelBtn = () => {
-  const [, setPlayBirdState] = useAtom(playBirdAtom);
+  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
   const [, setCurrentAction] = useAtom(currentActionAtom);
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
+  const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
 
   const cancelPlayBirdClick = () => {
     if (selectedBirds.length) {
@@ -28,6 +30,7 @@ const CancelBtn = () => {
         return state;
       });
     }
+    setPlayerEggs((eggs) => eggs + playBirdState.eggReq);
 
     resetAction(
       setDisableClick,

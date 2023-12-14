@@ -6,9 +6,14 @@ import {
   forestBirdCountAtom,
   playBirdAtom,
   playerEggSupplyAtom,
+  playerBirdHandAtom,
+  playerFoodSupplyAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
-import { activatePlayBird } from "../../../utils/gameFunctions/playABirdFunctions";
+import {
+  activatePlayBird,
+  checkEggs,
+} from "../../../utils/gameFunctions/playABirdFunctions";
 
 const Forest = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
@@ -21,7 +26,9 @@ const Forest = () => {
 
   const [, setPlayBird] = useAtom(playBirdAtom);
 
-  const [playerEggs] = useAtom(playerEggSupplyAtom);
+  const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [birdHand] = useAtom(playerBirdHandAtom);
+  const [playerFood] = useAtom(playerFoodSupplyAtom);
 
   const forestClick = () => {
     if (disableForest) console.log("Disabled");
@@ -32,7 +39,10 @@ const Forest = () => {
           "forest",
           forestBirdCount,
           setDisableClick,
-          playerEggs
+          playerEggs,
+          setPlayerEggs,
+          birdHand,
+          playerFood
         );
       } else {
         activateHabitat(

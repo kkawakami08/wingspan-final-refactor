@@ -1,45 +1,3 @@
-export const activatePlayBird = (
-  setPlayBird,
-  location,
-  birdCount,
-  setDisableClick,
-  playerEggs,
-  setPlayerEggs,
-  birdHand,
-  playerFoodSupply
-) => {
-  let eggReq = 0;
-  if (birdCount == 1 || birdCount == 2) {
-    eggReq = 1;
-  } else if (birdCount == 3 || birdCount == 4) {
-    eggReq = 2;
-  }
-
-  if (playerEggs < eggReq) {
-    setPlayBird((state) => {
-      state.confirmHabitat = false;
-    });
-  } else {
-    if (checkFoodSupply(birdHand, playerFoodSupply, location)) {
-      setPlayerEggs((eggs) => eggs - eggReq);
-      setPlayBird((state) => {
-        state.habitat = location;
-        state.eggReq = eggReq;
-        return state;
-      });
-      setDisableClick((state) => ({
-        ...state,
-        habitats: true,
-        birdHand: false,
-      }));
-    } else {
-      setPlayBird((state) => {
-        state.confirmHabitat = false;
-      });
-    }
-  }
-};
-
 export const checkFoodSupply = (birdHand, playerFoodSupply, location) => {
   let canPlayABird = false;
 
@@ -84,16 +42,22 @@ export const checkFoodSupply = (birdHand, playerFoodSupply, location) => {
           playerCheck["invertebrate_seed"] =
             playerCheck["invertebrate_seed"] - 1;
         } else {
-          if (!playerCheck[food] || playerCheck[food] < birdFoodReq[food]) {
-            checkLater[food] = birdFoodReq[food];
+          if (
+            !playerCheck[food] ||
+            playerCheck[food] < playedBirdFoodCount[food]
+          ) {
+            checkLater[food] = playedBirdFoodCount[food];
             canContinue = false;
           } else {
             playerCheck[food] = playerCheck[food] - 1;
           }
         }
       } else {
-        if (!playerCheck[food] || playerCheck[food] < birdFoodReq[food]) {
-          checkLater[food] = birdFoodReq[food];
+        if (
+          !playerCheck[food] ||
+          playerCheck[food] < playedBirdFoodCount[food]
+        ) {
+          checkLater[food] = playedBirdFoodCount[food];
           canContinue = false;
         } else {
           playerCheck[food] = playerCheck[food] - 1;
@@ -150,74 +114,4 @@ export const checkFoodSupply = (birdHand, playerFoodSupply, location) => {
   } //end of bird loop
   console.log("this is the end");
   return canPlayABird;
-};
-
-export const placeBird = (
-  playBirdState,
-  { setHabitat, birdCount, setBirdCount }
-) => {
-  setHabitat((habitat) => {
-    habitat[birdCount].bird = playBirdState.bird;
-  });
-  setBirdCount((count) => count + 1);
-};
-
-export const playBird = (selectedFood, selectedBird) => {
-  let foodCount = [];
-  let neededTokens = 0;
-  let wildCount = 0;
-
-  //documenting what selected food
-  for (const { type } of selectedFood) {
-    foodCount.push(type);
-  }
-  //checks each food bird req vs what is in selected food
-  //if missing food, adds to needed token count else removes from selected food
-
-  for (let i = 0; i < selectedBird.food.length; i++) {
-    let currentItem = selectedBird.food[i];
-    if (currentItem === "wild") {
-      wildCount++;
-      continue;
-    }
-    if (
-      foodCount.includes("invertebrate_seed") &&
-      (currentItem === "seed" || currentItem === "invertebrate")
-    ) {
-      console.log("using invertebrate_seed token for ", currentItem);
-      const index = foodCount.indexOf("invertebrate_seed");
-      foodCount.splice(index, 1);
-      continue;
-    }
-
-    const index = foodCount.indexOf(currentItem);
-
-    if (index >= 0) {
-      foodCount.splice(index, 1);
-    } else {
-      console.log(`no ${currentItem} found`);
-      neededTokens++;
-    }
-  }
-
-  let continueAction = false;
-
-  if (wildCount) {
-    if (foodCount.length === wildCount) {
-      console.log("you have enough tokens. placed bird");
-      continueAction = true;
-    }
-  } else {
-    console.log(
-      `missing ${neededTokens} more tokens for bird. so ${
-        neededTokens * 2
-      } total`
-    );
-    if (foodCount.length === neededTokens * 2) {
-      console.log("enough tokens to play bird");
-      continueAction = true;
-    }
-  }
-  return continueAction;
-  //
 };

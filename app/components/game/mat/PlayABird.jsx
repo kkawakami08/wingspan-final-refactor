@@ -2,11 +2,6 @@ import { useAtom } from "jotai";
 import {
   currentActionAtom,
   disableClickAtom,
-  resourceQuantityAtom,
-  forestBirdCountAtom,
-  grasslandBirdCountAtom,
-  wetlandBirdCountAtom,
-  playerEggSupplyAtom,
   playerBirdHandAtom,
   playerFoodSupplyAtom,
   playBirdAtom,
@@ -15,14 +10,9 @@ import { checkFoodSupply } from "../../../utils/gameFunctions/playABirdFunctions
 
 const PlayABird = () => {
   const [, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+  const [disableClick] = useAtom(disableClickAtom);
   const disableHabitat = disableClick.habitats;
 
-  const [forestBirdCount] = useAtom(forestBirdCountAtom);
-  const [wetlandBirdCount] = useAtom(wetlandBirdCountAtom);
-  const [grasslandBirdCount] = useAtom(grasslandBirdCountAtom);
-  const [playerEggCount] = useAtom(playerEggSupplyAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
   const [playerFood] = useAtom(playerFoodSupplyAtom);
 
@@ -31,13 +21,13 @@ const PlayABird = () => {
   const playABirdClick = () => {
     if (disableHabitat) console.log("Disabled");
     else {
-      if (!checkFoodSupply(birdHand, playerFood)) {
-        setPlayBird((state) => {
-          state.playable = false;
-        });
-      } else {
-        setCurrentAction("playBird");
-      }
+      // if (!checkFoodSupply(birdHand, playerFood)) {
+      //   setPlayBird((state) => {
+      //     state.playable = false;
+      //   });
+      // } else {
+      setCurrentAction("playBird");
+      // }
     }
   };
 

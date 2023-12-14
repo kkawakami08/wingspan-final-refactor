@@ -16,7 +16,7 @@ const PlayABirdText = () => {
       {playBirdState.confirmHabitat ? (
         playableTest
       ) : (
-        <p>Not enough eggs. Pick a different location</p>
+        <p>Not enough resources. Pick a different location</p>
       )}
     </div>
   );
