@@ -4,6 +4,7 @@ import {
   resourceQuantityAtom,
   disableClickAtom,
   playBirdAtom,
+  grasslandPlayableAtom,
 } from "../../../utils/jotaiStore";
 import PlayABirdText from "../individual/habitat/PlayABirdText";
 
@@ -14,6 +15,7 @@ const CurrentAction = () => {
   const [disableClick] = useAtom(disableClickAtom);
 
   const [playBirdState] = useAtom(playBirdAtom);
+  const [grasslandPlayable] = useAtom(grasslandPlayableAtom);
 
   let resource = "";
   let discardResource = "";
@@ -28,7 +30,7 @@ const CurrentAction = () => {
       }
       break;
     case "grassland":
-      resource = resourceQuantity == 1 ? "egg " : "eggs ";
+      resource = "eggs ";
       if (!disableClick.playerFood) {
         canDiscard = true;
         discardResource = "a food token";
@@ -61,7 +63,11 @@ const CurrentAction = () => {
           </div>
         )
       ) : playBirdState.playable ? (
-        <p>Select an action</p>
+        grasslandPlayable ? (
+          <p>Select an action</p>
+        ) : (
+          <p>Can't lay eggs, select different action.</p>
+        )
       ) : (
         <p>Cannot play a bird. Select a different action.</p>
       )}

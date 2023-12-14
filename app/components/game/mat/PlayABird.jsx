@@ -1,33 +1,15 @@
 import { useAtom } from "jotai";
-import {
-  currentActionAtom,
-  disableClickAtom,
-  playerBirdHandAtom,
-  playerFoodSupplyAtom,
-  playBirdAtom,
-} from "../../../utils/jotaiStore";
-import { checkFoodSupply } from "../../../utils/gameFunctions/playABirdFunctions";
+import { currentActionAtom, disableClickAtom } from "../../../utils/jotaiStore";
 
 const PlayABird = () => {
   const [, setCurrentAction] = useAtom(currentActionAtom);
   const [disableClick] = useAtom(disableClickAtom);
   const disableHabitat = disableClick.habitats;
 
-  const [birdHand] = useAtom(playerBirdHandAtom);
-  const [playerFood] = useAtom(playerFoodSupplyAtom);
-
-  const [, setPlayBird] = useAtom(playBirdAtom);
-
   const playABirdClick = () => {
     if (disableHabitat) console.log("Disabled");
     else {
-      // if (!checkFoodSupply(birdHand, playerFood)) {
-      //   setPlayBird((state) => {
-      //     state.playable = false;
-      //   });
-      // } else {
       setCurrentAction("playBird");
-      // }
     }
   };
 

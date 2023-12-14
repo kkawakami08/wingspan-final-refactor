@@ -3,33 +3,47 @@ import {
   currentActionAtom,
   resourceQuantityAtom,
   disableClickAtom,
+  grasslandBirdCountAtom,
+  totalBirdCountAtom,
+  grasslandPlayableAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
+import DiscardEggs from "../individual/buttons/DiscardEggs";
 
 const Grassland = () => {
-  const [, setCurrentAction] = useAtom(currentActionAtom);
+  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
   const disableGrassland = disableClick.habitats;
+  const [grasslandBirdCount] = useAtom(grasslandBirdCountAtom);
+  const [totalBirdCount] = useAtom(totalBirdCountAtom);
+  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
 
   const grasslandClick = () => {
     if (disableGrassland) console.log("Disabled");
     else {
-      activateHabitat(
-        setCurrentAction,
-        "grassland",
-        setResourceQuantity,
-        setDisableClick
-      );
+      if (totalBirdCount) {
+        activateHabitat(
+          setCurrentAction,
+          "grassland",
+          grasslandBirdCount,
+          setResourceQuantity,
+          setDisableClick
+        );
+      } else {
+        setGrassLandPlayable(false);
+      }
     }
   };
 
   return (
     <div
-      className="bg-neutral-600 p-5 rounded-lg text-white font-semibold text-lg col-start-1 row-span-2"
+      className="bg-amber-700 p-5 rounded-lg text-white font-semibold text-2xl row-start-5 row-span-2 flex flex-col gap-5 items-center justify-center text-center"
       onClick={grasslandClick}
     >
       <p>Grassland</p>
+      <p className="font-normal text-lg">Lay eggs</p>
+      {currentAction === "grassland" && <DiscardEggs />}
     </div>
   );
 };

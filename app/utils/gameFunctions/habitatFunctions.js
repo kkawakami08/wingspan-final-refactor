@@ -14,6 +14,7 @@ export const activateHabitat = (
 ) => {
   let disableOptions;
   let discardOptions;
+  let resourceQuantity = 1;
   switch (location) {
     case "forest":
       disableOptions = forestDisableOptions;
@@ -24,17 +25,18 @@ export const activateHabitat = (
       discardOptions = { playerEggs: false };
       break;
     case "grassland":
+      resourceQuantity = 2;
       disableOptions = grasslandDisableOptions;
       discardOptions = { playerFood: false };
       break;
   }
 
   if (birdCount <= 1) {
-    setResourceQuantity(1);
+    setResourceQuantity(resourceQuantity);
   } else if (birdCount >= 2 && birdCount <= 3) {
-    setResourceQuantity(2);
+    setResourceQuantity(resourceQuantity + 1);
   } else {
-    setResourceQuantity(3);
+    setResourceQuantity(resourceQuantity + 3);
   }
 
   if (birdCount % 2 !== 0) {
@@ -58,7 +60,8 @@ export const resetAction = (
   setDisableClick,
   setResourceQuantity,
   setCurrentAction,
-  setPlayBirdState
+  setPlayBirdState,
+  setGrasslandPlayable
 ) => {
   setDisableClick(initialDisableClick);
   setResourceQuantity(0);
@@ -67,4 +70,5 @@ export const resetAction = (
     state = initialPlayBird;
     return state;
   });
+  setGrasslandPlayable(true);
 };

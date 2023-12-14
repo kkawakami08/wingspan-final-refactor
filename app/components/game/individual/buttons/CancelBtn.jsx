@@ -7,6 +7,7 @@ import {
   disableClickAtom,
   resourceQuantityAtom,
   playerEggSupplyAtom,
+  grasslandPlayableAtom,
 } from "../../../../utils/jotaiStore";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 
@@ -18,6 +19,7 @@ const CancelBtn = () => {
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
 
   const cancelPlayBirdClick = () => {
     if (selectedBirds.length) {
@@ -36,7 +38,8 @@ const CancelBtn = () => {
       setDisableClick,
       setResourceQuantity,
       setCurrentAction,
-      setPlayBirdState
+      setPlayBirdState,
+      setGrassLandPlayable
     );
   };
 
