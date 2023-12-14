@@ -26,7 +26,7 @@ const Wetland = () => {
 
   return (
     <div
-      className="bg-neutral-600 p-5 rounded-lg text-white font-semibold text-lg"
+      className="bg-neutral-600 p-5 rounded-lg text-white font-semibold text-lg col-start-1 row-span-2"
       onClick={wetlandClick}
     >
       <p>wetland</p>

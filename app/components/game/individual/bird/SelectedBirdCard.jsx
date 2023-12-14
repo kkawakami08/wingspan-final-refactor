@@ -33,6 +33,15 @@ const SelectedBirdCard = ({ bird }) => {
           bird
         );
         break;
+      case "playBird":
+        selectCard(
+          setSelectedBirds,
+          setBirdHand,
+          "common_name",
+          bird.common_name,
+          bird
+        );
+        break;
     }
   };
 

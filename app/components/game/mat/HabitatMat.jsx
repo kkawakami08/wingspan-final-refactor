@@ -3,6 +3,8 @@ import Grassland from "./Grassland";
 import Wetland from "./Wetland";
 import PlayABird from "./PlayABird";
 import CurrentAction from "./CurrentAction";
+import ForestRow from "./ForestRow";
+import PlayABirdRow from "./PlayABirdRow";
 
 const HabitatMat = () => {
   return (
@@ -11,11 +13,13 @@ const HabitatMat = () => {
         Habitat mat
       </p>
       <CurrentAction />
-      <div className="flex gap-5 justify-around">
+      <div className="grid grid-cols-7 gap-5 ">
         <PlayABird />
+        <PlayABirdRow />
         <Forest />
         <Grassland />
         <Wetland />
+        <ForestRow />
       </div>
     </div>
   );

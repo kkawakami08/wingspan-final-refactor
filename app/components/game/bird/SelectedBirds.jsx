@@ -21,6 +21,8 @@ const SelectedBirds = () => {
         return <DiscardBtn />;
       case "wetland":
         return <SelectBtn />;
+      case "playBird":
+        return <SelectBtn />;
       default:
         break;
     }

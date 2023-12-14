@@ -9,6 +9,7 @@ import {
   birdDeckAtom,
   selectedFoodAtom,
   playerFoodSupplyAtom,
+  playBirdAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
@@ -28,6 +29,8 @@ const SelectBtn = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
 
+  const [, setPlayBirdState] = useAtom(playBirdAtom);
+
   let disableSave;
   switch (currentAction) {
     case "wetland":
@@ -35,6 +38,9 @@ const SelectBtn = () => {
       break;
     case "forest":
       disableSave = selectedFood.length === resourceQuantity;
+      break;
+    case "playBird":
+      disableSave = selectedBirds.length === 1;
       break;
   }
 
@@ -47,9 +53,17 @@ const SelectBtn = () => {
       case "forest":
         saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
         break;
+      case "playBird":
+        saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
+        break;
     }
 
-    resetAction(setDisableClick, setResourceQuantity, setCurrentAction);
+    resetAction(
+      setDisableClick,
+      setResourceQuantity,
+      setCurrentAction,
+      setPlayBirdState
+    );
   };
 
   return (

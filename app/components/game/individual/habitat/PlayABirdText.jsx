@@ -1,0 +1,23 @@
+import { useAtom } from "jotai";
+import { playBirdAtom } from "../../../../utils/jotaiStore";
+
+const PlayABirdText = () => {
+  const [playBirdState] = useAtom(playBirdAtom);
+  let playableTest = playBirdState.habitat ? (
+    <p>Selected {playBirdState.habitat}. Select a bird to play</p>
+  ) : (
+    <p>Select a location</p>
+  );
+
+  return (
+    <div>
+      {playBirdState.confirmHabitat ? (
+        playableTest
+      ) : (
+        <p>Not enough eggs. Pick a different location</p>
+      )}
+    </div>
+  );
+};
+
+export default PlayABirdText;

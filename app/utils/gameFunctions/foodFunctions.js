@@ -5,7 +5,7 @@ export const foodSelection = (source, setDestination, setSource, foodId) => {
   const [item] = initialSupply.splice(index, 1);
 
   setDestination((destination) => [...destination, item]);
-  setSource((prev) => [...initialSupply]);
+  setSource([...initialSupply]);
 };
 
 export const saveFoodSelection = (setDestination, source, setSource) => {
