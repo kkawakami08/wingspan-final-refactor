@@ -6,19 +6,37 @@ import {
   disableClickAtom,
   currentActionAtom,
   selectedFoodAtom,
+  playBirdAtom,
+  forestAtom,
+  forestBirdCountAtom,
 } from "../../../../utils/jotaiStore";
 import { discardSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { discardFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
+import {
+  placeBird,
+  playBird,
+} from "../../../../utils/gameFunctions/playABirdFunctions";
+import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 
 const DiscardBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdDiscard] = useAtom(birdDiscardAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [currentAction] = useAtom(currentActionAtom);
+  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
+
+  const [, setForest] = useAtom(forestAtom);
+  const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
+
+  const forestState = {
+    setHabitat: setForest,
+    birdCount: forestBirdCount,
+    setBirdCount: setForestBirdCount,
+  };
 
   let disableDiscard;
   switch (currentAction) {
@@ -27,6 +45,11 @@ const DiscardBtn = () => {
       break;
     case "grassland":
       disableDiscard = selectedFood.length === 1;
+      break;
+    case "playBird":
+      if (playBirdState.bird) {
+        disableDiscard = playBird(selectedFood, selectedBirds[0]);
+      }
       break;
   }
 
@@ -50,6 +73,24 @@ const DiscardBtn = () => {
           ...state,
           playerFood: true,
         }));
+        break;
+      case "playBird":
+        discardFoodSelection(setResourceQuantity, setSelectedFood);
+        switch (playBirdState.habitat) {
+          case "forest":
+            placeBird(playBirdState, forestState);
+            break;
+        }
+        setSelectedBirds((hand) => {
+          hand = [];
+          return hand;
+        });
+        resetAction(
+          setDisableClick,
+          setResourceQuantity,
+          setCurrentAction,
+          setPlayBirdState
+        );
         break;
     }
   };

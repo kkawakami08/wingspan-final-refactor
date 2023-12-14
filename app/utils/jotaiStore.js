@@ -17,7 +17,7 @@ export const wetlandBirdCountAtom = atom(0);
 
 export const playerBirdHandAtom = atomWithImmer(playerBirdHand);
 export const playerFoodSupplyAtom = atom(playerFoodSupply);
-export const playerEggSupplyAtom = atom(1);
+export const playerEggSupplyAtom = atom(0);
 
 export const selectedBirdsAtom = atomWithImmer([]);
 export const selectedFoodAtom = atom([]);

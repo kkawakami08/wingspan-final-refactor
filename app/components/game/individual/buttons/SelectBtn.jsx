@@ -29,7 +29,7 @@ const SelectBtn = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
 
-  const [, setPlayBirdState] = useAtom(playBirdAtom);
+  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   let disableSave;
   switch (currentAction) {
@@ -40,7 +40,9 @@ const SelectBtn = () => {
       disableSave = selectedFood.length === resourceQuantity;
       break;
     case "playBird":
-      disableSave = selectedBirds.length === 1;
+      disableSave =
+        selectedBirds.length === 1 &&
+        selectedBirds[0].habitat.includes(playBirdState.habitat);
       break;
   }
 
@@ -54,8 +56,15 @@ const SelectBtn = () => {
         saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
         break;
       case "playBird":
-        saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-        break;
+        setPlayBirdState((state) => {
+          state.bird = selectedBirds[0];
+        });
+        setDisableClick((state) => ({
+          ...state,
+          playerFood: false,
+          birdHand: true,
+        }));
+        return;
     }
 
     resetAction(

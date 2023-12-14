@@ -140,3 +140,75 @@ export const checkFoodSupply = (birdHand, playerFoodSupply) => {
 
   return true;
 };
+
+export const playBird = (selectedFood, selectedBird) => {
+  let foodCount = [];
+  let neededTokens = 0;
+  let wildCount = 0;
+
+  //documenting what selected food
+  for (const { type } of selectedFood) {
+    foodCount.push(type);
+  }
+  //checks each food bird req vs what is in selected food
+  //if missing food, adds to needed token count else removes from selected food
+
+  for (let i = 0; i < selectedBird.food.length; i++) {
+    let currentItem = selectedBird.food[i];
+    if (currentItem === "wild") {
+      wildCount++;
+      continue;
+    }
+    if (
+      foodCount.includes("invertebrate_seed") &&
+      (currentItem === "seed" || currentItem === "invertebrate")
+    ) {
+      console.log("using invertebrate_seed token for ", currentItem);
+      const index = foodCount.indexOf("invertebrate_seed");
+      foodCount.splice(index, 1);
+      continue;
+    }
+
+    const index = foodCount.indexOf(currentItem);
+
+    if (index >= 0) {
+      foodCount.splice(index, 1);
+    } else {
+      console.log(`no ${currentItem} found`);
+      neededTokens++;
+    }
+  }
+
+  let continueAction = false;
+
+  if (wildCount) {
+    if (foodCount.length === wildCount) {
+      console.log("you have enough tokens. placed bird");
+      continueAction = true;
+    }
+  } else {
+    console.log(
+      `missing ${neededTokens} more tokens for bird. so ${
+        neededTokens * 2
+      } total`
+    );
+    if (foodCount.length === neededTokens * 2) {
+      console.log("enough tokens to play bird");
+      continueAction = true;
+    }
+  }
+  return continueAction;
+  //
+};
+
+export const placeBird = (
+  playBirdState,
+  { setHabitat, birdCount, setBirdCount }
+) => {
+  console.log(birdCount);
+  //depending on location switch case
+  setHabitat((habitat) => {
+    habitat[birdCount].bird = playBirdState.bird;
+  });
+  setBirdCount((count) => count + 1);
+};

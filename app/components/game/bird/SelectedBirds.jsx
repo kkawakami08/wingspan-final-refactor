@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import {
   selectedBirdsAtom,
   currentActionAtom,
+  playBirdAtom,
 } from "../../../utils/jotaiStore";
 import SelectedBirdCard from "../individual/bird/SelectedBirdCard";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
@@ -10,6 +11,7 @@ import SelectBtn from "../individual/buttons/SelectBtn";
 const SelectedBirds = () => {
   const [selectedBirds] = useAtom(selectedBirdsAtom);
   const [currentAction] = useAtom(currentActionAtom);
+  const [playBirdState] = useAtom(playBirdAtom);
 
   const selectedBirdsContent = selectedBirds.map((bird) => (
     <SelectedBirdCard key={bird.common_name} bird={bird} />
@@ -36,7 +38,7 @@ const SelectedBirds = () => {
       <div className=" flex flex-wrap gap-5 justify-center ">
         {selectedBirdsContent}
       </div>
-      {btnDisplay()}
+      {!playBirdState.bird && btnDisplay()}
     </div>
   );
 };

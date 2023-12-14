@@ -21,6 +21,9 @@ const SelectedFoodToken = ({ food }) => {
       case "grassland":
         foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
         break;
+      case "playBird":
+        foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
+        break;
     }
   };
 

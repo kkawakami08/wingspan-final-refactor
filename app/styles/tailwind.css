@@ -680,6 +680,10 @@ video {
   gap: 1.25rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .place-self-end {
   place-self: end;
 }

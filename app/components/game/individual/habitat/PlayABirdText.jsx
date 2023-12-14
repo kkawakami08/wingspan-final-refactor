@@ -9,6 +9,8 @@ const PlayABirdText = () => {
     <p>Select a location</p>
   );
 
+  if (playBirdState.bird) playableTest = <p>Select food tokens</p>;
+
   return (
     <div>
       {playBirdState.confirmHabitat ? (
