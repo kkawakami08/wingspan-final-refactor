@@ -34,7 +34,7 @@ const CurrentAction = () => {
       break;
     case "wetland":
       resource = resourceQuantity == 1 ? "card" : "cards";
-      if (!disableClick.playerEggs) {
+      if (!disableClick.playedBird) {
         canDiscard = true;
         discardResource = "an egg";
       }

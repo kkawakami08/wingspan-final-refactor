@@ -4,7 +4,6 @@ import {
   resourceQuantityAtom,
   disableClickAtom,
   grasslandBirdCountAtom,
-  totalBirdCountAtom,
   currentActionTextAtom,
   playBirdAtom,
   playerEggSupplyAtom,
@@ -25,7 +24,6 @@ const Grassland = () => {
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
   const disableGrassland = disableClick.habitats;
   const [grasslandBirdCount] = useAtom(grasslandBirdCountAtom);
-  const [totalBirdCount] = useAtom(totalBirdCountAtom);
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [, setPlayBird] = useAtom(playBirdAtom);
   const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);

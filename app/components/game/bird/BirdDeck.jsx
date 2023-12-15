@@ -7,6 +7,7 @@ import {
   birdTrayAtom,
   selectedBirdsAtom,
   currentActionAtom,
+  currentActionTextAtom,
 } from "../../../utils/jotaiStore";
 
 import { drawBirdDeck } from "../../../utils/gameFunctions/wetlandFunctions";
@@ -22,6 +23,7 @@ const BirdDeck = () => {
 
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
 
   const wetlandAction = {
     birdDeck,
@@ -33,6 +35,7 @@ const BirdDeck = () => {
     setBirdTray,
     setCurrentAction,
     setDisableClick,
+    setCurrentActionText,
   };
 
   const birdDeckClick = () => {

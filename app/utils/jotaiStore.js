@@ -30,13 +30,6 @@ export const removedEggListAtom = atomWithImmer({
   wetland: [],
 });
 
-export const totalBirdCountAtom = atom(
-  (get) =>
-    get(forestBirdCountAtom) +
-    get(grasslandBirdCountAtom) +
-    get(wetlandBirdCountAtom)
-);
-
 export const playerBirdHandAtom = atomWithImmer(playerBirdHand);
 export const playerFoodSupplyAtom = atom(playerFoodSupply);
 export const playerEggSupplyAtom = atom(0);

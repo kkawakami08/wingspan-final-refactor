@@ -10,8 +10,7 @@ export const activateHabitat = (
   location,
   birdCount,
   setResourceQuantity,
-  setDisableClick,
-  setCurrentActionText
+  setDisableClick
 ) => {
   let disableOptions;
   let discardOptions;
@@ -24,7 +23,7 @@ export const activateHabitat = (
       break;
     case "wetland":
       disableOptions = wetlandDisableOptions;
-      discardOptions = { playerEggs: false };
+      discardOptions = { playedBird: false };
       break;
     case "grassland":
       resourceQuantity = 2;
@@ -42,7 +41,6 @@ export const activateHabitat = (
   }
 
   if (birdCount % 2 !== 0) {
-    console.log("can discard for extra resource");
     setDisableClick((state) => ({
       ...state,
       ...discardOptions,
@@ -62,15 +60,11 @@ export const resetAction = (
   setDisableClick,
   setResourceQuantity,
   setCurrentAction,
-  setPlayBirdState,
+
   setCurrentActionText
 ) => {
   setDisableClick(initialDisableClick);
   setResourceQuantity(0);
   setCurrentAction("");
-  setPlayBirdState((state) => {
-    state = initialPlayBird;
-    return state;
-  });
   setCurrentActionText("Select an action");
 };

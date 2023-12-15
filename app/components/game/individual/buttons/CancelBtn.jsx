@@ -13,7 +13,7 @@ import {
   grasslandAtom,
   wetlandAtom,
 } from "../../../../utils/jotaiStore";
-import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
+import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { replaceEggs } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const CancelBtn = () => {
@@ -52,7 +52,7 @@ const CancelBtn = () => {
       list = { forest: [], grassland: [], wetland: [] };
       return list;
     });
-    resetAction(
+    resetPlayBirdAction(
       setDisableClick,
       setResourceQuantity,
       setCurrentAction,

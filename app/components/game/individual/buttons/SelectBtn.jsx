@@ -14,9 +14,10 @@ import {
   currentActionTextAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
-import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
+import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
+import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 
 const SelectBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
@@ -75,12 +76,11 @@ const SelectBtn = () => {
         );
         return;
     }
-
     resetAction(
       setDisableClick,
       setResourceQuantity,
       setCurrentAction,
-      setPlayBirdState,
+
       setCurrentActionText
     );
   };

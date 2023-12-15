@@ -11,6 +11,7 @@ export const drawBirdDeck = ({
   setBirdTray,
   setCurrentAction,
   setDisableClick,
+  setCurrentActionText,
 }) => {
   drawCard(birdDeck, setPlayerBirdHand);
   setResourceQuantity((prev) => prev - 1);
@@ -25,6 +26,31 @@ export const drawBirdDeck = ({
         return birds;
       });
     }
-    resetAction(setDisableClick, setResourceQuantity, setCurrentAction);
+    resetAction(
+      setDisableClick,
+      setResourceQuantity,
+      setCurrentAction,
+      setCurrentActionText
+    );
   }
+};
+
+export const discardEgg = (
+  setHabitat,
+  space,
+  setPlayerEggs,
+  setDisableClick,
+  setResourceQuantity
+) => {
+  setHabitat((habitat) => {
+    habitat[space].eggCount = habitat[space].eggCount - 1;
+  });
+  setPlayerEggs((eggs) => eggs - 1);
+  setResourceQuantity((state) => state + 1);
+
+  setDisableClick((state) => ({
+    ...state,
+
+    playedBird: true,
+  }));
 };

@@ -21,7 +21,7 @@ import {
   placeBird,
   playBird,
 } from "../../../../utils/gameFunctions/playABirdFunctions";
-import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
+import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const DiscardBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
@@ -113,7 +113,7 @@ const DiscardBtn = () => {
           hand = [];
           return hand;
         });
-        resetAction(
+        resetPlayBirdAction(
           setDisableClick,
           setResourceQuantity,
           setCurrentAction,

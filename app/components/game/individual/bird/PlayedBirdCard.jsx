@@ -5,7 +5,6 @@ import {
   resourceQuantityAtom,
   playerEggSupplyAtom,
   currentActionTextAtom,
-  playBirdAtom,
   removedEggListAtom,
 } from "../../../../utils/jotaiStore";
 import {
@@ -13,6 +12,7 @@ import {
   resetFromGrassland,
 } from "../../../../utils/gameFunctions/grasslandFunctions";
 import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
+import { discardEgg } from "../../../../utils/gameFunctions/wetlandFunctions";
 
 const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const bird = habitat[space].bird;
@@ -67,10 +67,22 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
             });
           }
           break;
+        case "wetland":
+          if (currentEggs > 0) {
+            discardEgg(
+              setHabitat,
+              space,
+
+              setPlayerEggs,
+
+              setDisableClick,
+              setResourceQuantity
+            );
+          }
+          break;
       }
     }
   };
-  console.log(removedEggList);
 
   const foodContent = bird.food.map((food, index) => (
     <p className="bg-emerald-900 text-white p-2 rounded-lg" key={index}>
@@ -82,7 +94,7 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
       {habitat}
     </p>
   ));
-  // useEffect(() => {}, [resourceQuantity]);
+
   return (
     <div
       className="col-span-2  border-2 flex flex-col items-center p-3 rounded-lg text-lg font-semibold justify-center text-center h-full w-full bg-emerald-500 gap-2"

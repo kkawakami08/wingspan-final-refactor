@@ -1,3 +1,5 @@
+import { initialDisableClick, initialPlayBird } from "../jotaiStore";
+
 export const eggReqCheck = (
   birdCount,
   setDisableClick,
@@ -282,4 +284,21 @@ export const replaceEggs = (
         break;
     }
   }
+};
+
+export const resetPlayBirdAction = (
+  setDisableClick,
+  setResourceQuantity,
+  setCurrentAction,
+  setPlayBirdState,
+  setCurrentActionText
+) => {
+  setDisableClick(initialDisableClick);
+  setResourceQuantity(0);
+  setCurrentAction("");
+  setPlayBirdState((state) => {
+    state = initialPlayBird;
+    return state;
+  });
+  setCurrentActionText("Select an action");
 };

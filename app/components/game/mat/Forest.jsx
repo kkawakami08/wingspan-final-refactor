@@ -11,10 +11,7 @@ import {
   currentActionTextAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
-import {
-  activatePlayBird,
-  eggReqCheck,
-} from "../../../utils/gameFunctions/playABirdFunctions";
+import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
 
 const Forest = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
@@ -53,8 +50,7 @@ const Forest = () => {
           "forest",
           forestBirdCount,
           setResourceQuantity,
-          setDisableClick,
-          setCurrentActionText
+          setDisableClick
         );
       }
     }
