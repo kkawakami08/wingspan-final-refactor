@@ -24,13 +24,18 @@ export const grasslandBirdCountAtom = atom(0);
 export const wetlandAtom = atomWithImmer(initialWetland);
 export const wetlandBirdCountAtom = atom(0);
 
+export const removedEggListAtom = atomWithImmer({
+  forest: [],
+  grassland: [],
+  wetland: [],
+});
+
 export const totalBirdCountAtom = atom(
   (get) =>
     get(forestBirdCountAtom) +
     get(grasslandBirdCountAtom) +
     get(wetlandBirdCountAtom)
 );
-export const grasslandPlayableAtom = atom(true);
 
 export const playerBirdHandAtom = atomWithImmer(playerBirdHand);
 export const playerFoodSupplyAtom = atom(playerFoodSupply);
@@ -40,6 +45,7 @@ export const selectedBirdsAtom = atomWithImmer([]);
 export const selectedFoodAtom = atom([]);
 
 export const currentActionAtom = atom("");
+export const currentActionTextAtom = atom("Select an action");
 export const resourceQuantityAtom = atom(0);
 
 export const initialDisableClick = {

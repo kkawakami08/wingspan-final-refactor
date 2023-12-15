@@ -9,7 +9,11 @@ import {
   playBirdAtom,
   forestAtom,
   forestBirdCountAtom,
-  grasslandPlayableAtom,
+  currentActionTextAtom,
+  grasslandAtom,
+  grasslandBirdCountAtom,
+  wetlandAtom,
+  wetlandBirdCountAtom,
 } from "../../../../utils/jotaiStore";
 import { discardSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { discardFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
@@ -28,17 +32,32 @@ const DiscardBtn = () => {
 
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
 
   const [, setForest] = useAtom(forestAtom);
   const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
-
-  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [grasslandBirdCount, setGrasslandBirdCount] = useAtom(
+    grasslandBirdCountAtom
+  );
+  const [, setWetland] = useAtom(wetlandAtom);
+  const [wetlandBirdCount, setWetlandBirdCount] = useAtom(wetlandBirdCountAtom);
 
   const forestState = {
     setHabitat: setForest,
     birdCount: forestBirdCount,
     setBirdCount: setForestBirdCount,
+  };
+  const grasslandState = {
+    setHabitat: setGrassland,
+    birdCount: grasslandBirdCount,
+    setBirdCount: setGrasslandBirdCount,
+  };
+  const wetlandState = {
+    setHabitat: setWetland,
+    birdCount: wetlandBirdCount,
+    setBirdCount: setWetlandBirdCount,
   };
 
   let disableDiscard;
@@ -83,6 +102,12 @@ const DiscardBtn = () => {
           case "forest":
             placeBird(playBirdState, forestState);
             break;
+          case "grassland":
+            placeBird(playBirdState, grasslandState);
+            break;
+          case "wetland":
+            placeBird(playBirdState, wetlandState);
+            break;
         }
         setSelectedBirds((hand) => {
           hand = [];
@@ -93,7 +118,7 @@ const DiscardBtn = () => {
           setResourceQuantity,
           setCurrentAction,
           setPlayBirdState,
-          setGrassLandPlayable
+          setCurrentActionText
         );
         break;
     }

@@ -15,6 +15,7 @@ const ForestRow = () => {
           habitat={forest}
           setHabitat={setForest}
           space={space}
+          location={"forest"}
         />
       );
     } else {

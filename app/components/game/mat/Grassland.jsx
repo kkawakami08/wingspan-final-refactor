@@ -5,10 +5,19 @@ import {
   disableClickAtom,
   grasslandBirdCountAtom,
   totalBirdCountAtom,
-  grasslandPlayableAtom,
+  currentActionTextAtom,
+  playBirdAtom,
+  playerEggSupplyAtom,
+  playerBirdHandAtom,
+  playerFoodSupplyAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import DiscardEggs from "../individual/buttons/DiscardEggs";
+import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
+import { checkBirdEggCapacity } from "../../../utils/gameFunctions/grasslandFunctions";
 
 const Grassland = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
@@ -17,21 +26,44 @@ const Grassland = () => {
   const disableGrassland = disableClick.habitats;
   const [grasslandBirdCount] = useAtom(grasslandBirdCountAtom);
   const [totalBirdCount] = useAtom(totalBirdCountAtom);
-  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [, setPlayBird] = useAtom(playBirdAtom);
+  const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [birdHand] = useAtom(playerBirdHandAtom);
+  const [playerFood] = useAtom(playerFoodSupplyAtom);
+  const [forest] = useAtom(forestAtom);
+  const [grassland] = useAtom(grasslandAtom);
+  const [wetland] = useAtom(wetlandAtom);
 
   const grasslandClick = () => {
     if (disableGrassland) console.log("Disabled");
     else {
-      if (totalBirdCount) {
-        activateHabitat(
-          setCurrentAction,
-          "grassland",
+      if (currentAction === "playBird") {
+        eggReqCheck(
           grasslandBirdCount,
-          setResourceQuantity,
-          setDisableClick
+          setDisableClick,
+          playerEggs,
+          setCurrentActionText,
+          setPlayBird,
+          "grassland",
+          birdHand,
+          playerFood,
+          setResourceQuantity
         );
       } else {
-        setGrassLandPlayable(false);
+        if (checkBirdEggCapacity(forest, grassland, wetland)) {
+          setCurrentActionText(
+            "There are no birds to lay eggs. Select a different action"
+          );
+        } else {
+          activateHabitat(
+            setCurrentAction,
+            "grassland",
+            grasslandBirdCount,
+            setResourceQuantity,
+            setDisableClick
+          );
+        }
       }
     }
   };

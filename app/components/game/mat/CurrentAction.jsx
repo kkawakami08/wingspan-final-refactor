@@ -3,19 +3,15 @@ import {
   currentActionAtom,
   resourceQuantityAtom,
   disableClickAtom,
-  playBirdAtom,
-  grasslandPlayableAtom,
+  currentActionTextAtom,
 } from "../../../utils/jotaiStore";
-import PlayABirdText from "../individual/habitat/PlayABirdText";
 
 const CurrentAction = () => {
   const [currentAction] = useAtom(currentActionAtom);
   const [resourceQuantity] = useAtom(resourceQuantityAtom);
 
   const [disableClick] = useAtom(disableClickAtom);
-
-  const [playBirdState] = useAtom(playBirdAtom);
-  const [grasslandPlayable] = useAtom(grasslandPlayableAtom);
+  const [CurrentActionText] = useAtom(currentActionTextAtom);
 
   let resource = "";
   let discardResource = "";
@@ -23,21 +19,21 @@ const CurrentAction = () => {
 
   switch (currentAction) {
     case "forest":
-      resource = resourceQuantity == 1 ? "die " : "dice ";
+      resource = resourceQuantity == 1 ? "die" : "dice";
       if (!disableClick.birdHand) {
         canDiscard = true;
         discardResource = "a card";
       }
       break;
     case "grassland":
-      resource = "eggs ";
+      resource = "eggs";
       if (!disableClick.playerFood) {
         canDiscard = true;
         discardResource = "a food token";
       }
       break;
     case "wetland":
-      resource = resourceQuantity == 1 ? "card " : "cards ";
+      resource = resourceQuantity == 1 ? "card" : "cards";
       if (!disableClick.playerEggs) {
         canDiscard = true;
         discardResource = "an egg";
@@ -47,29 +43,15 @@ const CurrentAction = () => {
 
   return (
     <div className=" text-2xl font-bold text-center flex items-center justify-center">
-      {currentAction ? (
-        currentAction === "playBird" ? (
-          <PlayABirdText />
-        ) : (
-          <div>
-            <p>
-              Can gain {resourceQuantity} {resource}
-              {canDiscard && (
-                <span className="text-lg font-semibold">
-                  and discard {discardResource} to gain extra resource
-                </span>
-              )}
-            </p>
-          </div>
-        )
-      ) : playBirdState.playable ? (
-        grasslandPlayable ? (
-          <p>Select an action</p>
-        ) : (
-          <p>Can't lay eggs, select different action.</p>
-        )
+      {currentAction === "playBird" || !currentAction ? (
+        <p>{CurrentActionText}</p>
       ) : (
-        <p>Cannot play a bird. Select a different action.</p>
+        <p>
+          Gain {resourceQuantity} {resource}.{" "}
+          {canDiscard && (
+            <span>Can discard {discardResource} for an extra resource</span>
+          )}
+        </p>
       )}
     </div>
   );

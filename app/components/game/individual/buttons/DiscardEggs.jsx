@@ -3,6 +3,7 @@ import {
   resourceQuantityAtom,
   disableClickAtom,
   currentActionAtom,
+  currentActionTextAtom,
 } from "../../../../utils/jotaiStore";
 import { resetFromGrassland } from "../../../../utils/gameFunctions/grasslandFunctions";
 
@@ -10,9 +11,10 @@ const DiscardEggs = () => {
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
 
   const discardEggsClick = () => {
-    resetFromGrassland(setDisableClick, setCurrentAction);
+    resetFromGrassland(setDisableClick, setCurrentAction, setCurrentActionText);
     setResourceQuantity(0);
   };
 

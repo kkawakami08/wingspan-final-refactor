@@ -1,12 +1,13 @@
-export const activatePlayBird = (
-  setPlayBird,
-  location,
+export const eggReqCheck = (
   birdCount,
   setDisableClick,
   playerEggs,
-  setPlayerEggs,
+  setCurrentActionText,
+  setPlayBirdState,
+  location,
   birdHand,
-  playerFoodSupply
+  playerFoodSupply,
+  setResourceQuantity
 ) => {
   let eggReq = 0;
   if (birdCount == 1 || birdCount == 2) {
@@ -14,29 +15,38 @@ export const activatePlayBird = (
   } else if (birdCount == 3 || birdCount == 4) {
     eggReq = 2;
   }
+  setResourceQuantity(eggReq);
 
   if (playerEggs < eggReq) {
-    setPlayBird((state) => {
-      state.confirmHabitat = false;
-    });
-  } else {
-    if (checkFoodSupply(birdHand, playerFoodSupply, location)) {
-      setPlayerEggs((eggs) => eggs - eggReq);
-      setPlayBird((state) => {
-        state.habitat = location;
-        state.eggReq = eggReq;
-        return state;
-      });
+    setCurrentActionText(
+      `Not enough eggs to play in ${location}. Select a different habitat`
+    );
+    return;
+  }
+  if (checkFoodSupply(birdHand, playerFoodSupply, location)) {
+    if (eggReq == 0) {
+      setCurrentActionText(`Selected ${location}. Now Select a bird`);
       setDisableClick((state) => ({
         ...state,
-        habitats: true,
         birdHand: false,
+        habitats: true,
       }));
     } else {
-      setPlayBird((state) => {
-        state.confirmHabitat = false;
-      });
+      setCurrentActionText(`Remove ${eggReq} eggs from your played Birds`);
+      setDisableClick((state) => ({
+        ...state,
+        playedBird: false,
+        habitats: true,
+      }));
     }
+    setPlayBirdState((state) => {
+      state.habitat = location;
+      state.eggReq = eggReq;
+    });
+  } else {
+    setCurrentActionText(
+      `Not enough food to play in ${location}. Select a different habitat`
+    );
   }
 };
 
@@ -220,4 +230,56 @@ export const playBird = (selectedFood, selectedBird) => {
   }
   return continueAction;
   //
+};
+
+export const removeEgg = (
+  setHabitat,
+  space,
+  setPlayerEggs,
+  setCurrentActionText,
+  setDisableClick,
+  setResourceQuantity,
+  resourceQuantity
+) => {
+  setHabitat((habitat) => {
+    habitat[space].eggCount = habitat[space].eggCount - 1;
+  });
+  setPlayerEggs((eggs) => eggs - 1);
+  setResourceQuantity((state) => state - 1);
+  if (resourceQuantity - 1 == 0) {
+    setCurrentActionText("Completed Egg Requirements. Now select a bird");
+    setDisableClick((state) => ({
+      ...state,
+      birdHand: false,
+      playedBird: true,
+    }));
+  } else {
+    setCurrentActionText(`Remove ${resourceQuantity - 1} more egg`);
+  }
+};
+
+export const replaceEggs = (
+  removedEggList,
+  setForest,
+  setGrassland,
+  setWetland
+) => {
+  for (const habitat in removedEggList) {
+    switch (habitat) {
+      case "forest":
+        for (const space of removedEggList[habitat]) {
+          setForest((forest) => {
+            forest[space].eggCount = forest[space].eggCount + 1;
+          });
+        }
+        break;
+      case "grassland":
+        for (const space of removedEggList[habitat]) {
+          setGrassland((grassland) => {
+            grassland[space].eggCount = grassland[space].eggCount + 1;
+          });
+        }
+        break;
+    }
+  }
 };

@@ -11,7 +11,7 @@ import {
   selectedFoodAtom,
   playerFoodSupplyAtom,
   playBirdAtom,
-  grasslandPlayableAtom,
+  currentActionTextAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
@@ -29,10 +29,10 @@ const SelectBtn = () => {
 
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
 
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
-  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
 
   let disableSave;
   const updateDisable = () => {
@@ -70,6 +70,9 @@ const SelectBtn = () => {
           playerFood: false,
           birdHand: true,
         }));
+        setCurrentActionText(
+          `Selected ${selectedBirds[0].common_name}. Discard required food`
+        );
         return;
     }
 
@@ -78,7 +81,7 @@ const SelectBtn = () => {
       setResourceQuantity,
       setCurrentAction,
       setPlayBirdState,
-      setGrassLandPlayable
+      setCurrentActionText
     );
   };
 

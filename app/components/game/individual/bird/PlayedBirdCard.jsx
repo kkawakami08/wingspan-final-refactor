@@ -4,20 +4,25 @@ import {
   disableClickAtom,
   resourceQuantityAtom,
   playerEggSupplyAtom,
+  currentActionTextAtom,
+  playBirdAtom,
+  removedEggListAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
   resetFromGrassland,
 } from "../../../../utils/gameFunctions/grasslandFunctions";
-import { useEffect } from "react";
+import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
 
-const PlayedBirdCard = ({ habitat, setHabitat, space }) => {
+const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const bird = habitat[space].bird;
   const currentEggs = habitat[space].eggCount;
 
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [removedEggList, setRemovedEggList] = useAtom(removedEggListAtom);
 
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
   const disableBirdCard = disableClick.playedBird;
@@ -28,19 +33,44 @@ const PlayedBirdCard = ({ habitat, setHabitat, space }) => {
       switch (currentAction) {
         case "grassland":
           if (currentEggs == bird.egg_limit) {
-            console.log("can't lay any more eggs. select another bird");
+            console.log(currentEggs, bird.egg_limit);
           } else {
             layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
             if (resourceQuantity - 1 == 0) {
-              console.log("no more eggs to place");
-              resetFromGrassland(setDisableClick, setCurrentAction);
+              resetFromGrassland(
+                setDisableClick,
+                setCurrentAction,
+                setCurrentActionText
+              );
             }
           }
 
           break;
+        case "playBird":
+          if (currentEggs == 0) {
+            setCurrentActionText(
+              "This bird doesn't have any eggs. Select a different bird."
+            );
+          } else {
+            removeEgg(
+              setHabitat,
+              space,
+
+              setPlayerEggs,
+              setCurrentActionText,
+              setDisableClick,
+              setResourceQuantity,
+              resourceQuantity
+            );
+            setRemovedEggList((state) => {
+              state[location].push(space);
+            });
+          }
+          break;
       }
     }
   };
+  console.log(removedEggList);
 
   const foodContent = bird.food.map((food, index) => (
     <p className="bg-emerald-900 text-white p-2 rounded-lg" key={index}>

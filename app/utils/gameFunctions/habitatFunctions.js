@@ -10,11 +10,13 @@ export const activateHabitat = (
   location,
   birdCount,
   setResourceQuantity,
-  setDisableClick
+  setDisableClick,
+  setCurrentActionText
 ) => {
   let disableOptions;
   let discardOptions;
   let resourceQuantity = 1;
+
   switch (location) {
     case "forest":
       disableOptions = forestDisableOptions;
@@ -61,7 +63,7 @@ export const resetAction = (
   setResourceQuantity,
   setCurrentAction,
   setPlayBirdState,
-  setGrasslandPlayable
+  setCurrentActionText
 ) => {
   setDisableClick(initialDisableClick);
   setResourceQuantity(0);
@@ -70,5 +72,5 @@ export const resetAction = (
     state = initialPlayBird;
     return state;
   });
-  setGrasslandPlayable(true);
+  setCurrentActionText("Select an action");
 };

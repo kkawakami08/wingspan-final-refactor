@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { grasslandAtom } from "../../../utils/jotaiStore";
 
 const GrasslandRow = () => {
-  const [grassland] = useAtom(grasslandAtom);
+  const [grassland, setGrassland] = useAtom(grasslandAtom);
   const grasslandArray = Object.keys(grassland);
 
   const grasslandContent = grasslandArray.map((space) => {
@@ -12,7 +12,10 @@ const GrasslandRow = () => {
       return (
         <PlayedBirdCard
           key={grassland[space].bird.common_name}
-          bird={grassland[space].bird}
+          habitat={grassland}
+          setHabitat={setGrassland}
+          space={space}
+          location={"grassland"}
         />
       );
     } else {

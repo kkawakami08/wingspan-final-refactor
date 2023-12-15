@@ -1,8 +1,13 @@
 import { useAtom } from "jotai";
-import { currentActionAtom, disableClickAtom } from "../../../utils/jotaiStore";
+import {
+  currentActionAtom,
+  disableClickAtom,
+  currentActionTextAtom,
+} from "../../../utils/jotaiStore";
 
 const PlayABird = () => {
   const [, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [disableClick] = useAtom(disableClickAtom);
   const disableHabitat = disableClick.habitats;
 
@@ -10,6 +15,7 @@ const PlayABird = () => {
     if (disableHabitat) console.log("Disabled");
     else {
       setCurrentAction("playBird");
+      setCurrentActionText("Select a location");
     }
   };
 

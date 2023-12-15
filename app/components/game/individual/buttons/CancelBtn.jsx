@@ -7,19 +7,29 @@ import {
   disableClickAtom,
   resourceQuantityAtom,
   playerEggSupplyAtom,
-  grasslandPlayableAtom,
+  currentActionTextAtom,
+  removedEggListAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
 } from "../../../../utils/jotaiStore";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
+import { replaceEggs } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const CancelBtn = () => {
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
   const [, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
+  const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
-  const [, setGrassLandPlayable] = useAtom(grasslandPlayableAtom);
+  const [removedEggList, setRemovedEggList] = useAtom(removedEggListAtom);
+  const [, setForest] = useAtom(forestAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [, setWetland] = useAtom(wetlandAtom);
 
   const cancelPlayBirdClick = () => {
     if (selectedBirds.length) {
@@ -32,14 +42,22 @@ const CancelBtn = () => {
         return state;
       });
     }
-    setPlayerEggs((eggs) => eggs + playBirdState.eggReq);
-
+    if (resourceQuantity == 0) {
+      setPlayerEggs((eggs) => eggs + playBirdState.eggReq);
+    } else {
+      setPlayerEggs((eggs) => eggs + 1);
+    }
+    replaceEggs(removedEggList, setForest, setGrassland, setWetland);
+    setRemovedEggList((list) => {
+      list = { forest: [], grassland: [], wetland: [] };
+      return list;
+    });
     resetAction(
       setDisableClick,
       setResourceQuantity,
       setCurrentAction,
       setPlayBirdState,
-      setGrassLandPlayable
+      setCurrentActionText
     );
   };
 
