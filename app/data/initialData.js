@@ -43,7 +43,8 @@ const createInitialHabitat = (resource, discard, startingQuantity) => {
   return habitat;
 };
 
-export const initialForest = createInitialHabitat("dice", "card", 1);
+export let initialForest = createInitialHabitat("dice", "card", 1);
+initialForest[0].bird = playedBird;
 export const initialGrassland = createInitialHabitat("eggs", "food", 2);
 export const initialWetland = createInitialHabitat("cards", "egg", 1);
 

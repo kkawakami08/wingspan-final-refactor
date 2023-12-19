@@ -36,15 +36,42 @@ const BirdCard = ({ bird }) => {
       {habitat}
     </p>
   ));
+
+  let powerCSS = "";
+  let powerPrefix = "";
+  switch (bird.power.color) {
+    case "brown":
+      powerCSS = "p-2 w-full bg-amber-500";
+      powerPrefix = "When Activated: ";
+      break;
+    case "pink":
+      powerCSS = "p-2 w-full bg-pink-500";
+      powerPrefix = "Once Between Turns: ";
+      break;
+    case "white":
+      powerCSS = "p-2 w-full bg-white";
+      powerPrefix = "When Played: ";
+      break;
+  }
+
   return (
     <div
-      className="bg-emerald-500 w-56 h-72 rounded-lg p-3 flex flex-col gap-5 text-center"
+      className="bg-emerald-500 w-72 h-96 rounded-lg  flex flex-col justify-around text-center border-2 border-emerald-700"
       onClick={birdCardClick}
     >
-      <p className="text-xl font-semibold text-white">{bird.common_name}</p>
-      <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
-      <div>{habitatContent}</div>
-      <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
+      <div className="p-3 flex flex-col gap-5">
+        <p className="text-xl font-semibold text-white">{bird.common_name}</p>
+        <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
+        <div>{habitatContent}</div>
+        <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
+        <p className="text-white text-lg">PowerId: {bird.power.id}</p>
+      </div>
+      <div className={powerCSS}>
+        <p className="font-semibold text-lg">
+          {powerPrefix}
+          <span className="font-normal text-md">{bird.power.description}</span>
+        </p>
+      </div>
     </div>
   );
 };

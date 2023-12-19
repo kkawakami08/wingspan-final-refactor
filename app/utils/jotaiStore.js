@@ -16,7 +16,7 @@ const initialRoll = rollBirdFeeder();
 export const birdFeederAtom = atom(initialRoll);
 
 export const forestAtom = atomWithImmer(initialForest);
-export const forestBirdCountAtom = atom(0);
+export const forestBirdCountAtom = atom(1);
 
 export const grasslandAtom = atomWithImmer(initialGrassland);
 export const grasslandBirdCountAtom = atom(0);
