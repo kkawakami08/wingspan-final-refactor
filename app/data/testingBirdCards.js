@@ -106,35 +106,79 @@ export const playerBirdHand = [
   },
 ];
 
-export const playedBird = {
-  common_name: "Bushtit",
-  scientific_name: "Psaltriparus minimus",
-  vp: 2,
-  nest: "wild",
-  egg_limit: 5,
-  wingspan: 15,
-  power: {
-    color: "brown",
-    description:
-      "Tuck 1 card from your hand behind this bird. If you do, you may also lay 1 egg on this bird.",
-    id: 30,
-    variable: "none",
+export const forestBirds = [
+  {
+    common_name: "American Redstart",
+    scientific_name: "Setophaga ruticilla",
+    vp: 4,
+    nest: "bowl",
+    egg_limit: 2,
+    wingspan: 20,
+    power: {
+      color: "brown",
+      description: "Gain 1 die from the birdfeeder.",
+      id: 1,
+      variable: "die",
+    },
+    habitat: ["forest"],
+    food: ["invertebrate", "fruit"],
+    food_count: 2,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Cartographer",
+      "Photographer",
+      "Forester",
+      "Passerine Specialist",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
   },
-  habitat: ["forest", "grassland", "wetland"],
-  food: ["invertebrate", "seed"],
-  food_count: 2,
-  locations: ["North America", "Central America"],
-  bonus_cards: [
-    "Backyard Birder",
-    "Bird Counter",
-    "Bird Feeder",
-    "Enclosure Builder",
-    "Nest Box Builder",
-    "Passerine Specialist",
-    "Platform Builder",
-    "Wildlife Gardener",
-  ],
-};
+  {
+    common_name: "American Woodcock",
+    scientific_name: "Scolopax minor",
+    vp: 9,
+    nest: "ground",
+    egg_limit: 2,
+    wingspan: 46,
+    power: {
+      color: "none",
+      description: "none",
+      id: 0,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland"],
+    food: ["invertebrate", "invertebrate", "seed"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: ["Cartographer", "Bird Feeder", "Enclosure Builder"],
+  },
+  {
+    common_name: "Indigo Bunting",
+    scientific_name: "Passerina cyanea",
+    vp: 5,
+    nest: "bowl",
+    egg_limit: 3,
+    wingspan: 20,
+    power: {
+      color: "brown",
+      description:
+        "Gain 1 invertebrate or fruit from the birdfeeder, if available.",
+      id: 1,
+      variable: ["fruit", "invertebrate"],
+    },
+    habitat: ["forest", "grassland"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Photographer",
+      "Bird Feeder",
+      "Passerine Specialist",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+];
 
 export const birdTray = [
   {
@@ -221,6 +265,35 @@ export const birdTray = [
 ];
 
 export const birdDeck = [
+  {
+    common_name: "Bushtit",
+    scientific_name: "Psaltriparus minimus",
+    vp: 2,
+    nest: "wild",
+    egg_limit: 5,
+    wingspan: 15,
+    power: {
+      color: "brown",
+      description:
+        "Tuck 1 card from your hand behind this bird. If you do, you may also lay 1 egg on this bird.",
+      id: 30,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland", "wetland"],
+    food: ["invertebrate", "seed"],
+    food_count: 2,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Backyard Birder",
+      "Bird Counter",
+      "Bird Feeder",
+      "Enclosure Builder",
+      "Nest Box Builder",
+      "Passerine Specialist",
+      "Platform Builder",
+      "Wildlife Gardener",
+    ],
+  },
   {
     common_name: "Greater Roadrunner",
     scientific_name: "Geococcyx californianus",
@@ -701,32 +774,7 @@ export const birdDeck = [
       "Viticulturalist",
     ],
   },
-  {
-    common_name: "American Redstart",
-    scientific_name: "Setophaga ruticilla",
-    vp: 4,
-    nest: "bowl",
-    egg_limit: 2,
-    wingspan: 20,
-    power: {
-      color: "brown",
-      description: "Gain 1 die from the birdfeeder.",
-      id: 1,
-      variable: ["die"],
-    },
-    habitat: ["forest"],
-    food: ["invertebrate", "fruit"],
-    food_count: 2,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Cartographer",
-      "Photographer",
-      "Forester",
-      "Passerine Specialist",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "Bald Eagle",
     scientific_name: "Haliaeetus leucocephalus",
@@ -1059,32 +1107,7 @@ export const birdDeck = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Indigo Bunting",
-    scientific_name: "Passerina cyanea",
-    vp: 5,
-    nest: "bowl",
-    egg_limit: 3,
-    wingspan: 20,
-    power: {
-      color: "brown",
-      description:
-        "Gain 1 invertebrate or fruit from the birdfeeder, if available.",
-      id: 1,
-      variable: ["fruit", "invertebrate"],
-    },
-    habitat: ["forest", "grassland"],
-    food: ["invertebrate", "seed", "fruit"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Photographer",
-      "Bird Feeder",
-      "Passerine Specialist",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "Savannah Sparrow",
     scientific_name: "Passerculus sandwichensis",
@@ -1251,7 +1274,7 @@ export const birdDeck = [
       color: "brown",
       description: "Gain 1 invertebrate from the birdfeeder, if available.",
       id: 1,
-      variable: ["invertebrate"],
+      variable: "invertebrate",
     },
     habitat: ["forest"],
     food: ["invertebrate", "fruit"],
@@ -1969,25 +1992,7 @@ export const birdDeck = [
     locations: ["North America", "Central America"],
     bonus_cards: ["Bird Feeder", "Nest Box Builder", "Passerine Specialist"],
   },
-  {
-    common_name: "American Woodcock",
-    scientific_name: "Scolopax minor",
-    vp: 9,
-    nest: "ground",
-    egg_limit: 2,
-    wingspan: 46,
-    power: {
-      color: "none",
-      description: "none",
-      id: 0,
-      variable: "none",
-    },
-    habitat: ["forest", "grassland"],
-    food: ["invertebrate", "invertebrate", "seed"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: ["Cartographer", "Bird Feeder", "Enclosure Builder"],
-  },
+
   {
     common_name: "Ruby-Throated Hummingbird",
     scientific_name: "Archilochus colubris",

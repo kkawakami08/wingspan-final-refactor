@@ -43,7 +43,9 @@ const CurrentAction = () => {
 
   return (
     <div className=" text-2xl font-bold text-center flex items-center justify-center">
-      {currentAction === "playBird" || !currentAction ? (
+      {currentAction === "playBird" ||
+      currentAction.includes("brown") ||
+      !currentAction ? (
         <p>{CurrentActionText}</p>
       ) : (
         <p>

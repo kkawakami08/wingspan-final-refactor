@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { rollBirdFeeder } from "../utils/gameFunctions/birdFeederFunctions";
-import { playedBird } from "./testingBirdCards";
+import { forestBirds } from "./testingBirdCards";
 
 export const playerFoodSupply = [
   { type: "fruit", id: nanoid() },
@@ -44,7 +44,9 @@ const createInitialHabitat = (resource, discard, startingQuantity) => {
 };
 
 export let initialForest = createInitialHabitat("dice", "card", 1);
-initialForest[0].bird = playedBird;
+initialForest[0].bird = forestBirds[0];
+initialForest[1].bird = forestBirds[1];
+initialForest[2].bird = forestBirds[2];
 export const initialGrassland = createInitialHabitat("eggs", "food", 2);
 export const initialWetland = createInitialHabitat("cards", "egg", 1);
 

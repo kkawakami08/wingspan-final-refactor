@@ -6,6 +6,7 @@ import {
 } from "../../../utils/jotaiStore";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
+import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 import SelectedFoodToken from "../individual/food/SelectedFoodToken";
 
 const SelectedFood = () => {
@@ -21,10 +22,16 @@ const SelectedFood = () => {
     switch (currentAction) {
       case "forest":
         return <SelectBtn />;
+
       case "grassland":
         return <DiscardBtn />;
       case "playBird":
         return <DiscardBtn />;
+      default:
+        break;
+    }
+    if (currentAction.includes("brown")) {
+      return <BrownSelectBtn />;
     }
   };
 

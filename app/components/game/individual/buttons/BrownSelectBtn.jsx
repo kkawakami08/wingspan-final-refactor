@@ -14,7 +14,6 @@ import {
   currentActionTextAtom,
   forestAtom,
   forestBirdCountAtom,
-  brownBirdSpaceAtom,
   brownBirdVariableAtom,
   birdFeederAtom,
   brownBirdBoolAtom,
@@ -23,9 +22,9 @@ import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
-import { brownBirdPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { birdPowerCheck } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
-const SelectBtn = () => {
+const BrownSelectBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
@@ -45,83 +44,50 @@ const SelectBtn = () => {
   const [forest] = useAtom(forestAtom);
   const [forestBirdCount] = useAtom(forestBirdCountAtom);
 
-  const [brownBirdSpace, setBrownBirdSpace] = useAtom(brownBirdSpaceAtom);
   const [brownBirdBool, setBrownBirdBool] = useAtom(brownBirdBoolAtom);
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
   );
 
-  const brownPowerSupply = {
-    birdFeeder: birdFeeder,
-    setDisableClick: setDisableClick,
-    setCurrentActionText: setCurrentActionText,
-    setResourceQuantity: setResourceQuantity,
-    setBrownBirdVariable: setBrownBirdVariable,
-  };
-
   let disableSave;
   const updateDisable = () => {
-    switch (currentAction) {
-      case "wetland":
-        disableSave = selectedBirds.length === resourceQuantity;
-        break;
-      case "forest":
-        disableSave = selectedFood.length === resourceQuantity;
-        break;
-      case "playBird":
-        disableSave =
-          selectedBirds.length === 1 &&
-          selectedBirds[0].habitat.includes(playBirdState.habitat);
-        break;
+    switch (
+      currentAction
+      // case "wetland":
+      //   disableSave = selectedBirds.length === resourceQuantity;
+      //   break;
+      // case "forest":
+      //   disableSave = selectedFood.length === resourceQuantity;
+      //   break;
+    ) {
     }
   };
   updateDisable();
 
   const selectBtnClick = () => {
-    switch (currentAction) {
-      case "wetland":
-        saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
-        refillTray(birdTray, birdDeck, setBirdTray);
-        break;
-      case "forest":
-        saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-        if (forestBirdCount == 0) {
-          break;
-        } else {
-          resetAction(
-            setDisableClick,
-            setResourceQuantity,
-            setCurrentAction,
+    switch (
+      currentAction
+      // case "wetland":
+      //   saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
+      //   refillTray(birdTray, birdDeck, setBirdTray);
+      //   break;
 
-            setCurrentActionText
-          );
-          setCurrentAction("brownFood");
-          const shouldReset = brownBirdPower(
-            forestBirdCount,
-            forest,
-            setBrownBirdSpace,
-            brownPowerSupply
-          );
-          if (shouldReset) {
-            break;
-          } else return;
-        }
-
-      case "playBird":
-        setPlayBirdState((state) => {
-          state.bird = selectedBirds[0];
-        });
-        setDisableClick((state) => ({
-          ...state,
-          playerFood: false,
-          birdHand: true,
-        }));
-        setCurrentActionText(
-          `Selected ${selectedBirds[0].common_name}. Discard required food`
-        );
-        return;
+      // case "playBird":
+      //   setPlayBirdState((state) => {
+      //     state.bird = selectedBirds[0];
+      //   });
+      //   setDisableClick((state) => ({
+      //     ...state,
+      //     playerFood: false,
+      //     birdHand: true,
+      //   }));
+      //   setCurrentActionText(
+      //     `Selected ${selectedBirds[0].common_name}. Discard required food`
+      //   );
+      //   return;
+    ) {
     }
-
+    console.log("resetting");
     resetAction(
       setDisableClick,
       setResourceQuantity,
@@ -146,4 +112,4 @@ const SelectBtn = () => {
   );
 };
 
-export default SelectBtn;
+export default BrownSelectBtn;
