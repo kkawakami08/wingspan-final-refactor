@@ -16,20 +16,24 @@ import {
   forestBirdCountAtom,
   brownBirdVariableAtom,
   birdFeederAtom,
-  brownBirdBoolAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
-import { birdPowerCheck } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  birdPowerCheck,
+  brownBirdLoop,
+  brownBirdPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { rollBirdFeeder } from "../../../../utils/gameFunctions/birdFeederFunctions";
 
 const BrownSelectBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
   const [birdDeck] = useAtom(birdDeckAtom);
-  const [birdFeeder] = useAtom(birdFeederAtom);
+  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
@@ -44,50 +48,43 @@ const BrownSelectBtn = () => {
   const [forest] = useAtom(forestAtom);
   const [forestBirdCount] = useAtom(forestBirdCountAtom);
 
-  const [brownBirdBool, setBrownBirdBool] = useAtom(brownBirdBoolAtom);
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
   );
 
+  const brownPowerSupply = {
+    birdFeeder: birdFeeder,
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+    setCurrentAction: setCurrentAction,
+  };
+
   let disableSave;
   const updateDisable = () => {
-    switch (
-      currentAction
-      // case "wetland":
-      //   disableSave = selectedBirds.length === resourceQuantity;
-      //   break;
-      // case "forest":
-      //   disableSave = selectedFood.length === resourceQuantity;
-      //   break;
-    ) {
+    switch (currentAction) {
+      case "brownFood":
+        if (Array.isArray(brownBirdVariable)) {
+          disableSave =
+            selectedFood.some((foodItem) => {
+              const typeParts = foodItem.type.split("_");
+              return typeParts.some((part) => brownBirdVariable.includes(part));
+            }) && selectedFood.length == resourceQuantity;
+        } else if (brownBirdVariable === "die") {
+          disableSave = selectedFood.length == resourceQuantity;
+        } else {
+          disableSave =
+            selectedFood.length == resourceQuantity &&
+            selectedFood.includes(brownBirdVariable);
+        }
+        break;
     }
   };
   updateDisable();
+  console.log(brownBirdSpace.length);
 
   const selectBtnClick = () => {
-    switch (
-      currentAction
-      // case "wetland":
-      //   saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
-      //   refillTray(birdTray, birdDeck, setBirdTray);
-      //   break;
-
-      // case "playBird":
-      //   setPlayBirdState((state) => {
-      //     state.bird = selectedBirds[0];
-      //   });
-      //   setDisableClick((state) => ({
-      //     ...state,
-      //     playerFood: false,
-      //     birdHand: true,
-      //   }));
-      //   setCurrentActionText(
-      //     `Selected ${selectedBirds[0].common_name}. Discard required food`
-      //   );
-      //   return;
-    ) {
-    }
-    console.log("resetting");
     resetAction(
       setDisableClick,
       setResourceQuantity,
@@ -99,11 +96,11 @@ const BrownSelectBtn = () => {
 
   useEffect(() => {
     updateDisable();
-  }, [selectedBirds]);
+  }, [selectedBirds, selectedFood]);
 
   return (
     <button
-      className="bg-emerald-900 text-white text-lg font-semibold rounded-lg p-3 disabled:bg-slate-300"
+      className="bg-amber-900 text-white text-lg font-semibold rounded-lg p-3 disabled:bg-slate-300"
       disabled={!disableSave}
       onClick={selectBtnClick}
     >

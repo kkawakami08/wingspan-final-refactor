@@ -14,6 +14,7 @@ import {
   grasslandBirdCountAtom,
   wetlandAtom,
   wetlandBirdCountAtom,
+  forestBrownBirdsAtom,
 } from "../../../../utils/jotaiStore";
 import { discardSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { discardFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
@@ -37,6 +38,8 @@ const DiscardBtn = () => {
 
   const [, setForest] = useAtom(forestAtom);
   const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
+  const [forestBrownBirds, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
+
   const [, setGrassland] = useAtom(grasslandAtom);
   const [grasslandBirdCount, setGrasslandBirdCount] = useAtom(
     grasslandBirdCountAtom
@@ -48,6 +51,7 @@ const DiscardBtn = () => {
     setHabitat: setForest,
     birdCount: forestBirdCount,
     setBirdCount: setForestBirdCount,
+    setBrownBirds: setForestBrownBirds,
   };
   const grasslandState = {
     setHabitat: setGrassland,

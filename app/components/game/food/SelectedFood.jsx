@@ -1,9 +1,5 @@
 import { useAtom } from "jotai";
-import {
-  selectedFoodAtom,
-  currentActionAtom,
-  playBirdAtom,
-} from "../../../utils/jotaiStore";
+import { selectedFoodAtom, currentActionAtom } from "../../../utils/jotaiStore";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
 import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
@@ -12,7 +8,6 @@ import SelectedFoodToken from "../individual/food/SelectedFoodToken";
 const SelectedFood = () => {
   const [selectedFood] = useAtom(selectedFoodAtom);
   const [currentAction] = useAtom(currentActionAtom);
-  const [playBirdState] = useAtom(playBirdAtom);
 
   const selectedFoodContent = selectedFood.map((food) => (
     <SelectedFoodToken key={food.id} food={food} />

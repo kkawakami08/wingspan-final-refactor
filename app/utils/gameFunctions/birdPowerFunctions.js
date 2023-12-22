@@ -1,122 +1,42 @@
-export const brownBirdPower = (
-  habitatBirdCount,
+import { enableRolling } from "./birdFeederFunctions";
+
+export const activateBrownPowers = (
   habitat,
-  setBrownBirdSpace,
-  {
-    birdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-  }
+  habitatBrownBirds,
+  setBrownBirdCopy,
+  { birdFeeder }
 ) => {
-  //save which spaces in habitat have brown birds
-  let brownBirdSpace = [];
-  for (let i = 0; i < habitatBirdCount; i++) {
-    if (habitat[i].bird.power.color === "brown") {
-      console.log("brown bird found");
-      brownBirdSpace.push(i);
-    }
-  }
+  if (!habitatBrownBirds.length) {
+    return false;
+  } else {
+    //function that uses the last item from habitatBrownBirds
+    //save everything (but last item) to brownbird copy
+    let tempCopy = [...habitatBrownBirds];
+    let lastSpace = tempCopy.pop();
+    continueBrownBirdPowers(habitat[lastSpace].bird, { birdFeeder });
 
-  while (brownBirdSpace.length) {
-    //get rightmost brown bird
-    let currentSpace = brownBirdSpace.pop();
-    //if false, break out of loop to do brown power
-    //if true, could not satisfy brown power, so continue to next brown bird
-    const shouldContinue = activateBrownPower(
-      habitat[currentSpace].bird.power,
-      {
-        birdFeeder,
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      }
-    );
-    if (!shouldContinue) break;
-  }
-  console.log("after while loop");
-  if (!brownBirdSpace.length) {
-    console.log("resetting action");
+    setBrownBirdCopy([...tempCopy]);
     return true;
-  } else {
-    //saves remaining spaces so can continue after current bird
-    setBrownBirdSpace(brownBirdSpace);
-    return false;
   }
 };
 
-const activateBrownPower = (
-  birdPower,
-  {
-    birdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-  }
-) => {
-  switch (birdPower.id) {
+export const continueBrownBirdPowers = (currentBrownBird, { birdFeeder }) => {
+  console.log(`Checking ${currentBrownBird.common_name}'s brown power`);
+  switch (currentBrownBird.power.id) {
     case 1:
-      console.log("Activated power 1");
-      return power1(
-        birdPower.variable,
-        birdFeeder,
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable
-      );
+      //check birdfeeder can reroll before activating power 1
+      if (enableRolling(birdFeeder)) {
+        console.log(
+          "do you want to roll the birdFeeder before checking this birds power?"
+        );
+        break;
+      } else {
+        console.log("Checking power 1");
+        break;
+      }
   }
 };
 
-const power1 = (
-  variable,
-  birdFeeder,
-  setDisableClick,
-  setCurrentActionText,
-  setResourceQuantity,
-  setBrownBirdVariable
-) => {
-  let canTake = false;
-  if (variable === "die") {
-    setCurrentActionText("Select any die from the bird feeder");
-    canTake = true;
-  } else {
-    for (let die of birdFeeder) {
-      if (Array.isArray(variable)) {
-        if (
-          die.type.includes(variable[[0]]) ||
-          die.type.includes(variable[1])
-        ) {
-          canTake = true;
-          setCurrentActionText(
-            `Select 1 ${variable[0]} or ${variable[1]} from the bird feeder`
-          );
-          break;
-        }
-      } else {
-        if (die.type.includes(variable)) {
-          setCurrentActionText(`Select 1 ${variable} from the bird feeder`);
-          canTake = true;
-          break;
-        }
-      }
-    }
-  }
-  if (canTake) {
-    setBrownBirdVariable(variable);
-    setResourceQuantity(1);
-    setDisableClick((state) => ({
-      ...state,
-      birdFeeder: false,
-      habitats: true,
-    }));
-    return false;
-  } else
-    setCurrentActionText(
-      `Specified food not found in birdFeeder. Continuing on...`
-    );
-  return true;
+const power1 = () => {
+  //gain 1 [type] from birdFeeder
 };

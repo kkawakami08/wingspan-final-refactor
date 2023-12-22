@@ -37,7 +37,7 @@ export const activateHabitat = (
   } else if (birdCount >= 2 && birdCount <= 3) {
     setResourceQuantity(resourceQuantity + 1);
   } else {
-    setResourceQuantity(resourceQuantity + 3);
+    setResourceQuantity(resourceQuantity + 2);
   }
 
   if (birdCount % 2 !== 0) {

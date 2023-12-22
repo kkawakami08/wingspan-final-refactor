@@ -166,11 +166,12 @@ export const checkFoodSupply = (birdHand, playerFoodSupply, location) => {
 
 export const placeBird = (
   playBirdState,
-  { setHabitat, birdCount, setBirdCount }
+  { setHabitat, birdCount, setBirdCount, setBrownBirds }
 ) => {
   setHabitat((habitat) => {
     habitat[birdCount].bird = playBirdState.bird;
   });
+  setBrownBirds((state) => [...state, birdCount]);
   setBirdCount((count) => count + 1);
 };
 

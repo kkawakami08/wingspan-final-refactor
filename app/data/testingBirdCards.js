@@ -108,6 +108,32 @@ export const playerBirdHand = [
 
 export const forestBirds = [
   {
+    common_name: "Rose-Breasted Grosbeak",
+    scientific_name: "Pheucticus ludovicianus",
+    vp: 6,
+    nest: "bowl",
+    egg_limit: 3,
+    wingspan: 33,
+    power: {
+      color: "brown",
+      description: "Gain 1 seed or fruit from the birdfeeder, if available.",
+      id: 1,
+      variable: ["seed", "fruit"],
+    },
+    habitat: ["forest"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Bird Feeder",
+      "Forester",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
     common_name: "American Redstart",
     scientific_name: "Setophaga ruticilla",
     vp: 4,
@@ -1736,32 +1762,7 @@ export const birdDeck = [
       "Omnivore Expert",
     ],
   },
-  {
-    common_name: "Rose-Breasted Grosbeak",
-    scientific_name: "Pheucticus ludovicianus",
-    vp: 6,
-    nest: "bowl",
-    egg_limit: 3,
-    wingspan: 33,
-    power: {
-      color: "brown",
-      description: "Gain 1 seed or fruit from the birdfeeder, if available.",
-      id: 1,
-      variable: ["seed", "fruit"],
-    },
-    habitat: ["forest"],
-    food: ["invertebrate", "seed", "fruit"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Bird Feeder",
-      "Forester",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "House Wren",
     scientific_name: "Troglodytes aedon",

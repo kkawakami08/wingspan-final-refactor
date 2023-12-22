@@ -9,8 +9,14 @@ const RollBirdFeederBtn = () => {
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [selectedFood] = useAtom(selectedFoodAtom);
 
-  let disableRolling =
-    selectedFood.length == 0 ? enableRolling(birdFeeder) : false;
+  let disableRolling;
+
+  if (!birdFeeder.length) {
+    disableRolling = true;
+  } else {
+    disableRolling =
+      selectedFood.length == 0 ? enableRolling(birdFeeder) : false;
+  }
 
   const rollBirdFeederClick = () => {
     setBirdFeeder(rollBirdFeeder());

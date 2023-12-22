@@ -14,7 +14,7 @@ const PlayerFoodSupply = () => {
       <p className="text-indigo-900 font-semibold text-lg text-center   ">
         Player Food Supply
       </p>
-      <div className="flex gap-3">{foodSupplyContent}</div>
+      <div className="flex gap-3 flex-wrap">{foodSupplyContent}</div>
     </div>
   );
 };
