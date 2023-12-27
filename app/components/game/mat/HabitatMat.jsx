@@ -12,19 +12,25 @@ import {
   playerEggSupplyAtom,
   forestBrownBirdsAtom,
   brownBirdCopyAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
+import BrownPowerContinueBtn from "../individual/buttons/BrownPowerContinueBtn";
+BrownPowerContinueBtn;
 
 const HabitatMat = () => {
   const [playerEggSupply] = useAtom(playerEggSupplyAtom);
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
   const [brownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [brownPowerContinue] = useAtom(brownPowerContinueBtnAtom);
   return (
     <div className="row-start-5 col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">
         Habitat mat
       </p>
       <p>forest brown birds {forestBrownBirds.join()}</p>
-      <p>copy brown birds {brownBirdCopy.join()}</p>
+      <p>copy brown birds {brownBirdCopy.copy.join()}</p>
+      {brownPowerContinue && <BrownPowerContinueBtn />}
+
       <div className="flex gap-20 items-center justify-center">
         <CurrentAction />
         <p className="text-xl font-bold"> Egg Count: {playerEggSupply}</p>

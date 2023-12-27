@@ -18,6 +18,7 @@ import {
   birdFeederAtom,
   forestBrownBirdsAtom,
   brownBirdCopyAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
@@ -46,10 +47,24 @@ const SelectBtn = () => {
   const [forestBirdCount] = useAtom(forestBirdCountAtom);
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
   const [, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
+    brownPowerContinueBtnAtom
+  );
 
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
   );
+
+  const brownBirdSupply = {
+    birdFeeder: birdFeeder,
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+    setBrownPowerContinueBtn: setBrownPowerContinueBtn,
+    brownPowerContinueBtn: brownPowerContinueBtn,
+    setCurrentAction: setCurrentAction,
+  };
 
   let disableSave;
   const updateDisable = () => {
@@ -77,17 +92,22 @@ const SelectBtn = () => {
         break;
       case "forest":
         saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-        // const shouldRest = activateBrownPowers(
-        //   forest,
-        //   forestBrownBirds,
-        //   setBrownBirdCopy
-        // );
-        // if (shouldRest) {
-        //   break;
-        // } else {
-        //   return;
-        // }
-        break;
+        if (!forestBrownBirds.length) {
+          break;
+        } else {
+          setBrownBirdCopy((state) => ({
+            ...state,
+            location: "forest",
+          }));
+
+          activateBrownPowers(
+            forest,
+            forestBrownBirds,
+            setBrownBirdCopy,
+            brownBirdSupply
+          );
+          return;
+        }
 
       case "playBird":
         setPlayBirdState((state) => {

@@ -7,7 +7,11 @@ import HabitatMat from "./game/mat/HabitatMat";
 import SelectedFood from "./game/food/SelectedFood";
 import PlayerFoodSupply from "./game/food/PlayerFoodSupply";
 
+import { useAtom } from "jotai";
+import { brownPowerContinueBtnAtom } from "../utils/jotaiStore";
+
 const Wingspan = () => {
+  const [browncontinue] = useAtom(brownPowerContinueBtnAtom);
   return (
     <div className="grid grid-cols-12 p-5 gap-5">
       <PlayerBirdHand />

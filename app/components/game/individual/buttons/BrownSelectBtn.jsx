@@ -16,12 +16,16 @@ import {
   forestBirdCountAtom,
   brownBirdVariableAtom,
   birdFeederAtom,
+  brownBirdCopyAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 import {
+  activateBrownPowers,
+  birdFeederCheck,
   birdPowerCheck,
   brownBirdLoop,
   brownBirdPower,
@@ -51,13 +55,19 @@ const BrownSelectBtn = () => {
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
   );
+  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [brownPowerContinue, setBrownPowerContinue] = useAtom(
+    brownPowerContinueBtnAtom
+  );
 
-  const brownPowerSupply = {
+  const brownBirdSupply = {
     birdFeeder: birdFeeder,
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
     setResourceQuantity: setResourceQuantity,
     setBrownBirdVariable: setBrownBirdVariable,
+    setBrownPowerContinueBtn: setBrownPowerContinue,
+    brownPowerContinueBtn: brownPowerContinue,
     setCurrentAction: setCurrentAction,
   };
 
@@ -65,26 +75,34 @@ const BrownSelectBtn = () => {
   const updateDisable = () => {
     switch (currentAction) {
       case "brownFood":
-        if (Array.isArray(brownBirdVariable)) {
-          disableSave =
-            selectedFood.some((foodItem) => {
-              const typeParts = foodItem.type.split("_");
-              return typeParts.some((part) => brownBirdVariable.includes(part));
-            }) && selectedFood.length == resourceQuantity;
-        } else if (brownBirdVariable === "die") {
-          disableSave = selectedFood.length == resourceQuantity;
-        } else {
-          disableSave =
-            selectedFood.length == resourceQuantity &&
-            selectedFood.includes(brownBirdVariable);
-        }
+        disableSave =
+          selectedFood.length == resourceQuantity &&
+          birdFeederCheck(brownBirdVariable, selectedFood);
         break;
     }
   };
   updateDisable();
-  console.log(brownBirdSpace.length);
 
   const selectBtnClick = () => {
+    switch (currentAction) {
+      case "brownFood":
+        saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
+        if (!brownBirdCopy.copy.length) {
+          setBrownPowerContinue(false);
+          break;
+        } else {
+          switch (brownBirdCopy.location) {
+            case "forest":
+              activateBrownPowers(
+                forest,
+                brownBirdCopy.copy,
+                setBrownBirdCopy,
+                brownBirdSupply
+              );
+              return;
+          }
+        }
+    }
     resetAction(
       setDisableClick,
       setResourceQuantity,

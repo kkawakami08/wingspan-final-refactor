@@ -612,6 +612,10 @@ video {
   display: grid;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-72 {
   height: 18rem;
 }

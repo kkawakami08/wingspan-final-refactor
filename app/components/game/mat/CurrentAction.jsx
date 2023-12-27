@@ -4,7 +4,10 @@ import {
   resourceQuantityAtom,
   disableClickAtom,
   currentActionTextAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
+import BrownPowerContinueBtn from "../individual/buttons/BrownPowerContinueBtn";
+import { useEffect } from "react";
 
 const CurrentAction = () => {
   const [currentAction] = useAtom(currentActionAtom);
@@ -12,6 +15,7 @@ const CurrentAction = () => {
 
   const [disableClick] = useAtom(disableClickAtom);
   const [CurrentActionText] = useAtom(currentActionTextAtom);
+  const [brownPowerContinueBtn] = useAtom(brownPowerContinueBtnAtom);
 
   let resource = "";
   let discardResource = "";

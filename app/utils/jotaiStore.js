@@ -78,6 +78,12 @@ export const initialPlayBird = {
 export const playBirdAtom = atomWithImmer(initialPlayBird);
 
 export const forestBrownBirdsAtom = atom([0, 1, 3]);
-export const brownBirdCopyAtom = atom([]);
+
+export const brownBirdCopyAtom = atom({
+  location: "",
+  copy: [],
+});
+
+export const brownPowerContinueBtnAtom = atom(false);
 
 export const brownBirdVariableAtom = atom(null);
