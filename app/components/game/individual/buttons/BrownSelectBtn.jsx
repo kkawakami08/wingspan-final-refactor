@@ -87,29 +87,18 @@ const BrownSelectBtn = () => {
     switch (currentAction) {
       case "brownFood":
         saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-        if (!brownBirdCopy.copy.length) {
-          setBrownPowerContinue(false);
-          break;
-        } else {
-          switch (brownBirdCopy.location) {
-            case "forest":
-              activateBrownPowers(
-                forest,
-                brownBirdCopy.copy,
-                setBrownBirdCopy,
-                brownBirdSupply
-              );
-              return;
-          }
+
+        switch (brownBirdCopy.location) {
+          case "forest":
+            activateBrownPowers(
+              forest,
+              brownBirdCopy.copy,
+              setBrownBirdCopy,
+              brownBirdSupply
+            );
+            return;
         }
     }
-    resetAction(
-      setDisableClick,
-      setResourceQuantity,
-      setCurrentAction,
-
-      setCurrentActionText
-    );
   };
 
   useEffect(() => {

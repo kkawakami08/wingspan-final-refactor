@@ -171,7 +171,8 @@ export const placeBird = (
   setHabitat((habitat) => {
     habitat[birdCount].bird = playBirdState.bird;
   });
-  setBrownBirds((state) => [...state, birdCount]);
+  if (playBirdState.bird.power.color === "brown")
+    setBrownBirds((state) => [...state, birdCount]);
   setBirdCount((count) => count + 1);
 };
 

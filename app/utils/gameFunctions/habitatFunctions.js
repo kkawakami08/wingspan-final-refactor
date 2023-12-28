@@ -1,9 +1,18 @@
-import {
-  forestDisableOptions,
-  wetlandDisableOptions,
-  grasslandDisableOptions,
-} from "../jotaiStore";
 import { initialDisableClick, initialPlayBird } from "../jotaiStore";
+
+export const forestDisableOptions = {
+  birdFeeder: false,
+  // birdHand: false,
+};
+export const wetlandDisableOptions = {
+  birdDeck: false,
+  birdTray: false,
+  // playerEggs: false
+};
+export const grasslandDisableOptions = {
+  // playerFood: false,
+  playedBird: false,
+};
 
 export const activateHabitat = (
   setCurrentAction,
