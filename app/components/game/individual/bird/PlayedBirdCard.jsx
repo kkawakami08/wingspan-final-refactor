@@ -6,6 +6,12 @@ import {
   playerEggSupplyAtom,
   currentActionTextAtom,
   removedEggListAtom,
+  grasslandBrownBirdsAtom,
+  brownBirdCopyAtom,
+  grasslandAtom,
+  birdFeederAtom,
+  brownBirdVariableAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
@@ -13,19 +19,40 @@ import {
 } from "../../../../utils/gameFunctions/grasslandFunctions";
 import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { discardEgg } from "../../../../utils/gameFunctions/wetlandFunctions";
+import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const bird = habitat[space].bird;
   const currentEggs = habitat[space].eggCount;
+  const currentCache = habitat[space].cacheCount;
 
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [removedEggList, setRemovedEggList] = useAtom(removedEggListAtom);
+  const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
+  const [grassland] = useAtom(grasslandAtom);
+  const [birdFeeder] = useAtom(birdFeederAtom);
+  const [, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+  const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
+    brownPowerContinueBtnAtom
+  );
 
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
   const disableBirdCard = disableClick.playedBird;
+
+  const brownBirdSupply = {
+    birdFeeder: birdFeeder,
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+    setBrownPowerContinueBtn: setBrownPowerContinueBtn,
+    brownPowerContinueBtn: brownPowerContinueBtn,
+    setCurrentAction: setCurrentAction,
+  };
 
   const birdCardClick = () => {
     if (disableBirdCard) console.log("Disabled");
@@ -37,6 +64,18 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
           } else {
             layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
             if (resourceQuantity - 1 == 0) {
+              if (grasslandBrownBirds.length) {
+                setBrownBirdCopy((state) => ({
+                  ...state,
+                  location: "grassland",
+                }));
+                activateBrownPowers(
+                  grassland,
+                  grasslandBrownBirds,
+                  setBrownBirdCopy,
+                  brownBirdSupply
+                );
+              }
               resetFromGrassland(
                 setDisableClick,
                 setCurrentAction,
@@ -125,6 +164,7 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
       <div>{habitatContent}</div> */}
         <p className="text-white text-lg">Eggs laid: {currentEggs}</p>
         <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
+        <p className="text-white text-lg">Cache Count: {currentCache}</p>
       </div>
       <div className={powerCSS}>
         <p className="font-semibold text-lg text-black">

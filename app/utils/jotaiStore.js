@@ -16,7 +16,6 @@ const initialRoll = rollBirdFeeder();
 export const birdFeederAtom = atom(initialRoll);
 
 export const forestAtom = atomWithImmer(initialForest);
-export const forestBirdCountAtom = atom(0);
 
 export const grasslandAtom = atomWithImmer(initialGrassland);
 export const grasslandBirdCountAtom = atom(0);
@@ -49,6 +48,7 @@ export const initialDisableClick = {
   habitats: false,
   playerFood: true,
   playedBird: true,
+  selectedFood: false,
 };
 
 export const disableClickAtom = atom(initialDisableClick);
@@ -63,11 +63,18 @@ export const initialPlayBird = {
 
 export const playBirdAtom = atomWithImmer(initialPlayBird);
 
-export const forestBrownBirdsAtom = atom([]);
+export const forestBirdCountAtom = atom(3);
+
+export const forestBrownBirdsAtom = atom([0, 1, 2]);
+export const grasslandBrownBirdsAtom = atom([]);
+export const wetlandBrownBirdsAtom = atom([]);
 
 export const brownBirdCopyAtom = atom({
   location: "",
   copy: [],
+  dialog: "",
+  sameBird: false,
+  currentSpace: null,
 });
 
 export const brownPowerContinueBtnAtom = atom(false);

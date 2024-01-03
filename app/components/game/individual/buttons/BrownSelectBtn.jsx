@@ -14,6 +14,8 @@ import {
   currentActionTextAtom,
   forestAtom,
   forestBirdCountAtom,
+  grasslandAtom,
+  grasslandBirdCountAtom,
   brownBirdVariableAtom,
   birdFeederAtom,
   brownBirdCopyAtom,
@@ -25,12 +27,12 @@ import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 import {
   activateBrownPowers,
-  birdFeederCheck,
   birdPowerCheck,
   brownBirdLoop,
   brownBirdPower,
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { rollBirdFeeder } from "../../../../utils/gameFunctions/birdFeederFunctions";
+import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
 const BrownSelectBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
@@ -50,6 +52,7 @@ const BrownSelectBtn = () => {
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   const [forest] = useAtom(forestAtom);
+  const [grassland] = useAtom(grasslandAtom);
   const [forestBirdCount] = useAtom(forestBirdCountAtom);
 
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
@@ -62,6 +65,7 @@ const BrownSelectBtn = () => {
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
+    setBirdFeeder: setBirdFeeder,
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
     setResourceQuantity: setResourceQuantity,
@@ -69,6 +73,9 @@ const BrownSelectBtn = () => {
     setBrownPowerContinueBtn: setBrownPowerContinue,
     brownPowerContinueBtn: brownPowerContinue,
     setCurrentAction: setCurrentAction,
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+    setSelectedFood: setSelectedFood,
   };
 
   let disableSave;
@@ -93,7 +100,15 @@ const BrownSelectBtn = () => {
             activateBrownPowers(
               forest,
               brownBirdCopy.copy,
-              setBrownBirdCopy,
+
+              brownBirdSupply
+            );
+            return;
+          case "grassland":
+            activateBrownPowers(
+              grassland,
+              brownBirdCopy.copy,
+
               brownBirdSupply
             );
             return;

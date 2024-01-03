@@ -6,8 +6,6 @@ import {
   currentActionTextAtom,
   brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
-import BrownPowerContinueBtn from "../individual/buttons/BrownPowerContinueBtn";
-import { useEffect } from "react";
 
 const CurrentAction = () => {
   const [currentAction] = useAtom(currentActionAtom);

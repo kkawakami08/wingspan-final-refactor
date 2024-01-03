@@ -31,7 +31,7 @@ const SelectBtn = () => {
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
   const [birdDeck] = useAtom(birdDeckAtom);
-  const [birdFeeder] = useAtom(birdFeederAtom);
+  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
@@ -46,7 +46,7 @@ const SelectBtn = () => {
   const [forest] = useAtom(forestAtom);
   const [forestBirdCount] = useAtom(forestBirdCountAtom);
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
-  const [, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
     brownPowerContinueBtnAtom
   );
@@ -57,6 +57,7 @@ const SelectBtn = () => {
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
+    setBirdFeeder: setBirdFeeder,
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
     setResourceQuantity: setResourceQuantity,
@@ -64,6 +65,9 @@ const SelectBtn = () => {
     setBrownPowerContinueBtn: setBrownPowerContinueBtn,
     brownPowerContinueBtn: brownPowerContinueBtn,
     setCurrentAction: setCurrentAction,
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+    setSelectedFood: setSelectedFood,
   };
 
   let disableSave;
@@ -103,7 +107,7 @@ const SelectBtn = () => {
           activateBrownPowers(
             forest,
             forestBrownBirds,
-            setBrownBirdCopy,
+
             brownBirdSupply
           );
           return;

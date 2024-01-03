@@ -26,7 +26,7 @@ export const resetFromGrassland = (
 
 export const checkBirdEggCapacity = (forest, grassland, wetland) => {
   for (const space in forest) {
-    if (!forest[space].bird) continue;
+    if (!forest[space].bird) break;
     else {
       if (forest[space].eggCount < forest[space].bird.egg_limit) {
         return false;
@@ -34,7 +34,7 @@ export const checkBirdEggCapacity = (forest, grassland, wetland) => {
     }
   }
   for (const space in grassland) {
-    if (!grassland[space].bird) continue;
+    if (!grassland[space].bird) break;
     else {
       if (grassland[space].eggCount < grassland[space].bird.egg_limit) {
         return false;
@@ -42,7 +42,7 @@ export const checkBirdEggCapacity = (forest, grassland, wetland) => {
     }
   }
   for (const space in wetland) {
-    if (!wetland[space].bird) continue;
+    if (!wetland[space].bird) break;
     else {
       if (wetland[space].eggCount < wetland[space].bird.egg_limit) {
         return false;

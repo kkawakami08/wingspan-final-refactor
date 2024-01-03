@@ -1,5 +1,58 @@
 export const forestBirds = [
   {
+    common_name: "Ruby-Throated Hummingbird",
+    scientific_name: "Archilochus colubris",
+    vp: 4,
+    nest: "bowl",
+    egg_limit: 2,
+    wingspan: 10,
+    power: {
+      color: "brown",
+      description:
+        "Each player gains 1 die from the birdfeeder, starting with the player of your choice.",
+      id: 3,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland", "wetland"],
+    food: ["wild"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Omnivore Expert",
+      "Passerine Specialist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
+    common_name: "Red-Bellied Woodpecker",
+    scientific_name: "Melanerpes carolinus",
+    vp: 1,
+    nest: "cavity",
+    egg_limit: 3,
+    wingspan: 41,
+    power: {
+      color: "brown",
+      description:
+        "Gain 1 seed from the birdfeeder, if available. You may cache it on this bird.",
+      id: 13,
+      variable: "none",
+    },
+    habitat: ["forest"],
+    food: ["invertebrate", "seed"],
+    food_count: 1,
+    locations: ["North America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Backyard Birder",
+      "Bird Feeder",
+      "Forester",
+      "Nest Box Builder",
+    ],
+  },
+  {
     common_name: "Rose-Breasted Grosbeak",
     scientific_name: "Pheucticus ludovicianus",
     vp: 6,
@@ -21,6 +74,34 @@ export const forestBirds = [
       "Photographer",
       "Bird Feeder",
       "Forester",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
+    common_name: "Hermit Thrush",
+    scientific_name: "Catharus guttatus",
+    vp: 7,
+    nest: "wild",
+    egg_limit: 2,
+    wingspan: 30,
+    power: {
+      color: "brown",
+      description:
+        "Player(s) with the fewest birds in their forest gain 1 die from birdfeeder.",
+      id: 4,
+      variable: "none",
+    },
+    habitat: ["forest"],
+    food: ["invertebrate", "fruit", "fruit"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Enclosure Builder",
+      "Forester",
+      "Nest Box Builder",
+      "Passerine Specialist",
+      "Platform Builder",
       "Viticulturalist",
       "Wildlife Gardener",
     ],
@@ -70,6 +151,9 @@ export const forestBirds = [
     locations: ["North America", "Central America"],
     bonus_cards: ["Cartographer", "Bird Feeder", "Enclosure Builder"],
   },
+];
+
+export const grasslandBirds = [
   {
     common_name: "Indigo Bunting",
     scientific_name: "Passerina cyanea",
@@ -96,7 +180,34 @@ export const forestBirds = [
       "Wildlife Gardener",
     ],
   },
+  // {
+  //   common_name: "Greater Roadrunner",
+  //   scientific_name: "Geococcyx californianus",
+  //   vp: 7,
+  //   nest: "platform",
+  //   egg_limit: 2,
+  //   wingspan: 56,
+  //   power: {
+  //     color: "brown",
+  //     description:
+  //       "Look at a card from the deck. If less than 50cm, tuck it behind this bird. If not, discard it.",
+  //     id: 35,
+  //     variable: 50,
+  //   },
+  //   habitat: ["grassland"],
+  //   food: ["invertebrate", "rodent", "wild"],
+  //   food_count: 3,
+  //   locations: ["North America", "Central America"],
+  //   bonus_cards: [
+  //     "Falconer",
+  //     "Omnivore Expert",
+  //     "Platform Builder",
+  //     "Prairie Manager",
+  //     "Rodentologist",
+  //   ],
+  // },
 ];
+
 export const playerBirdHand = [
   {
     common_name: "Chihuahuan Raven",
@@ -203,7 +314,6 @@ export const playerBirdHand = [
       "Viticulturalist",
     ],
   },
-  ...forestBirds,
 ];
 export const birdTray = [
   {
@@ -319,32 +429,7 @@ export const birdDeck = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Greater Roadrunner",
-    scientific_name: "Geococcyx californianus",
-    vp: 7,
-    nest: "platform",
-    egg_limit: 2,
-    wingspan: 56,
-    power: {
-      color: "brown",
-      description:
-        "Look at a card from the deck. If less than 50cm, tuck it behind this bird. If not, discard it.",
-      id: 35,
-      variable: 50,
-    },
-    habitat: ["grassland"],
-    food: ["invertebrate", "rodent", "wild"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Falconer",
-      "Omnivore Expert",
-      "Platform Builder",
-      "Prairie Manager",
-      "Rodentologist",
-    ],
-  },
+
   {
     common_name: "Red-Shouldered Hawk",
     scientific_name: "Buteo lineatus",
@@ -800,31 +885,6 @@ export const birdDeck = [
     ],
   },
 
-  {
-    common_name: "Bald Eagle",
-    scientific_name: "Haliaeetus leucocephalus",
-    vp: 9,
-    nest: "platform",
-    egg_limit: 1,
-    wingspan: 203,
-    power: {
-      color: "white",
-      description: "Gain all fish that are in the birdfeeder.",
-      id: 2,
-      variable: "fish",
-    },
-    habitat: ["wetland"],
-    food: ["fish", "fish", "rodent"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Fishery Manager",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Rodentologist",
-      "Wetland Scientist",
-    ],
-  },
   {
     common_name: "Brown Pelican",
     scientific_name: "Pelecanus occidentalis",
@@ -1994,32 +2054,6 @@ export const birdDeck = [
   },
 
   {
-    common_name: "Ruby-Throated Hummingbird",
-    scientific_name: "Archilochus colubris",
-    vp: 4,
-    nest: "bowl",
-    egg_limit: 2,
-    wingspan: 10,
-    power: {
-      color: "brown",
-      description:
-        "Each player gains 1 die from the birdfeeder, starting with the player of your choice.",
-      id: 3,
-      variable: "none",
-    },
-    habitat: ["forest", "grassland", "wetland"],
-    food: ["wild"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Omnivore Expert",
-      "Passerine Specialist",
-      "Wildlife Gardener",
-    ],
-  },
-  {
     common_name: "Anna's Hummingbird",
     scientific_name: "Calypte anna",
     vp: 4,
@@ -2044,34 +2078,7 @@ export const birdDeck = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Hermit Thrush",
-    scientific_name: "Catharus guttatus",
-    vp: 7,
-    nest: "wild",
-    egg_limit: 2,
-    wingspan: 30,
-    power: {
-      color: "brown",
-      description:
-        "Player(s) with the fewest birds in their forest gain 1 die from birdfeeder.",
-      id: 4,
-      variable: "none",
-    },
-    habitat: ["forest"],
-    food: ["invertebrate", "fruit", "fruit"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Enclosure Builder",
-      "Forester",
-      "Nest Box Builder",
-      "Passerine Specialist",
-      "Platform Builder",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "Black Vulture",
     scientific_name: "Coragyps atratus",
@@ -2419,33 +2426,7 @@ export const birdDeck = [
       "Passerine Specialist",
     ],
   },
-  {
-    common_name: "Red-Bellied Woodpecker",
-    scientific_name: "Melanerpes carolinus",
-    vp: 1,
-    nest: "cavity",
-    egg_limit: 3,
-    wingspan: 41,
-    power: {
-      color: "brown",
-      description:
-        "Gain 1 seed from the birdfeeder, if available. You may cache it on this bird.",
-      id: 13,
-      variable: "none",
-    },
-    habitat: ["forest"],
-    food: ["invertebrate", "seed"],
-    food_count: 1,
-    locations: ["North America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Backyard Birder",
-      "Bird Feeder",
-      "Forester",
-      "Nest Box Builder",
-    ],
-  },
+
   {
     common_name: "Red-Headed Woodpecker",
     scientific_name: "Melanerpes erythrocephalus",

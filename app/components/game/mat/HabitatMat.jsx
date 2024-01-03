@@ -11,15 +11,18 @@ import { useAtom } from "jotai";
 import {
   playerEggSupplyAtom,
   forestBrownBirdsAtom,
+  grasslandBrownBirdsAtom,
+  wetlandBrownBirdsAtom,
   brownBirdCopyAtom,
   brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
-import BrownPowerContinueBtn from "../individual/buttons/BrownPowerContinueBtn";
-BrownPowerContinueBtn;
+import BrownPowerDialog from "./BrownPowerDialog";
 
 const HabitatMat = () => {
   const [playerEggSupply] = useAtom(playerEggSupplyAtom);
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
+  const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
+  const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
   const [brownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [brownPowerContinue] = useAtom(brownPowerContinueBtnAtom);
   return (
@@ -28,8 +31,9 @@ const HabitatMat = () => {
         Habitat mat
       </p>
       <p>forest brown birds {forestBrownBirds.join()}</p>
-      <p>copy brown birds {brownBirdCopy.copy.join()}</p>
-      {brownPowerContinue && <BrownPowerContinueBtn />}
+      <p>grassland brown birds {grasslandBrownBirds.join()}</p>
+      <p>wetland brown birds {wetlandBrownBirds.join()}</p>
+      {brownPowerContinue && <BrownPowerDialog />}
 
       <div className="flex gap-20 items-center justify-center">
         <CurrentAction />

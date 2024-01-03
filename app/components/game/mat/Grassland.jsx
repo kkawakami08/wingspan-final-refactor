@@ -12,11 +12,17 @@ import {
   forestAtom,
   grasslandAtom,
   wetlandAtom,
+  grasslandBrownBirdsAtom,
+  brownBirdCopyAtom,
+  birdFeederAtom,
+  brownBirdVariableAtom,
+  brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import DiscardEggs from "../individual/buttons/DiscardEggs";
 import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
 import { checkBirdEggCapacity } from "../../../utils/gameFunctions/grasslandFunctions";
+import { activateBrownPowers } from "../../../utils/gameFunctions/birdPowerFunctions";
 
 const Grassland = () => {
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
@@ -32,6 +38,25 @@ const Grassland = () => {
   const [forest] = useAtom(forestAtom);
   const [grassland] = useAtom(grasslandAtom);
   const [wetland] = useAtom(wetlandAtom);
+  const [birdFeeder] = useAtom(birdFeederAtom);
+
+  const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
+  const [, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+  const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
+    brownPowerContinueBtnAtom
+  );
+
+  const brownBirdSupply = {
+    birdFeeder: birdFeeder,
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+    setBrownPowerContinueBtn: setBrownPowerContinueBtn,
+    brownPowerContinueBtn: brownPowerContinueBtn,
+    setCurrentAction: setCurrentAction,
+  };
 
   const grasslandClick = () => {
     if (disableGrassland) console.log("Disabled");
@@ -51,8 +76,20 @@ const Grassland = () => {
       } else {
         if (checkBirdEggCapacity(forest, grassland, wetland)) {
           setCurrentActionText(
-            "There are no birds to lay eggs. Select a different action"
+            "There are no birds to lay eggs. Continuing with brown birds"
           );
+          if (grasslandBrownBirds.length) {
+            setBrownBirdCopy((state) => ({
+              ...state,
+              location: "grassland",
+            }));
+            activateBrownPowers(
+              grassland,
+              grasslandBrownBirds,
+              setBrownBirdCopy,
+              brownBirdSupply
+            );
+          }
         } else {
           activateHabitat(
             setCurrentAction,

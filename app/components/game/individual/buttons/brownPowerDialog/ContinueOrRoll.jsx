@@ -9,17 +9,19 @@ import {
   brownBirdVariableAtom,
   brownBirdCopyAtom,
   forestAtom,
-} from "../../../../utils/jotaiStore";
-import RollBirdFeederBtn from "./RollBirdFeederBtn";
-import { rollBirdFeeder } from "../../../../utils/gameFunctions/birdFeederFunctions";
-import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
-import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
+  selectedFoodAtom,
+} from "../../../../../utils/jotaiStore";
+import RollBirdFeederBtn from "../RollBirdFeederBtn";
+import { rollBirdFeeder } from "../../../../../utils/gameFunctions/birdFeederFunctions";
+import { resetAction } from "../../../../../utils/gameFunctions/habitatFunctions";
+import { activateBrownPowers } from "../../../../../utils/gameFunctions/birdPowerFunctions";
 import { useEffect } from "react";
 
-const BrownPowerContinueBtn = () => {
+const ContinueOrRoll = () => {
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [, setSelectedFood] = useAtom(selectedFoodAtom);
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
   const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
@@ -31,6 +33,7 @@ const BrownPowerContinueBtn = () => {
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
+    setBirdFeeder: setBirdFeeder,
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
     setResourceQuantity: setResourceQuantity,
@@ -38,22 +41,28 @@ const BrownPowerContinueBtn = () => {
     setBrownPowerContinueBtn: setBrownPowerContinue,
     brownPowerContinueBtn: brownPowerContinue,
     setCurrentAction: setCurrentAction,
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+    setSelectedFood: setSelectedFood,
   };
 
   const continueBrownBirds = () => {
+    setBrownPowerContinue(false);
     switch (currentAction) {
       case "brownFood":
-        console.log("continuing one");
         if (!brownBirdCopy.copy.length) {
-          setBrownPowerContinue(false);
           break;
         } else {
           switch (brownBirdCopy.location) {
             case "forest":
+              setBrownBirdCopy((state) => ({
+                ...state,
+                dialog: "",
+              }));
               activateBrownPowers(
                 forest,
                 brownBirdCopy.copy,
-                setBrownBirdCopy,
+
                 brownBirdSupply
               );
               return;
@@ -71,11 +80,10 @@ const BrownPowerContinueBtn = () => {
 
   const rollBirdFeederClick = () => {
     setBirdFeeder(rollBirdFeeder());
-    setCurrentActionText("Click continue");
+    setCurrentActionText("click continue");
   };
 
   const continueCheckingClick = () => {
-    setBrownPowerContinue(true);
     continueBrownBirds();
   };
 
@@ -98,4 +106,4 @@ const BrownPowerContinueBtn = () => {
   );
 };
 
-export default BrownPowerContinueBtn;
+export default ContinueOrRoll;
