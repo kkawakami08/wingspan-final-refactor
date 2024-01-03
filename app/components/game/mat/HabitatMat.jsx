@@ -10,29 +10,23 @@ import WetlandRow from "./WetlandRow";
 import { useAtom } from "jotai";
 import {
   playerEggSupplyAtom,
-  forestBrownBirdsAtom,
-  grasslandBrownBirdsAtom,
-  wetlandBrownBirdsAtom,
-  brownBirdCopyAtom,
   brownPowerContinueBtnAtom,
+  brownBirdCopyAtom,
+  currentActionAtom,
 } from "../../../utils/jotaiStore";
 import BrownPowerDialog from "./BrownPowerDialog";
+import NextPower from "../individual/buttons/NextPower";
 
 const HabitatMat = () => {
   const [playerEggSupply] = useAtom(playerEggSupplyAtom);
-  const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
-  const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
-  const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
-  const [brownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [brownPowerContinue] = useAtom(brownPowerContinueBtnAtom);
+  const [currentAction] = useAtom(currentActionAtom);
   return (
     <div className="row-start-5 col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">
         Habitat mat
       </p>
-      <p>forest brown birds {forestBrownBirds.join()}</p>
-      <p>grassland brown birds {grasslandBrownBirds.join()}</p>
-      <p>wetland brown birds {wetlandBrownBirds.join()}</p>
+      {currentAction.includes("brown") && <NextPower />}
       {brownPowerContinue && <BrownPowerDialog />}
 
       <div className="flex gap-20 items-center justify-center">
