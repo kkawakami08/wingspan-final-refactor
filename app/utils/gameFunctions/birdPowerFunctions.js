@@ -1,6 +1,12 @@
 import { enableRolling } from "./birdFeederFunctions";
 import { resetAction } from "./habitatFunctions";
-import { power1, power2, power3_4, power13 } from "./brownPowerFunctions";
+import {
+  power1,
+  power2,
+  power3_4,
+  power6,
+  power13,
+} from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 
 export const activateBrownPowers = (
@@ -28,24 +34,20 @@ export const activateBrownPowers = (
   while (tempCopy.length) {
     let lastSpace = tempCopy.pop();
     //if false, do stuff, come back around to same bird
-    const continuePower = continueBrownBirdPowers(
-      habitat[lastSpace].bird,
-      lastSpace,
-      {
-        birdFeeder,
-        setBirdFeeder,
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-        setBrownPowerContinueBtn,
-        brownPowerContinueBtn,
-        setCurrentAction,
-        setBrownBirdCopy,
-        brownBirdCopy,
-        setSelectedFood,
-      }
-    );
+    const continuePower = brownPowerCheck(habitat[lastSpace].bird, lastSpace, {
+      birdFeeder,
+      setBirdFeeder,
+      setDisableClick,
+      setCurrentActionText,
+      setResourceQuantity,
+      setBrownBirdVariable,
+      setBrownPowerContinueBtn,
+      brownPowerContinueBtn,
+      setCurrentAction,
+      setBrownBirdCopy,
+      brownBirdCopy,
+      setSelectedFood,
+    });
     if (continuePower) {
       console.log("power was true");
       setBrownBirdCopy((state) => ({
@@ -76,7 +78,7 @@ export const activateBrownPowers = (
 
 const birdFeederPowers = [1, 2, 3, 4, 5, 13];
 
-export const continueBrownBirdPowers = (
+export const brownPowerCheck = (
   currentBrownBird,
   lastSpace,
   {
@@ -150,6 +152,14 @@ export const continueBrownBirdPowers = (
         setResourceQuantity,
         setBrownBirdVariable,
       });
+    case 6:
+      console.log("checking power 6");
+      return power6(currentBrownBird.power.variable, {
+        setDisableClick,
+        setCurrentActionText,
+        setResourceQuantity,
+        setBrownBirdVariable,
+      });
     case 13:
       console.log("checking power 13");
       return power13({
@@ -180,4 +190,39 @@ export const resetBrownPower = (
     selectedFood: true,
     habitats: true,
   }));
+};
+
+export const continueBrownPower = (
+  brownBirdCopy,
+  setBrownBirdCopy,
+  forest,
+  grassland,
+  wetland,
+  brownBirdSupply
+) => {
+  if (brownBirdCopy.copy.length) {
+    switch (brownBirdCopy.location) {
+      case "forest":
+        setBrownBirdCopy((state) => ({
+          ...state,
+          dialog: "",
+        }));
+        activateBrownPowers(
+          forest,
+          brownBirdCopy.copy,
+
+          brownBirdSupply
+        );
+        return;
+    }
+  } else {
+    resetAction(
+      brownBirdSupply.setDisableClick,
+      brownBirdSupply.setResourceQuantity,
+      brownBirdSupply.setCurrentAction,
+
+      brownBirdSupply.setCurrentActionText
+    );
+    return;
+  }
 };

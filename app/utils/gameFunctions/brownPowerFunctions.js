@@ -1,13 +1,5 @@
 import { birdFeederCheck } from "./brownPowerHelperFunctions";
 
-//global variables
-
-//birdFeeder
-//setDisableClick,
-//setCurrentActionText,
-//setResourceQuantity,
-//setBrownBirdVariable,
-
 export const power1 = (
   powerVariable,
   {
@@ -91,6 +83,26 @@ export const power3_4 = ({
   setCurrentActionText("Select a die from the bird feeder");
   setBrownBirdVariable("");
   setResourceQuantity(1);
+  return true;
+};
+
+export const power6 = (
+  powerVariable,
+  {
+    setDisableClick,
+    setCurrentActionText,
+    setResourceQuantity,
+    setBrownBirdVariable,
+  }
+) => {
+  // Gain 1 fruit/invertebrate/seed from the supply.
+  setResourceQuantity(1);
+  setCurrentActionText(`Select 1 ${powerVariable} from supply`);
+  setBrownBirdVariable(powerVariable);
+  setDisableClick((state) => ({
+    ...state,
+    foodSupply: false,
+  }));
   return true;
 };
 

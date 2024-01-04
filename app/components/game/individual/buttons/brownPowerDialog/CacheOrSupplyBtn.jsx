@@ -9,13 +9,18 @@ import {
   brownBirdVariableAtom,
   brownBirdCopyAtom,
   forestAtom,
+  grasslandAtom,
+  wetlandAtom,
   playerFoodSupplyAtom,
   selectedFoodAtom,
 } from "../../../../../utils/jotaiStore";
 import RollBirdFeederBtn from "../RollBirdFeederBtn";
 import { rollBirdFeeder } from "../../../../../utils/gameFunctions/birdFeederFunctions";
 import { resetAction } from "../../../../../utils/gameFunctions/habitatFunctions";
-import { activateBrownPowers } from "../../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+} from "../../../../../utils/gameFunctions/birdPowerFunctions";
 import { useEffect } from "react";
 import { saveFoodSelection } from "../../../../../utils/gameFunctions/foodFunctions";
 
@@ -33,6 +38,8 @@ const CacheOrSupply = () => {
   );
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [forest, setForest] = useAtom(forestAtom);
+  const [grassland] = useAtom(grasslandAtom);
+  const [wetland] = useAtom(wetlandAtom);
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
@@ -57,33 +64,15 @@ const CacheOrSupply = () => {
     }));
     switch (currentAction) {
       case "brownFood":
-        if (!brownBirdCopy.copy.length) {
-          break;
-        } else {
-          switch (brownBirdCopy.location) {
-            case "forest":
-              setBrownBirdCopy((state) => ({
-                ...state,
-                dialog: "",
-                currentSpace: null,
-              }));
-              activateBrownPowers(
-                forest,
-                brownBirdCopy.copy,
-
-                brownBirdSupply
-              );
-              return;
-          }
-        }
+        continueBrownPower(
+          brownBirdCopy,
+          setBrownBirdCopy,
+          forest,
+          grassland,
+          wetland,
+          brownBirdSupply
+        );
     }
-    resetAction(
-      setDisableClick,
-      setResourceQuantity,
-      setCurrentAction,
-
-      setCurrentActionText
-    );
   };
 
   const addToSupplyClick = () => {

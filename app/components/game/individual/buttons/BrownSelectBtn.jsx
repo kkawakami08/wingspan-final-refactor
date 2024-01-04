@@ -25,12 +25,7 @@ import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
-import {
-  activateBrownPowers,
-  birdPowerCheck,
-  brownBirdLoop,
-  brownBirdPower,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { rollBirdFeeder } from "../../../../utils/gameFunctions/birdFeederFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
