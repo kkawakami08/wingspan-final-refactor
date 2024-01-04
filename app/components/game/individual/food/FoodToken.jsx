@@ -18,14 +18,7 @@ const FoodToken = ({ food }) => {
   const foodTokenClick = () => {
     if (disableFoodToken) console.log("disabled");
     else {
-      switch (currentAction) {
-        case "grassland":
-          foodSelection(playerFood, setSelectedFood, setPlayerFood, food.id);
-          break;
-        case "playBird":
-          foodSelection(playerFood, setSelectedFood, setPlayerFood, food.id);
-          break;
-      }
+      foodSelection(playerFood, setSelectedFood, setPlayerFood, food.id);
     }
   };
 

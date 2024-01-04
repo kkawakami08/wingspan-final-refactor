@@ -60,7 +60,7 @@ const FoodSupplyBoxes = ({ type, bg }) => {
     if (disableFood) {
       console.log("disabled");
     } else {
-      if (brownBirdVariable !== type) {
+      if (!type.includes(brownBirdVariable)) {
         console.log("not the right type");
       } else {
         setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);

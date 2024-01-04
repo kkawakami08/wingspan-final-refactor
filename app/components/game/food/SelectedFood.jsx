@@ -4,6 +4,7 @@ import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
 import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 import SelectedFoodToken from "../individual/food/SelectedFoodToken";
+import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
 
 const SelectedFood = () => {
   const [selectedFood] = useAtom(selectedFoodAtom);
@@ -22,11 +23,12 @@ const SelectedFood = () => {
         return <DiscardBtn />;
       case "playBird":
         return <DiscardBtn />;
+      case "brownFeeder":
+        return <BrownSelectBtn />;
+      case "brownFood":
+        return <BrownDiscardBtn />;
       default:
         break;
-    }
-    if (currentAction.includes("brown")) {
-      return <BrownSelectBtn />;
     }
   };
 

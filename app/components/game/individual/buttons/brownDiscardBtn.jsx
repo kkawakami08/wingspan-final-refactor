@@ -29,7 +29,7 @@ import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFu
 import { rollBirdFeeder } from "../../../../utils/gameFunctions/birdFeederFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
-const BrownSelectBtn = () => {
+const BrownDiscardBtn = () => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
@@ -75,43 +75,33 @@ const BrownSelectBtn = () => {
 
   let disableSave;
   const updateDisable = () => {
-    switch (currentAction) {
-      case "brownFeeder":
-        disableSave =
-          selectedFood.length == resourceQuantity &&
-          birdFeederCheck(brownBirdVariable, selectedFood);
-        break;
-      case "brownFood":
-        disableSave =
-          selectedFood.length == resourceQuantity &&
-          selectedFood.some((item) => item.type.includes(brownBirdVariable));
-        break;
-    }
+    disableSave =
+      selectedFood.length == resourceQuantity &&
+      selectedFood.some((item) => item.type.includes(brownBirdVariable));
   };
+
   updateDisable();
 
-  const selectBtnClick = () => {
-    if (currentAction === "brownFood" || currentAction === "brownFeeder") {
-      saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
+  const discardBtnClick = () => {
+    setSelectedFood([]);
 
-      switch (brownBirdCopy.location) {
-        case "forest":
-          activateBrownPowers(
-            forest,
-            brownBirdCopy.copy,
+    switch (brownBirdCopy.location) {
+      case "forest":
+        activateBrownPowers(
+          forest,
+          brownBirdCopy.copy,
 
-            brownBirdSupply
-          );
-          return;
-        case "grassland":
-          activateBrownPowers(
-            grassland,
-            brownBirdCopy.copy,
+          brownBirdSupply
+        );
+        return;
+      case "grassland":
+        activateBrownPowers(
+          grassland,
+          brownBirdCopy.copy,
 
-            brownBirdSupply
-          );
-          return;
-      }
+          brownBirdSupply
+        );
+        return;
     }
   };
 
@@ -123,11 +113,11 @@ const BrownSelectBtn = () => {
     <button
       className="bg-amber-900 text-white text-lg font-semibold rounded-lg p-3 disabled:bg-slate-300"
       disabled={!disableSave}
-      onClick={selectBtnClick}
+      onClick={discardBtnClick}
     >
-      Save Selection
+      Discard Selection
     </button>
   );
 };
 
-export default BrownSelectBtn;
+export default BrownDiscardBtn;

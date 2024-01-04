@@ -106,10 +106,44 @@ export const power6_8 = (
   return true;
 };
 
+export const power9 = (
+  sameBird,
+  {
+    setDisableClick,
+
+    setResourceQuantity,
+    setCurrentActionText,
+    setBrownBirdVariable,
+  }
+) => {
+  // Trade 1 wild for any other type from the supply.
+  if (sameBird) {
+    setCurrentActionText("Select one token from the supply.");
+    setBrownBirdVariable("");
+    setResourceQuantity(1);
+    setDisableClick((state) => ({
+      ...state,
+      foodSupply: false,
+    }));
+
+    return true;
+  } else {
+    setResourceQuantity(1);
+    setCurrentActionText("Select one of your food tokens to trade.");
+    setBrownBirdVariable("");
+    setDisableClick((state) => ({
+      ...state,
+      playerFood: false,
+    }));
+
+    return;
+  }
+};
+
 export const power13 = ({
   lastSpace,
   setCurrentActionText,
-
+  setDisableClick,
   setBrownPowerContinueBtn,
   setBrownBirdCopy,
   birdFeeder,
@@ -118,6 +152,10 @@ export const power13 = ({
 }) => {
   // Gain 1 seed from the birdfeeder, if available. You may cache it on this bird.
   if (birdFeederCheck("seed", birdFeeder)) {
+    setDisableClick((state) => ({
+      ...state,
+      selectedFood: true,
+    }));
     let seedIndex = birdFeeder.findIndex((die) => die.type.includes("seed"));
     setSelectedFood([birdFeeder[seedIndex]]);
     birdFeeder.splice(seedIndex, 1);

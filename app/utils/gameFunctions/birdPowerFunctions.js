@@ -5,6 +5,7 @@ import {
   power2,
   power3_4,
   power6_8,
+  power9,
   power13,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
@@ -61,7 +62,7 @@ export const activateBrownPowers = (
         copy: [...habitatBrownBirds],
         sameBird: true,
       }));
-      setBrownPowerContinueBtn(true);
+
       return;
     } // continuePower = false -> continues to next brown Power bird
   }
@@ -77,6 +78,7 @@ export const activateBrownPowers = (
 };
 
 const birdFeederPowers = [1, 2, 3, 4, 5, 13];
+const foodPowers = [6, 7, 8, 9, 10, 11, 12];
 
 export const brownPowerCheck = (
   currentBrownBird,
@@ -97,10 +99,11 @@ export const brownPowerCheck = (
   }
 ) => {
   console.log(`Checking ${currentBrownBird.common_name}'s brown power`);
+
   if (birdFeederPowers.includes(currentBrownBird.power.id)) {
-    setCurrentAction("brownFood");
     console.log(brownBirdCopy);
     console.log("birdfeeder", birdFeeder);
+    setCurrentAction("brownFeeder");
     if (enableRolling(birdFeeder) && !brownBirdCopy.sameBird) {
       console.log("can reroll before turn");
       setCurrentActionText(
@@ -110,8 +113,12 @@ export const brownPowerCheck = (
         ...state,
         dialog: "roll",
       }));
+      setBrownPowerContinueBtn(true);
       return;
     }
+  }
+  if (foodPowers.includes(currentBrownBird.power.id)) {
+    setCurrentAction("brownFood");
   }
   setBrownBirdCopy((state) => ({
     ...state,
@@ -154,7 +161,7 @@ export const brownPowerCheck = (
       });
     case 6:
       console.log("checking power 6");
-      return power6(currentBrownBird.power.variable, {
+      return power6_8(currentBrownBird.power.variable, {
         setDisableClick,
         setCurrentActionText,
         setResourceQuantity,
@@ -168,12 +175,21 @@ export const brownPowerCheck = (
         setResourceQuantity,
         setBrownBirdVariable,
       });
+    case 9:
+      console.log("checking power 9");
+      return power9(brownBirdCopy.sameBird, {
+        setDisableClick,
+
+        setResourceQuantity,
+        setCurrentActionText,
+        setBrownBirdVariable,
+      });
     case 13:
       console.log("checking power 13");
       return power13({
         lastSpace,
         setCurrentActionText,
-
+        setDisableClick,
         setBrownPowerContinueBtn,
         setBrownBirdCopy,
         birdFeeder,
@@ -195,7 +211,7 @@ export const resetBrownPower = (
   setBrownBirdVariable("");
   setDisableClick((state) => ({
     ...initialDisableClick,
-    selectedFood: true,
+
     habitats: true,
   }));
 };
