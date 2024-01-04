@@ -31,6 +31,58 @@ export const forestBirds = [
       "Wetland Scientist",
     ],
   },
+  {
+    common_name: "American Crow",
+    scientific_name: "Corvus brachyrhynchos",
+    vp: 4,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 99,
+    power: {
+      color: "brown",
+      description:
+        "Discard 1 egg from any of your other birds to gain 1 wild from the supply.",
+      id: 10,
+      variable: 1,
+    },
+    habitat: ["forest", "grassland", "wetland"],
+    food: ["wild"],
+    food_count: 1,
+    locations: ["North America"],
+    bonus_cards: [
+      "Cartographer",
+      "Large Bird Specialist",
+      "Omnivore Expert",
+      "Platform Builder",
+    ],
+  },
+  // {
+  //   common_name: "Chihuahuan Raven",
+  //   scientific_name: "Corvus cryptoleucus",
+  //   vp: 4,
+  //   nest: "platform",
+  //   egg_limit: 3,
+  //   wingspan: 112,
+  //   power: {
+  //     color: "brown",
+  //     description:
+  //       "Discard 1 egg from any of your other birds to gain 2 wild from the supply.",
+  //     id: 10,
+  //     variable: 2,
+  //   },
+  //   habitat: ["grassland"],
+  //   food: ["rodent", "wild", "wild"],
+  //   food_count: 3,
+  //   locations: ["North America", "Central America"],
+  //   bonus_cards: [
+  //     "Cartographer",
+  //     "Large Bird Specialist",
+  //     "Omnivore Expert",
+  //     "Platform Builder",
+  //     "Prairie Manager",
+  //     "Rodentologist",
+  //   ],
+  // },
 
   {
     common_name: "American Redstart",
@@ -160,33 +212,6 @@ export const grasslandBirds = [
 ];
 
 export const playerBirdHand = [
-  {
-    common_name: "Chihuahuan Raven",
-    scientific_name: "Corvus cryptoleucus",
-    vp: 4,
-    nest: "platform",
-    egg_limit: 3,
-    wingspan: 112,
-    power: {
-      color: "brown",
-      description:
-        "Discard 1 egg from any of your other birds to gain 2 wild from the supply.",
-      id: 10,
-      variable: 2,
-    },
-    habitat: ["grassland"],
-    food: ["rodent", "wild", "wild"],
-    food_count: 3,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Cartographer",
-      "Large Bird Specialist",
-      "Omnivore Expert",
-      "Platform Builder",
-      "Prairie Manager",
-      "Rodentologist",
-    ],
-  },
   {
     common_name: "White-Throated Swift",
     scientific_name: "Aeronautes saxatalis",

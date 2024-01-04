@@ -12,6 +12,7 @@ import {
   grasslandAtom,
   wetlandAtom,
   selectedFoodAtom,
+  playerEggSupplyAtom,
 } from "../../../../../utils/jotaiStore";
 import RollBirdFeederBtn from "../RollBirdFeederBtn";
 import { rollBirdFeeder } from "../../../../../utils/gameFunctions/birdFeederFunctions";
@@ -37,6 +38,7 @@ const ContinueOrRoll = () => {
   const [forest] = useAtom(forestAtom);
   const [grassland] = useAtom(grasslandAtom);
   const [wetland] = useAtom(wetlandAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
@@ -51,21 +53,20 @@ const ContinueOrRoll = () => {
     setBrownBirdCopy: setBrownBirdCopy,
     brownBirdCopy: brownBirdCopy,
     setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
   };
 
   const continueBrownBirds = () => {
     setBrownPowerContinue(false);
-    switch (currentAction) {
-      case "brownFood":
-        continueBrownPower(
-          brownBirdCopy,
-          setBrownBirdCopy,
-          forest,
-          grassland,
-          wetland,
-          brownBirdSupply
-        );
-    }
+
+    continueBrownPower(
+      brownBirdCopy,
+      setBrownBirdCopy,
+      forest,
+      grassland,
+      wetland,
+      brownBirdSupply
+    );
   };
 
   const rollBirdFeederClick = () => {

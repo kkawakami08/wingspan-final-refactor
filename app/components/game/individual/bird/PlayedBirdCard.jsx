@@ -9,9 +9,12 @@ import {
   grasslandBrownBirdsAtom,
   brownBirdCopyAtom,
   grasslandAtom,
-  birdFeederAtom,
   brownBirdVariableAtom,
   brownPowerContinueBtnAtom,
+  birdFeederAtom,
+  forestAtom,
+  wetlandAtom,
+  selectedFoodAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
@@ -19,7 +22,10 @@ import {
 } from "../../../../utils/gameFunctions/grasslandFunctions";
 import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { discardEgg } from "../../../../utils/gameFunctions/wetlandFunctions";
-import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const bird = habitat[space].bird;
@@ -27,14 +33,17 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const currentCache = habitat[space].cacheCount;
 
   const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [, setSelectedFood] = useAtom(selectedFoodAtom);
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [removedEggList, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
   const [grassland] = useAtom(grasslandAtom);
-  const [birdFeeder] = useAtom(birdFeederAtom);
-  const [, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+  const [forest] = useAtom(forestAtom);
+  const [wetland] = useAtom(wetlandAtom);
+  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
   const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
     brownPowerContinueBtnAtom
@@ -45,6 +54,7 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
 
   const brownBirdSupply = {
     birdFeeder: birdFeeder,
+    setBirdFeeder: setBirdFeeder,
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
     setResourceQuantity: setResourceQuantity,
@@ -52,6 +62,10 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
     setBrownPowerContinueBtn: setBrownPowerContinueBtn,
     brownPowerContinueBtn: brownPowerContinueBtn,
     setCurrentAction: setCurrentAction,
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+    setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
   };
 
   const birdCardClick = () => {
@@ -82,6 +96,31 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
                 setCurrentActionText
               );
             }
+          }
+
+          break;
+        case "brownFood":
+          if (brownBirdCopy.currentSpace == space) {
+            setCurrentActionText("Can't remove egg from this bird.");
+          } else {
+            removeEgg(
+              setHabitat,
+              space,
+
+              setPlayerEggs,
+              setCurrentActionText,
+              setDisableClick,
+              setResourceQuantity,
+              resourceQuantity
+            );
+            continueBrownPower(
+              brownBirdCopy,
+              setBrownBirdCopy,
+              forest,
+              grassland,
+              wetland,
+              brownBirdSupply
+            );
           }
 
           break;

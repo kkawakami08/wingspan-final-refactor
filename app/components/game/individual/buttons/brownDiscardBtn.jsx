@@ -20,6 +20,7 @@ import {
   birdFeederAtom,
   brownBirdCopyAtom,
   brownPowerContinueBtnAtom,
+  playerEggSupplyAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
@@ -34,6 +35,7 @@ const BrownDiscardBtn = () => {
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
   const [birdDeck] = useAtom(birdDeckAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
@@ -71,6 +73,7 @@ const BrownDiscardBtn = () => {
     setBrownBirdCopy: setBrownBirdCopy,
     brownBirdCopy: brownBirdCopy,
     setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
   };
 
   let disableSave;

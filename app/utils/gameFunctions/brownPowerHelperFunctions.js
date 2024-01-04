@@ -9,3 +9,11 @@ export const birdFeederCheck = (powerVariable, birdFeeder) => {
     return birdFeeder.some((item) => item.type.includes(powerVariable));
   }
 };
+
+export const checkOtherEggs = (playerEggs, currentBirdEggs) => {
+  console.log("checkothereggs", playerEggs, currentBirdEggs);
+  if (!playerEggs || !(playerEggs - currentBirdEggs)) {
+    console.log("false egg check");
+    return false;
+  } else return true;
+};

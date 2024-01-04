@@ -6,9 +6,11 @@ import {
   power3_4,
   power6_8,
   power9,
+  power10,
   power13,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
+import { checkOtherEggs } from "./brownPowerHelperFunctions";
 
 export const activateBrownPowers = (
   habitat,
@@ -27,6 +29,7 @@ export const activateBrownPowers = (
     setBrownBirdCopy,
     brownBirdCopy,
     setSelectedFood,
+    playerEggs,
   }
 ) => {
   resetBrownPower(setResourceQuantity, setBrownBirdVariable, setDisableClick);
@@ -35,7 +38,7 @@ export const activateBrownPowers = (
   while (tempCopy.length) {
     let lastSpace = tempCopy.pop();
     //if false, do stuff, come back around to same bird
-    const continuePower = brownPowerCheck(habitat[lastSpace].bird, lastSpace, {
+    const continuePower = brownPowerCheck(habitat[lastSpace], lastSpace, {
       birdFeeder,
       setBirdFeeder,
       setDisableClick,
@@ -48,6 +51,7 @@ export const activateBrownPowers = (
       setBrownBirdCopy,
       brownBirdCopy,
       setSelectedFood,
+      playerEggs,
     });
     if (continuePower) {
       console.log("power was true");
@@ -81,7 +85,7 @@ const birdFeederPowers = [1, 2, 3, 4, 5, 13];
 const foodPowers = [6, 7, 8, 9, 10, 11, 12];
 
 export const brownPowerCheck = (
-  currentBrownBird,
+  currentSpace,
   lastSpace,
   {
     birdFeeder,
@@ -96,11 +100,12 @@ export const brownPowerCheck = (
     setBrownBirdCopy,
     brownBirdCopy,
     setSelectedFood,
+    playerEggs,
   }
 ) => {
-  console.log(`Checking ${currentBrownBird.common_name}'s brown power`);
+  console.log(`Checking ${currentSpace.bird.common_name}'s brown power`);
 
-  if (birdFeederPowers.includes(currentBrownBird.power.id)) {
+  if (birdFeederPowers.includes(currentSpace.bird.power.id)) {
     console.log(brownBirdCopy);
     console.log("birdfeeder", birdFeeder);
     setCurrentAction("brownFeeder");
@@ -117,17 +122,17 @@ export const brownPowerCheck = (
       return;
     }
   }
-  if (foodPowers.includes(currentBrownBird.power.id)) {
+  if (foodPowers.includes(currentSpace.bird.power.id)) {
     setCurrentAction("brownFood");
   }
   setBrownBirdCopy((state) => ({
     ...state,
     sameBird: false,
   }));
-  switch (currentBrownBird.power.id) {
+  switch (currentSpace.bird.power.id) {
     case 1:
       console.log("checking power 1");
-      return power1(currentBrownBird.power.variable, {
+      return power1(currentSpace.bird.power.variable, {
         birdFeeder,
         setDisableClick,
         setCurrentActionText,
@@ -136,7 +141,7 @@ export const brownPowerCheck = (
       });
     case 2:
       console.log("checking power 2");
-      return power2(currentBrownBird.power.variable, {
+      return power2(currentSpace.bird.power.variable, {
         birdFeeder,
         setDisableClick,
         setCurrentActionText,
@@ -161,7 +166,7 @@ export const brownPowerCheck = (
       });
     case 6:
       console.log("checking power 6");
-      return power6_8(currentBrownBird.power.variable, {
+      return power6_8(currentSpace.bird.power.variable, {
         setDisableClick,
         setCurrentActionText,
         setResourceQuantity,
@@ -169,7 +174,7 @@ export const brownPowerCheck = (
       });
     case 8:
       console.log("checking power 8");
-      return power6_8(currentBrownBird.power.variable, {
+      return power6_8(currentSpace.bird.power.variable, {
         setDisableClick,
         setCurrentActionText,
         setResourceQuantity,
@@ -184,6 +189,23 @@ export const brownPowerCheck = (
         setCurrentActionText,
         setBrownBirdVariable,
       });
+    case 10:
+      console.log("checking power 10");
+      if (checkOtherEggs(playerEggs, currentSpace.eggCount)) {
+        return power10(
+          brownBirdCopy.sameBird,
+          currentSpace.bird.power.variable,
+          lastSpace,
+          {
+            setDisableClick,
+            setBrownBirdCopy,
+            setResourceQuantity,
+            setCurrentActionText,
+            setBrownBirdVariable,
+          }
+        );
+      } else return false;
+
     case 13:
       console.log("checking power 13");
       return power13({

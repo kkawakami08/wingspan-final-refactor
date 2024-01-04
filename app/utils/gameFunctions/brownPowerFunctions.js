@@ -140,6 +140,43 @@ export const power9 = (
   }
 };
 
+export const power10 = (
+  sameBird,
+  powerVariable,
+  lastSpace,
+  {
+    setDisableClick,
+    setBrownBirdCopy,
+    setResourceQuantity,
+    setCurrentActionText,
+    setBrownBirdVariable,
+  }
+) => {
+  // Discard 1 egg from any of your other birds to gain 2 wild from the supply.
+  if (sameBird) {
+    setResourceQuantity(powerVariable);
+    setCurrentActionText(`Gain ${powerVariable} tokens from Food Supply`);
+    setDisableClick((state) => ({
+      ...state,
+      foodSupply: false,
+    }));
+    setBrownBirdVariable("");
+    return true;
+  } else {
+    setBrownBirdCopy((state) => ({
+      ...state,
+      currentSpace: lastSpace,
+    }));
+    setResourceQuantity(1);
+    setCurrentActionText("Discard 1 egg from any of your other birds.");
+    setDisableClick((state) => ({
+      ...state,
+      playedBird: false,
+    }));
+    return;
+  }
+};
+
 export const power13 = ({
   lastSpace,
   setCurrentActionText,
