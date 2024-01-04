@@ -49,6 +49,7 @@ export const initialDisableClick = {
   playerFood: true,
   playedBird: true,
   selectedFood: false,
+  foodSupply: true,
 };
 
 export const disableClickAtom = atom(initialDisableClick);

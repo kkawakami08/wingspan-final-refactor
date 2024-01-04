@@ -6,6 +6,7 @@ import BirdFeeder from "./game/food/BirdFeeder";
 import HabitatMat from "./game/mat/HabitatMat";
 import SelectedFood from "./game/food/SelectedFood";
 import PlayerFoodSupply from "./game/food/PlayerFoodSupply";
+import FoodSupply from "./game/food/FoodSupply";
 
 import { useAtom } from "jotai";
 import { brownPowerContinueBtnAtom } from "../utils/jotaiStore";
@@ -23,6 +24,7 @@ const Wingspan = () => {
       <BirdFeeder />
       <PlayerFoodSupply />
       <SelectedFood />
+      <FoodSupply />
       <HabitatMat />
     </div>
   );
