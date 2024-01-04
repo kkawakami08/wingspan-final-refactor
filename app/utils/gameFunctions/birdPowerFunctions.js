@@ -4,7 +4,7 @@ import {
   power1,
   power2,
   power3_4,
-  power6,
+  power6_8,
   power13,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
@@ -160,6 +160,14 @@ export const brownPowerCheck = (
         setResourceQuantity,
         setBrownBirdVariable,
       });
+    case 8:
+      console.log("checking power 8");
+      return power6_8(currentBrownBird.power.variable, {
+        setDisableClick,
+        setCurrentActionText,
+        setResourceQuantity,
+        setBrownBirdVariable,
+      });
     case 13:
       console.log("checking power 13");
       return power13({
@@ -174,7 +182,7 @@ export const brownPowerCheck = (
       });
     default:
       console.log("default case");
-      break;
+      return false;
   }
 };
 

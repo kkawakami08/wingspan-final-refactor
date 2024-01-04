@@ -86,7 +86,7 @@ export const power3_4 = ({
   return true;
 };
 
-export const power6 = (
+export const power6_8 = (
   powerVariable,
   {
     setDisableClick,
