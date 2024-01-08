@@ -81,3 +81,5 @@ export const brownBirdCopyAtom = atom({
 export const brownPowerContinueBtnAtom = atom(false);
 
 export const brownBirdVariableAtom = atom(null);
+
+export const eggTrackerAtom = atom([]);

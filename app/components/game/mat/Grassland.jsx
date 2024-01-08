@@ -110,7 +110,8 @@ const Grassland = () => {
     >
       <p>Grassland</p>
       <p className="font-normal text-lg">Lay eggs</p>
-      {currentAction === "grassland" && <DiscardEggs />}
+      {currentAction === "grassland" ||
+        (currentAction === "brownEgg" && <DiscardEggs />)}
     </div>
   );
 };

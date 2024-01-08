@@ -17,7 +17,13 @@ export const power1 = (
     continuePower1 = true;
   } else {
     if (birdFeederCheck(powerVariable, birdFeeder)) {
-      setCurrentActionText("Found in birdFeeder, enabling corresponding areas");
+      if (Array.isArray(powerVariable)) {
+        setCurrentActionText(
+          `Select ${powerVariable[0]} or ${powerVariable[1]} from the bird feeder.`
+        );
+      } else {
+        setCurrentActionText(`Select ${powerVariable} from the birdFeeder`);
+      }
       setBrownBirdVariable(powerVariable);
       continuePower1 = true;
     } else {
@@ -234,4 +240,26 @@ export const power13 = ({
     return true;
   }
   return false;
+};
+
+export const power17 = (
+  powerVariable,
+  {
+    setResourceQuantity,
+    setBrownBirdVariable,
+    setDisableClick,
+    setCurrentActionText,
+  }
+) => {
+  // All players lay 1 egg on any 1 bowl/cavity/ground next. You may lay 1 egg on 1 additional bowl bird.
+  setResourceQuantity(2);
+  setBrownBirdVariable(powerVariable);
+  setCurrentActionText(
+    `Place an egg on any bird with a ${powerVariable} nest.`
+  );
+  setDisableClick((state) => ({
+    ...state,
+    playedBird: false,
+  }));
+  return true;
 };

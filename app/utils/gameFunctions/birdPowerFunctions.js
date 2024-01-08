@@ -9,9 +9,14 @@ import {
   power10,
   power13,
   power12,
+  power17,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
+
+const birdFeederPowers = [1, 3, 4, 13];
+const foodPowers = [6, 8, 9, 10];
+const cachePowers = [12];
 
 export const activateBrownPowers = (
   habitat,
@@ -81,9 +86,6 @@ export const activateBrownPowers = (
   );
   //stops looping after all brown birds are checked
 };
-
-const birdFeederPowers = [1, 2, 3, 4, 5, 13];
-const foodPowers = [6, 7, 8, 9, 10, 11];
 
 export const brownPowerCheck = (
   currentSpace,
@@ -229,6 +231,15 @@ export const brownPowerCheck = (
         birdFeeder,
 
         setSelectedFood,
+      });
+    case 17:
+      setCurrentAction("brownEgg");
+      console.log("checking power 17");
+      return power17(currentSpace.bird.power.variable, {
+        setResourceQuantity,
+        setBrownBirdVariable,
+        setDisableClick,
+        setCurrentActionText,
       });
     default:
       console.log("default case");

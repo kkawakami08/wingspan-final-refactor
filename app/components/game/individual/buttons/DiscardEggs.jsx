@@ -4,18 +4,75 @@ import {
   disableClickAtom,
   currentActionAtom,
   currentActionTextAtom,
+  birdFeederAtom,
+  playerEggSupplyAtom,
+  brownBirdCopyAtom,
+  brownBirdVariableAtom,
+  selectedFoodAtom,
+  brownPowerContinueBtnAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
+  eggTrackerAtom,
 } from "../../../../utils/jotaiStore";
 import { resetFromGrassland } from "../../../../utils/gameFunctions/grasslandFunctions";
+import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const DiscardEggs = () => {
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
-  const [, setCurrentAction] = useAtom(currentActionAtom);
+  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
+  const [brownBirdVariable, setBrownBirdVariable] = useAtom(
+    brownBirdVariableAtom
+  );
+  const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
+    brownPowerContinueBtnAtom
+  );
+  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [, setEggTracker] = useAtom(eggTrackerAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
+  const [forest] = useAtom(forestAtom);
+  const [grassland] = useAtom(grasslandAtom);
+  const [wetland] = useAtom(wetlandAtom);
+
+  const brownBirdSupply = {
+    birdFeeder: birdFeeder,
+    setBirdFeeder: setBirdFeeder,
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+    setBrownPowerContinueBtn: setBrownPowerContinueBtn,
+    brownPowerContinueBtn: brownPowerContinueBtn,
+    setCurrentAction: setCurrentAction,
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+    setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
+  };
 
   const discardEggsClick = () => {
-    resetFromGrassland(setDisableClick, setCurrentAction, setCurrentActionText);
-    setResourceQuantity(0);
+    if (currentAction === "brownEgg") {
+      setEggTracker([]);
+      continueBrownPower(
+        brownBirdCopy,
+        setBrownBirdCopy,
+        forest,
+        grassland,
+        wetland,
+        brownBirdSupply
+      );
+    } else {
+      resetFromGrassland(
+        setDisableClick,
+        setCurrentAction,
+        setCurrentActionText
+      );
+      setResourceQuantity(0);
+    }
   };
 
   return (

@@ -15,6 +15,7 @@ import {
   forestAtom,
   wetlandAtom,
   selectedFoodAtom,
+  eggTrackerAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
@@ -44,7 +45,10 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
   const [forest] = useAtom(forestAtom);
   const [wetland] = useAtom(wetlandAtom);
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
-  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+  const [eggTracker, setEggTracker] = useAtom(eggTrackerAtom);
+  const [brownBirdVariable, setBrownBirdVariable] = useAtom(
+    brownBirdVariableAtom
+  );
   const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
     brownPowerContinueBtnAtom
   );
@@ -121,6 +125,32 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
               wetland,
               brownBirdSupply
             );
+          }
+
+          break;
+        case "brownEgg":
+          if (
+            eggTracker.includes(bird.common_name) ||
+            bird.nest !== brownBirdVariable
+          ) {
+            setCurrentActionText(
+              "Cannot place an egg on this bird. Select a different one."
+            );
+          } else {
+            layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
+            setEggTracker((state) => [...state, bird.common_name]);
+            if (resourceQuantity - 1 == 0) {
+              continueBrownPower(
+                brownBirdCopy,
+                setBrownBirdCopy,
+                forest,
+                grassland,
+                wetland,
+                brownBirdSupply
+              );
+            } else {
+              setCurrentActionText("Select another bird to lay an egg on.");
+            }
           }
 
           break;
@@ -201,6 +231,7 @@ const PlayedBirdCard = ({ habitat, setHabitat, space, location }) => {
         </p>
         {/* <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
       <div>{habitatContent}</div> */}
+        <p className="text-white text-lg">Nest Type: {bird.nest}</p>
         <p className="text-white text-lg">Eggs laid: {currentEggs}</p>
         <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
         <p className="text-white text-lg">Cache Count: {currentCache}</p>
