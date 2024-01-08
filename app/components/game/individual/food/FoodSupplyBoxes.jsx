@@ -14,8 +14,12 @@ import {
   forestAtom,
   grasslandAtom,
   wetlandAtom,
+  playerEggSupplyAtom,
 } from "../../../../utils/jotaiStore";
-import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  cacheToken,
+  continueBrownPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const FoodSupplyBoxes = ({ type, bg }) => {
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
@@ -32,9 +36,10 @@ const FoodSupplyBoxes = ({ type, bg }) => {
 
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
-  const [forest] = useAtom(forestAtom);
-  const [grassland] = useAtom(grasslandAtom);
-  const [wetland] = useAtom(wetlandAtom);
+  const [forest, setForest] = useAtom(forestAtom);
+  const [grassland, setGrassland] = useAtom(grasslandAtom);
+  const [wetland, setWetland] = useAtom(wetlandAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
 
   const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
@@ -54,6 +59,7 @@ const FoodSupplyBoxes = ({ type, bg }) => {
     setBrownBirdCopy: setBrownBirdCopy,
     brownBirdCopy: brownBirdCopy,
     setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
   };
 
   const foodSupplyClick = () => {
@@ -63,7 +69,21 @@ const FoodSupplyBoxes = ({ type, bg }) => {
       if (!type.includes(brownBirdVariable)) {
         console.log("not the right type");
       } else {
-        setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);
+        switch (currentAction) {
+          case "brownFood":
+            setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);
+            break;
+          case "brownCache":
+            cacheToken(
+              brownBirdCopy,
+              setForest,
+              setGrassland,
+              setWetland,
+              setSelectedFood
+            );
+            break;
+        }
+
         setResourceQuantity((state) => state - 1);
         if (resourceQuantity - 1 == 0) {
           continueBrownPower(

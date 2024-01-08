@@ -15,14 +15,10 @@ import {
   selectedFoodAtom,
   playerEggSupplyAtom,
 } from "../../../../../utils/jotaiStore";
-import RollBirdFeederBtn from "../RollBirdFeederBtn";
-import { rollBirdFeeder } from "../../../../../utils/gameFunctions/birdFeederFunctions";
-import { resetAction } from "../../../../../utils/gameFunctions/habitatFunctions";
 import {
-  activateBrownPowers,
+  cacheToken,
   continueBrownPower,
 } from "../../../../../utils/gameFunctions/birdPowerFunctions";
-import { useEffect } from "react";
 import { saveFoodSelection } from "../../../../../utils/gameFunctions/foodFunctions";
 
 const CacheOrSupply = () => {
@@ -39,8 +35,8 @@ const CacheOrSupply = () => {
   );
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [forest, setForest] = useAtom(forestAtom);
-  const [grassland] = useAtom(grasslandAtom);
-  const [wetland] = useAtom(wetlandAtom);
+  const [grassland, setGrassland] = useAtom(grasslandAtom);
+  const [wetland, setWetland] = useAtom(wetlandAtom);
   const [playerEggs] = useAtom(playerEggSupplyAtom);
 
   const brownBirdSupply = {
@@ -65,17 +61,15 @@ const CacheOrSupply = () => {
       ...state,
       selectedFood: false,
     }));
-    switch (currentAction) {
-      case "brownFood":
-        continueBrownPower(
-          brownBirdCopy,
-          setBrownBirdCopy,
-          forest,
-          grassland,
-          wetland,
-          brownBirdSupply
-        );
-    }
+
+    continueBrownPower(
+      brownBirdCopy,
+      setBrownBirdCopy,
+      forest,
+      grassland,
+      wetland,
+      brownBirdSupply
+    );
   };
 
   const addToSupplyClick = () => {
@@ -85,16 +79,13 @@ const CacheOrSupply = () => {
   console.log(brownBirdCopy, "from cache");
 
   const cacheTokenClick = () => {
-    switch (brownBirdCopy.location) {
-      case "forest":
-        setForest((forest) => {
-          forest[brownBirdCopy.currentSpace].cacheCount += 1;
-          return forest;
-        });
-        setSelectedFood([]);
-      default:
-        break;
-    }
+    cacheToken(
+      brownBirdCopy,
+      setForest,
+      setGrassland,
+      setWetland,
+      setSelectedFood
+    );
 
     continueBrownBirds();
   };

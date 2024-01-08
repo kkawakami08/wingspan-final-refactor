@@ -8,6 +8,7 @@ import {
   power9,
   power10,
   power13,
+  power12,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -82,7 +83,7 @@ export const activateBrownPowers = (
 };
 
 const birdFeederPowers = [1, 2, 3, 4, 5, 13];
-const foodPowers = [6, 7, 8, 9, 10, 11, 12];
+const foodPowers = [6, 7, 8, 9, 10, 11];
 
 export const brownPowerCheck = (
   currentSpace,
@@ -205,6 +206,17 @@ export const brownPowerCheck = (
           }
         );
       } else return false;
+    case 12:
+      console.log("checking power 12");
+      setCurrentAction("brownCache");
+      return power12(lastSpace, {
+        setDisableClick,
+
+        setResourceQuantity,
+        setCurrentActionText,
+        setBrownBirdVariable,
+        setBrownBirdCopy,
+      });
 
     case 13:
       console.log("checking power 13");
@@ -270,5 +282,24 @@ export const continueBrownPower = (
       brownBirdSupply.setCurrentActionText
     );
     return;
+  }
+};
+
+export const cacheToken = (
+  brownBirdCopy,
+  setForest,
+  setGrassland,
+  setWetland,
+  setSelectedFood
+) => {
+  switch (brownBirdCopy.location) {
+    case "forest":
+      setForest((forest) => {
+        forest[brownBirdCopy.currentSpace].cacheCount += 1;
+        return forest;
+      });
+      setSelectedFood([]);
+    default:
+      break;
   }
 };

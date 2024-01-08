@@ -177,6 +177,31 @@ export const power10 = (
   }
 };
 
+export const power12 = (
+  lastSpace,
+  {
+    setDisableClick,
+    setResourceQuantity,
+    setCurrentActionText,
+    setBrownBirdVariable,
+    setBrownBirdCopy,
+  }
+) => {
+  // Cache 1 seed from the supply on this bird.
+  setDisableClick((state) => ({
+    ...state,
+    foodSupply: false,
+  }));
+  setResourceQuantity(1);
+  setCurrentActionText("Cache 1 seed from the supply on this bird.");
+  setBrownBirdVariable("seed");
+  setBrownBirdCopy((state) => ({
+    ...state,
+    currentSpace: lastSpace,
+  }));
+  return true;
+};
+
 export const power13 = ({
   lastSpace,
   setCurrentActionText,
