@@ -3,7 +3,7 @@ import PlayedBirdCard from "../individual/bird/PlayedBirdCard";
 import { useAtom } from "jotai";
 import { wetlandAtom } from "../../../utils/jotaiStore";
 
-const WetlandRow = () => {
+const WetlandRow = ({ brownBirdSupply }) => {
   const [wetland, setWetland] = useAtom(wetlandAtom);
   const wetlandArray = Object.keys(wetland);
 
@@ -16,6 +16,7 @@ const WetlandRow = () => {
           setHabitat={setWetland}
           space={space}
           location={"wetland"}
+          brownBirdSupply={brownBirdSupply}
         />
       );
     } else {

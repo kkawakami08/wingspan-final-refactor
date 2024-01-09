@@ -3,22 +3,13 @@ import { useEffect } from "react";
 import {
   selectedBirdsAtom,
   resourceQuantityAtom,
-  disableClickAtom,
   playerBirdHandAtom,
-  currentActionAtom,
   birdTrayAtom,
   birdDeckAtom,
   selectedFoodAtom,
   playerFoodSupplyAtom,
   playBirdAtom,
-  currentActionTextAtom,
-  forestAtom,
-  forestBirdCountAtom,
-  brownBirdVariableAtom,
-  birdFeederAtom,
   forestBrownBirdsAtom,
-  brownBirdCopyAtom,
-  brownPowerContinueBtnAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
@@ -26,53 +17,25 @@ import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions
 import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
 import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
-const SelectBtn = () => {
+const SelectBtn = ({ brownBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
   const [birdDeck] = useAtom(birdDeckAtom);
-  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
-  const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
-  const [, setDisableClick] = useAtom(disableClickAtom);
+  const [resourceQuantity] = useAtom(resourceQuantityAtom);
 
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
-  const [forest] = useAtom(forestAtom);
-  const [forestBirdCount] = useAtom(forestBirdCountAtom);
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
-  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
-  const [brownPowerContinueBtn, setBrownPowerContinueBtn] = useAtom(
-    brownPowerContinueBtnAtom
-  );
-
-  const [brownBirdVariable, setBrownBirdVariable] = useAtom(
-    brownBirdVariableAtom
-  );
-
-  const brownBirdSupply = {
-    birdFeeder: birdFeeder,
-    setBirdFeeder: setBirdFeeder,
-    setDisableClick: setDisableClick,
-    setCurrentActionText: setCurrentActionText,
-    setResourceQuantity: setResourceQuantity,
-    setBrownBirdVariable: setBrownBirdVariable,
-    setBrownPowerContinueBtn: setBrownPowerContinueBtn,
-    brownPowerContinueBtn: brownPowerContinueBtn,
-    setCurrentAction: setCurrentAction,
-    setBrownBirdCopy: setBrownBirdCopy,
-    brownBirdCopy: brownBirdCopy,
-    setSelectedFood: setSelectedFood,
-  };
 
   let disableSave;
+  console.log(brownBirdSupply.currentAction);
   const updateDisable = () => {
-    switch (currentAction) {
+    switch (brownBirdSupply.currentAction) {
       case "wetland":
         disableSave = selectedBirds.length === resourceQuantity;
         break;
@@ -89,7 +52,7 @@ const SelectBtn = () => {
   updateDisable();
 
   const selectBtnClick = () => {
-    switch (currentAction) {
+    switch (brownBirdSupply.currentAction) {
       case "wetland":
         saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
         refillTray(birdTray, birdDeck, setBirdTray);
@@ -99,15 +62,14 @@ const SelectBtn = () => {
         if (!forestBrownBirds.length) {
           break;
         } else {
-          setBrownBirdCopy((state) => ({
+          brownBirdSupply.setBrownBirdCopy((state) => ({
             ...state,
             location: "forest",
           }));
 
           activateBrownPowers(
-            forest,
+            brownBirdSupply.forest,
             forestBrownBirds,
-
             brownBirdSupply
           );
           return;
@@ -117,12 +79,12 @@ const SelectBtn = () => {
         setPlayBirdState((state) => {
           state.bird = selectedBirds[0];
         });
-        setDisableClick((state) => ({
+        brownBirdSupply.setDisableClick((state) => ({
           ...state,
           playerFood: false,
           birdHand: true,
         }));
-        setCurrentActionText(
+        brownBirdSupply.setCurrentActionText(
           `Selected ${selectedBirds[0].common_name}. Discard required food`
         );
 
@@ -130,11 +92,11 @@ const SelectBtn = () => {
     }
 
     resetAction(
-      setDisableClick,
-      setResourceQuantity,
-      setCurrentAction,
+      brownBirdSupply.setDisableClick,
+      brownBirdSupply.setResourceQuantity,
+      brownBirdSupply.setCurrentAction,
 
-      setCurrentActionText
+      brownBirdSupply.setCurrentActionText
     );
   };
 

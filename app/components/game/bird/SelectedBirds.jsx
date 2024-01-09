@@ -8,9 +8,8 @@ import SelectedBirdCard from "../individual/bird/SelectedBirdCard";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
 
-const SelectedBirds = () => {
+const SelectedBirds = ({ brownBirdSupply }) => {
   const [selectedBirds] = useAtom(selectedBirdsAtom);
-  const [currentAction] = useAtom(currentActionAtom);
   const [playBirdState] = useAtom(playBirdAtom);
 
   const selectedBirdsContent = selectedBirds.map((bird) => (
@@ -18,13 +17,13 @@ const SelectedBirds = () => {
   ));
 
   const btnDisplay = () => {
-    switch (currentAction) {
+    switch (brownBirdSupply.currentAction) {
       case "forest":
-        return <DiscardBtn />;
+        return <DiscardBtn brownBirdSupply={brownBirdSupply} />;
       case "wetland":
-        return <SelectBtn />;
+        return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "playBird":
-        return <SelectBtn />;
+        return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       default:
         break;
     }

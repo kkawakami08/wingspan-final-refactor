@@ -1,19 +1,10 @@
 import { useAtom } from "jotai";
 import {
-  brownPowerContinueBtnAtom,
-  birdFeederAtom,
-  disableClickAtom,
-  currentActionTextAtom,
-  currentActionAtom,
-  resourceQuantityAtom,
-  brownBirdVariableAtom,
-  brownBirdCopyAtom,
   forestAtom,
   grasslandAtom,
   wetlandAtom,
   playerFoodSupplyAtom,
   selectedFoodAtom,
-  playerEggSupplyAtom,
 } from "../../../../../utils/jotaiStore";
 import {
   cacheToken,
@@ -21,66 +12,31 @@ import {
 } from "../../../../../utils/gameFunctions/birdPowerFunctions";
 import { saveFoodSelection } from "../../../../../utils/gameFunctions/foodFunctions";
 
-const CacheOrSupply = () => {
-  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
-  const [, setDisableClick] = useAtom(disableClickAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+const CacheOrSupply = ({ brownBirdSupply }) => {
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
-  const [brownPowerContinue, setBrownPowerContinue] = useAtom(
-    brownPowerContinueBtnAtom
-  );
-  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
-  const [forest, setForest] = useAtom(forestAtom);
-  const [grassland, setGrassland] = useAtom(grasslandAtom);
-  const [wetland, setWetland] = useAtom(wetlandAtom);
-  const [playerEggs] = useAtom(playerEggSupplyAtom);
-
-  const brownBirdSupply = {
-    birdFeeder: birdFeeder,
-    setBirdFeeder: setBirdFeeder,
-    setDisableClick: setDisableClick,
-    setCurrentActionText: setCurrentActionText,
-    setResourceQuantity: setResourceQuantity,
-    setBrownBirdVariable: setBrownBirdVariable,
-    setBrownPowerContinueBtn: setBrownPowerContinue,
-    brownPowerContinueBtn: brownPowerContinue,
-    setCurrentAction: setCurrentAction,
-    setBrownBirdCopy: setBrownBirdCopy,
-    brownBirdCopy: brownBirdCopy,
-    setSelectedFood: setSelectedFood,
-    playerEggs: playerEggs,
-  };
+  const [, setForest] = useAtom(forestAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [, setWetland] = useAtom(wetlandAtom);
 
   const continueBrownBirds = () => {
-    setBrownPowerContinue(false);
-    setDisableClick((state) => ({
+    brownBirdSupply.setBrownPowerContinueBtn(false);
+    brownBirdSupply.setDisableClick((state) => ({
       ...state,
       selectedFood: false,
     }));
 
-    continueBrownPower(
-      brownBirdCopy,
-      setBrownBirdCopy,
-      forest,
-      grassland,
-      wetland,
-      brownBirdSupply
-    );
+    continueBrownPower(brownBirdSupply);
   };
 
   const addToSupplyClick = () => {
     saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
     continueBrownBirds();
   };
-  console.log(brownBirdCopy, "from cache");
 
   const cacheTokenClick = () => {
     cacheToken(
-      brownBirdCopy,
+      brownBirdSupply.brownBirdCopy,
       setForest,
       setGrassland,
       setWetland,

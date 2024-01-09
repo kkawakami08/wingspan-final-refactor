@@ -7,11 +7,11 @@ import {
 import { foodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 
 const BirdFeederDie = ({ die }) => {
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+  const [disableClick] = useAtom(disableClickAtom);
   const disableBirdFeeder = disableClick.birdFeeder;
 
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
-  const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [, setSelectedFood] = useAtom(selectedFoodAtom);
 
   const birdFeederClick = () => {
     if (disableBirdFeeder) console.log("disabled");

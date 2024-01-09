@@ -25,7 +25,7 @@ const Wetland = () => {
 
   const [, setPlayBird] = useAtom(playBirdAtom);
 
-  const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
   const [playerFood] = useAtom(playerFoodSupplyAtom);
 

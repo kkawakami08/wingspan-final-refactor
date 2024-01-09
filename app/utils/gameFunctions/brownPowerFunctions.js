@@ -2,13 +2,11 @@ import { birdFeederCheck } from "./brownPowerHelperFunctions";
 
 export const power1 = (
   powerVariable,
-  {
-    birdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-  }
+  birdFeeder,
+  setDisableClick,
+  setCurrentActionText,
+  setResourceQuantity,
+  setBrownBirdVariable
 ) => {
   let continuePower1 = false;
   if (powerVariable === "die") {
@@ -42,13 +40,11 @@ export const power1 = (
 
 export const power2 = (
   powerVariable,
-  {
-    birdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-  }
+  birdFeeder,
+  setDisableClick,
+  setCurrentActionText,
+  setResourceQuantity,
+  setBrownBirdVariable
 ) => {
   //gain all [type] in bird feeder
   //invertebrate/fish
@@ -73,12 +69,12 @@ export const power2 = (
   }
 };
 
-export const power3_4 = ({
+export const power3_4 = (
   setDisableClick,
   setCurrentActionText,
   setResourceQuantity,
-  setBrownBirdVariable,
-}) => {
+  setBrownBirdVariable
+) => {
   //Each player gains 1 die from the birdfeeder, starting with the player of your choice.
   // Player(s) with the fewest birds in their forest gain 1 die from birdfeeder.
   //automa doesn't get anything, so user just gets to pick one die
@@ -94,12 +90,11 @@ export const power3_4 = ({
 
 export const power6_8 = (
   powerVariable,
-  {
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-  }
+
+  setDisableClick,
+  setCurrentActionText,
+  setResourceQuantity,
+  setBrownBirdVariable
 ) => {
   // Gain 1 fruit/invertebrate/seed from the supply.
   setResourceQuantity(1);
@@ -114,13 +109,12 @@ export const power6_8 = (
 
 export const power9 = (
   sameBird,
-  {
-    setDisableClick,
 
-    setResourceQuantity,
-    setCurrentActionText,
-    setBrownBirdVariable,
-  }
+  setDisableClick,
+
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdVariable
 ) => {
   // Trade 1 wild for any other type from the supply.
   if (sameBird) {
@@ -150,13 +144,12 @@ export const power10 = (
   sameBird,
   powerVariable,
   lastSpace,
-  {
-    setDisableClick,
-    setBrownBirdCopy,
-    setResourceQuantity,
-    setCurrentActionText,
-    setBrownBirdVariable,
-  }
+
+  setDisableClick,
+  setBrownBirdCopy,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdVariable
 ) => {
   // Discard 1 egg from any of your other birds to gain 2 wild from the supply.
   if (sameBird) {
@@ -185,13 +178,12 @@ export const power10 = (
 
 export const power12 = (
   lastSpace,
-  {
-    setDisableClick,
-    setResourceQuantity,
-    setCurrentActionText,
-    setBrownBirdVariable,
-    setBrownBirdCopy,
-  }
+
+  setDisableClick,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdVariable,
+  setBrownBirdCopy
 ) => {
   // Cache 1 seed from the supply on this bird.
   setDisableClick((state) => ({
@@ -208,7 +200,7 @@ export const power12 = (
   return true;
 };
 
-export const power13 = ({
+export const power13 = (
   lastSpace,
   setCurrentActionText,
   setDisableClick,
@@ -216,8 +208,8 @@ export const power13 = ({
   setBrownBirdCopy,
   birdFeeder,
 
-  setSelectedFood,
-}) => {
+  setSelectedFood
+) => {
   // Gain 1 seed from the birdfeeder, if available. You may cache it on this bird.
   if (birdFeederCheck("seed", birdFeeder)) {
     setDisableClick((state) => ({
@@ -244,12 +236,11 @@ export const power13 = ({
 
 export const power17 = (
   powerVariable,
-  {
-    setResourceQuantity,
-    setBrownBirdVariable,
-    setDisableClick,
-    setCurrentActionText,
-  }
+
+  setResourceQuantity,
+  setBrownBirdVariable,
+  setDisableClick,
+  setCurrentActionText
 ) => {
   // All players lay 1 egg on any 1 bowl/cavity/ground next. You may lay 1 egg on 1 additional bowl bird.
   setResourceQuantity(2);

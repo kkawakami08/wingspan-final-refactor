@@ -3,7 +3,7 @@ import PlayedBirdCard from "../individual/bird/PlayedBirdCard";
 import { useAtom } from "jotai";
 import { grasslandAtom } from "../../../utils/jotaiStore";
 
-const GrasslandRow = () => {
+const GrasslandRow = ({ brownBirdSupply }) => {
   const [grassland, setGrassland] = useAtom(grasslandAtom);
   const grasslandArray = Object.keys(grassland);
 
@@ -16,6 +16,7 @@ const GrasslandRow = () => {
           setHabitat={setGrassland}
           space={space}
           location={"grassland"}
+          brownBirdSupply={brownBirdSupply}
         />
       );
     } else {

@@ -21,53 +21,32 @@ const cachePowers = [12];
 export const activateBrownPowers = (
   habitat,
   habitatBrownBirds,
-
-  {
-    birdFeeder,
-    setBirdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-    setBrownPowerContinueBtn,
-    brownPowerContinueBtn,
-    setCurrentAction,
-    setBrownBirdCopy,
-    brownBirdCopy,
-    setSelectedFood,
-    playerEggs,
-  }
+  brownBirdSupply
 ) => {
-  resetBrownPower(setResourceQuantity, setBrownBirdVariable, setDisableClick);
+  resetBrownPower(
+    brownBirdSupply.setResourceQuantity,
+    brownBirdSupply.setBrownBirdVariable,
+    brownBirdSupply.setDisableClick
+  );
   let tempCopy = [...habitatBrownBirds];
 
   while (tempCopy.length) {
     let lastSpace = tempCopy.pop();
     //if false, do stuff, come back around to same bird
-    const continuePower = brownPowerCheck(habitat[lastSpace], lastSpace, {
-      birdFeeder,
-      setBirdFeeder,
-      setDisableClick,
-      setCurrentActionText,
-      setResourceQuantity,
-      setBrownBirdVariable,
-      setBrownPowerContinueBtn,
-      brownPowerContinueBtn,
-      setCurrentAction,
-      setBrownBirdCopy,
-      brownBirdCopy,
-      setSelectedFood,
-      playerEggs,
-    });
+    const continuePower = brownPowerCheck(
+      habitat[lastSpace],
+      lastSpace,
+      brownBirdSupply
+    );
     if (continuePower) {
       console.log("power was true");
-      setBrownBirdCopy((state) => ({
+      brownBirdSupply.setBrownBirdCopy((state) => ({
         ...state,
         copy: tempCopy,
       }));
       return;
     } else if (continuePower === undefined) {
-      setBrownBirdCopy((state) => ({
+      brownBirdSupply.setBrownBirdCopy((state) => ({
         ...state,
         copy: [...habitatBrownBirds],
         sameBird: true,
@@ -76,171 +55,158 @@ export const activateBrownPowers = (
       return;
     } // continuePower = false -> continues to next brown Power bird
   }
-  console.log("end");
-  setBrownPowerContinueBtn(false);
+  brownBirdSupply.setBrownPowerContinueBtn(false);
   resetAction(
-    setDisableClick,
-    setResourceQuantity,
-    setCurrentAction,
-    setCurrentActionText
+    brownBirdSupply.setDisableClick,
+    brownBirdSupply.setResourceQuantity,
+    brownBirdSupply.setCurrentAction,
+    brownBirdSupply.setCurrentActionText
   );
   //stops looping after all brown birds are checked
 };
 
-export const brownPowerCheck = (
-  currentSpace,
-  lastSpace,
-  {
-    birdFeeder,
-    setBirdFeeder,
-    setDisableClick,
-    setCurrentActionText,
-    setResourceQuantity,
-    setBrownBirdVariable,
-    setBrownPowerContinueBtn,
-    brownPowerContinueBtn,
-    setCurrentAction,
-    setBrownBirdCopy,
-    brownBirdCopy,
-    setSelectedFood,
-    playerEggs,
-  }
-) => {
+export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
   console.log(`Checking ${currentSpace.bird.common_name}'s brown power`);
 
   if (birdFeederPowers.includes(currentSpace.bird.power.id)) {
-    console.log(brownBirdCopy);
-    console.log("birdfeeder", birdFeeder);
-    setCurrentAction("brownFeeder");
-    if (enableRolling(birdFeeder) && !brownBirdCopy.sameBird) {
-      console.log("can reroll before turn");
-      setCurrentActionText(
+    brownBirdSupply.setCurrentAction("brownFeeder");
+    if (
+      enableRolling(brownBirdSupply.birdFeeder) &&
+      !brownBirdSupply.brownBirdCopy.sameBird
+    ) {
+      brownBirdSupply.setCurrentActionText(
         "do you want to roll the birdFeeder before checking this birds power?"
       );
-      setBrownBirdCopy((state) => ({
+      brownBirdSupply.setBrownBirdCopy((state) => ({
         ...state,
         dialog: "roll",
       }));
-      setBrownPowerContinueBtn(true);
+      brownBirdSupply.setBrownPowerContinueBtn(true);
       return;
     }
   }
   if (foodPowers.includes(currentSpace.bird.power.id)) {
-    setCurrentAction("brownFood");
+    brownBirdSupply.setCurrentAction("brownFood");
   }
-  setBrownBirdCopy((state) => ({
+  brownBirdSupply.setBrownBirdCopy((state) => ({
     ...state,
     sameBird: false,
   }));
   switch (currentSpace.bird.power.id) {
     case 1:
       console.log("checking power 1");
-      return power1(currentSpace.bird.power.variable, {
-        birdFeeder,
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power1(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.birdFeeder,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 2:
       console.log("checking power 2");
-      return power2(currentSpace.bird.power.variable, {
-        birdFeeder,
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power2(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.birdFeeder,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 3:
       console.log("checking power 3");
-      return power3_4({
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power3_4(
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 4:
       console.log("checking power 4");
-      return power3_4({
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power3_4(
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 6:
       console.log("checking power 6");
-      return power6_8(currentSpace.bird.power.variable, {
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power6_8(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 8:
       console.log("checking power 8");
-      return power6_8(currentSpace.bird.power.variable, {
-        setDisableClick,
-        setCurrentActionText,
-        setResourceQuantity,
-        setBrownBirdVariable,
-      });
+      return power6_8(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 9:
       console.log("checking power 9");
-      return power9(brownBirdCopy.sameBird, {
-        setDisableClick,
+      return power9(
+        brownBirdCopy.sameBird,
+        brownBirdSupply.setDisableClick,
 
-        setResourceQuantity,
-        setCurrentActionText,
-        setBrownBirdVariable,
-      });
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdVariable
+      );
     case 10:
       console.log("checking power 10");
       if (checkOtherEggs(playerEggs, currentSpace.eggCount)) {
         return power10(
           brownBirdCopy.sameBird,
           currentSpace.bird.power.variable,
-          lastSpace,
-          {
-            setDisableClick,
-            setBrownBirdCopy,
-            setResourceQuantity,
-            setCurrentActionText,
-            setBrownBirdVariable,
-          }
+          space,
+
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.setBrownBirdCopy,
+          brownBirdSupply.setResourceQuantity,
+          brownBirdSupply.setCurrentActionText,
+          brownBirdSupply.setBrownBirdVariable
         );
       } else return false;
     case 12:
       console.log("checking power 12");
       setCurrentAction("brownCache");
-      return power12(lastSpace, {
-        setDisableClick,
+      return power12(
+        space,
+        brownBirdSupply.setDisableClick,
 
-        setResourceQuantity,
-        setCurrentActionText,
-        setBrownBirdVariable,
-        setBrownBirdCopy,
-      });
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setBrownBirdCopy
+      );
 
     case 13:
       console.log("checking power 13");
-      return power13({
-        lastSpace,
-        setCurrentActionText,
-        setDisableClick,
-        setBrownPowerContinueBtn,
-        setBrownBirdCopy,
-        birdFeeder,
+      return power13(
+        space,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setBrownPowerContinueBtn,
+        brownBirdSupply.setBrownBirdCopy,
+        brownBirdSupply.birdFeeder,
 
-        setSelectedFood,
-      });
+        brownBirdSupply.setSelectedFood
+      );
     case 17:
       setCurrentAction("brownEgg");
       console.log("checking power 17");
-      return power17(currentSpace.bird.power.variable, {
-        setResourceQuantity,
-        setBrownBirdVariable,
-        setDisableClick,
-        setCurrentActionText,
-      });
+      return power17(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText
+      );
     default:
       console.log("default case");
       return false;
@@ -261,24 +227,17 @@ export const resetBrownPower = (
   }));
 };
 
-export const continueBrownPower = (
-  brownBirdCopy,
-  setBrownBirdCopy,
-  forest,
-  grassland,
-  wetland,
-  brownBirdSupply
-) => {
-  if (brownBirdCopy.copy.length) {
-    switch (brownBirdCopy.location) {
+export const continueBrownPower = (brownBirdSupply) => {
+  if (brownBirdSupply.brownBirdCopy.copy.length) {
+    switch (brownBirdSupply.brownBirdCopy.location) {
       case "forest":
-        setBrownBirdCopy((state) => ({
+        brownBirdSupply.setBrownBirdCopy((state) => ({
           ...state,
           dialog: "",
         }));
         activateBrownPowers(
-          forest,
-          brownBirdCopy.copy,
+          brownBirdSupply.forest,
+          brownBirdSupply.brownBirdCopy.copy,
 
           brownBirdSupply
         );

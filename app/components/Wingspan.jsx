@@ -9,10 +9,64 @@ import PlayerFoodSupply from "./game/food/PlayerFoodSupply";
 import FoodSupply from "./game/food/FoodSupply";
 
 import { useAtom } from "jotai";
-import { brownPowerContinueBtnAtom } from "../utils/jotaiStore";
+import {
+  playerEggSupplyAtom,
+  brownPowerContinueBtnAtom,
+  brownBirdCopyAtom,
+  currentActionAtom,
+  birdFeederAtom,
+  disableClickAtom,
+  currentActionTextAtom,
+  brownBirdVariableAtom,
+  resourceQuantityAtom,
+  selectedFoodAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
+} from "../utils/jotaiStore";
 
 const Wingspan = () => {
-  const [browncontinue] = useAtom(brownPowerContinueBtnAtom);
+  const [playerEggs] = useAtom(playerEggSupplyAtom);
+  const [forest] = useAtom(forestAtom);
+  const [grassland] = useAtom(grasslandAtom);
+  const [wetland] = useAtom(wetlandAtom);
+  const [brownPowerContinue, setBrownPowerContinue] = useAtom(
+    brownPowerContinueBtnAtom
+  );
+  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
+  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [, setDisableClick] = useAtom(disableClickAtom);
+  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
+  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+  const [, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
+  const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
+
+  const brownBirdSupply = {
+    forest: forest,
+    grassland: grassland,
+    wetland: wetland,
+
+    birdFeeder: birdFeeder,
+
+    setDisableClick: setDisableClick,
+    setCurrentActionText: setCurrentActionText,
+    setResourceQuantity: setResourceQuantity,
+    setBrownBirdVariable: setBrownBirdVariable,
+
+    setBrownPowerContinueBtn: setBrownPowerContinue,
+    brownPowerContinueBtn: brownPowerContinue,
+
+    currentAction: currentAction,
+    setCurrentAction: setCurrentAction,
+
+    setBrownBirdCopy: setBrownBirdCopy,
+    brownBirdCopy: brownBirdCopy,
+
+    setSelectedFood: setSelectedFood,
+    playerEggs: playerEggs,
+  };
+
   return (
     <div className="grid grid-cols-12 p-5 gap-5">
       <PlayerBirdHand />
@@ -20,12 +74,12 @@ const Wingspan = () => {
       <BirdTray />
       <BirdDeck />
 
-      <SelectedBirds />
+      <SelectedBirds brownBirdSupply={brownBirdSupply} />
       <BirdFeeder />
       <PlayerFoodSupply />
-      <SelectedFood />
-      <FoodSupply />
-      <HabitatMat />
+      <SelectedFood brownBirdSupply={brownBirdSupply} />
+      <FoodSupply brownBirdSupply={brownBirdSupply} />
+      <HabitatMat brownBirdSupply={brownBirdSupply} />
     </div>
   );
 };

@@ -4,7 +4,6 @@ import {
   resourceQuantityAtom,
   disableClickAtom,
   currentActionTextAtom,
-  brownPowerContinueBtnAtom,
 } from "../../../utils/jotaiStore";
 
 const CurrentAction = () => {
@@ -13,7 +12,6 @@ const CurrentAction = () => {
 
   const [disableClick] = useAtom(disableClickAtom);
   const [CurrentActionText] = useAtom(currentActionTextAtom);
-  const [brownPowerContinueBtn] = useAtom(brownPowerContinueBtnAtom);
 
   let resource = "";
   let discardResource = "";

@@ -7,42 +7,39 @@ import ForestRow from "./ForestRow";
 import PlayABirdRow from "./PlayABirdRow";
 import GrasslandRow from "./GrasslandRow";
 import WetlandRow from "./WetlandRow";
-import { useAtom } from "jotai";
-import {
-  playerEggSupplyAtom,
-  brownPowerContinueBtnAtom,
-  brownBirdCopyAtom,
-  currentActionAtom,
-} from "../../../utils/jotaiStore";
 import BrownPowerDialog from "./BrownPowerDialog";
 import NextPower from "../individual/buttons/NextPower";
 
-const HabitatMat = () => {
-  const [playerEggSupply] = useAtom(playerEggSupplyAtom);
-  const [brownPowerContinue] = useAtom(brownPowerContinueBtnAtom);
-  const [currentAction] = useAtom(currentActionAtom);
+const HabitatMat = ({ brownBirdSupply }) => {
   return (
     <div className="row-start-6 col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">
         Habitat mat
       </p>
-      {currentAction.includes("brown") && <NextPower />}
-      {brownPowerContinue && <BrownPowerDialog />}
+      {brownBirdSupply.currentAction.includes("brown") && (
+        <NextPower brownBirdSupply={brownBirdSupply} />
+      )}
+      {brownBirdSupply.brownPowerContinueBtn && (
+        <BrownPowerDialog brownBirdSupply={brownBirdSupply} />
+      )}
 
       <div className="flex gap-20 items-center justify-center">
         <CurrentAction />
-        <p className="text-xl font-bold"> Egg Count: {playerEggSupply}</p>
+        <p className="text-xl font-bold">
+          {" "}
+          Egg Count: {brownBirdSupply.playerEggs}
+        </p>
       </div>
 
       <div className="grid grid-cols-7 gap-5 ">
-        <PlayABird />
+        <PlayABird brownBirdSupply={brownBirdSupply} />
         <PlayABirdRow />
         <Forest />
-        <Grassland />
+        <Grassland brownBirdSupply={brownBirdSupply} />
         <Wetland />
-        <ForestRow />
-        <GrasslandRow />
-        <WetlandRow />
+        <ForestRow brownBirdSupply={brownBirdSupply} />
+        <GrasslandRow brownBirdSupply={brownBirdSupply} />
+        <WetlandRow brownBirdSupply={brownBirdSupply} />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import {
-  currentActionAtom,
   selectedFoodAtom,
   disableClickAtom,
   playerFoodSupplyAtom,
@@ -8,7 +7,6 @@ import {
 import { foodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 
 const FoodToken = ({ food }) => {
-  const [currentAction] = useAtom(currentActionAtom);
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
   const [playerFood, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
