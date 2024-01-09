@@ -106,6 +106,17 @@ const PlayedBirdCard = ({
               "Cannot place an egg on this bird. Select a different one."
             );
           } else {
+            if (brownBirdVariable === "this") {
+              if (
+                brownBirdSupply.brownBirdCopy.currentSpace !== Number(space)
+                // && brownBirdSupply.brownBirdCopy.location === location
+              ) {
+                brownBirdSupply.setCurrentActionText(
+                  "Must place egg on correct bird."
+                );
+                break;
+              }
+            }
             layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
             continueBrownPower(brownBirdSupply);
           }

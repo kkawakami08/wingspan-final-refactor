@@ -262,8 +262,31 @@ export const power18 = (
   setCurrentActionText
 ) => {
   // Lay 1 egg on any bird.
+
   setResourceQuantity(1);
   setCurrentActionText(`Place an egg on any bird.`);
+  setDisableClick((state) => ({
+    ...state,
+    playedBird: false,
+  }));
+  return true;
+};
+export const power19 = (
+  space,
+  setResourceQuantity,
+  setBrownBirdVariable,
+  setBrownBirdCopy,
+  setDisableClick,
+  setCurrentActionText
+) => {
+  // Lay 1 egg on this bird.
+  setResourceQuantity(1);
+  setBrownBirdVariable("this");
+  setBrownBirdCopy((state) => ({
+    ...state,
+    currentSpace: space,
+  }));
+  setCurrentActionText(`Place an egg on this bird.`);
   setDisableClick((state) => ({
     ...state,
     playedBird: false,
