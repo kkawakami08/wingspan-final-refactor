@@ -101,9 +101,21 @@ const PlayedBirdCard = ({
 
           break;
         case "brownEgg":
+          if (bird.egg_limit == currentEggs) {
+            brownBirdSupply.setCurrentActionText(
+              "Cannot place an egg on this bird. Select a different one."
+            );
+          } else {
+            layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
+            continueBrownPower(brownBirdSupply);
+          }
+
+          break;
+        case "brownNest":
           if (
             eggTracker.includes(bird.common_name) ||
-            bird.nest !== brownBirdVariable
+            bird.nest !== brownBirdVariable ||
+            bird.egg_limit == currentEggs
           ) {
             brownBirdSupply.setCurrentActionText(
               "Cannot place an egg on this bird. Select a different one."

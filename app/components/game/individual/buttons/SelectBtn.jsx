@@ -33,7 +33,6 @@ const SelectBtn = ({ brownBirdSupply }) => {
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
 
   let disableSave;
-  console.log(brownBirdSupply.currentAction);
   const updateDisable = () => {
     switch (brownBirdSupply.currentAction) {
       case "wetland":

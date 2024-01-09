@@ -12,7 +12,10 @@ const DiscardEggs = ({ brownBirdSupply }) => {
   const [, setEggTracker] = useAtom(eggTrackerAtom);
 
   const discardEggsClick = () => {
-    if (brownBirdSupply.currentAction === "brownEgg") {
+    if (
+      brownBirdSupply.currentAction === "brownEgg" ||
+      brownBirdSupply.currentAction === "brownNest"
+    ) {
       setEggTracker([]);
       continueBrownPower(brownBirdSupply);
     } else {

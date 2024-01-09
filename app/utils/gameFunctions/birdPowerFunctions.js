@@ -10,6 +10,7 @@ import {
   power13,
   power12,
   power17,
+  power18,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -92,6 +93,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     ...state,
     sameBird: false,
   }));
+  console.log("CEHCK 2");
   switch (currentSpace.bird.power.id) {
     case 1:
       console.log("checking power 1");
@@ -174,7 +176,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
       } else return false;
     case 12:
       console.log("checking power 12");
-      setCurrentAction("brownCache");
+      brownBirdSupply.setCurrentAction("brownCache");
       return power12(
         space,
         brownBirdSupply.setDisableClick,
@@ -198,12 +200,21 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setSelectedFood
       );
     case 17:
-      setCurrentAction("brownEgg");
+      brownBirdSupply.setCurrentAction("brownNest");
       console.log("checking power 17");
       return power17(
         currentSpace.bird.power.variable,
         brownBirdSupply.setResourceQuantity,
         brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText
+      );
+    case 18:
+      brownBirdSupply.setCurrentAction("brownEgg");
+      console.log("checking power 18");
+      return power18(
+        brownBirdSupply.setResourceQuantity,
+
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText
       );
@@ -262,6 +273,7 @@ export const cacheToken = (
   setWetland,
   setSelectedFood
 ) => {
+  console.log("CHECKING");
   switch (brownBirdCopy.location) {
     case "forest":
       setForest((forest) => {

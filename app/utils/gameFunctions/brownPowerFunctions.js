@@ -254,3 +254,19 @@ export const power17 = (
   }));
   return true;
 };
+
+export const power18 = (
+  setResourceQuantity,
+
+  setDisableClick,
+  setCurrentActionText
+) => {
+  // Lay 1 egg on any bird.
+  setResourceQuantity(1);
+  setCurrentActionText(`Place an egg on any bird.`);
+  setDisableClick((state) => ({
+    ...state,
+    playedBird: false,
+  }));
+  return true;
+};

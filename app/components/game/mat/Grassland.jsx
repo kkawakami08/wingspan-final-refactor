@@ -83,7 +83,8 @@ const Grassland = ({ brownBirdSupply }) => {
       <p>Grassland</p>
       <p className="font-normal text-lg">Lay eggs</p>
       {(brownBirdSupply.currentAction === "grassland" ||
-        brownBirdSupply.currentAction === "brownEgg") && (
+        brownBirdSupply.currentAction === "brownEgg" ||
+        brownBirdSupply.currentAction === "brownNest") && (
         <DiscardEggs brownBirdSupply={brownBirdSupply} />
       )}
     </div>

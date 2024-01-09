@@ -63,7 +63,7 @@ const CancelBtn = () => {
 
   return (
     <button
-      className="bg-violet-300 text-violet-900 text-lg font-semibold rounded-lg p-3 disabled:bg-slate-300 border-2 rounded-lg"
+      className="bg-violet-300 text-violet-900 text-lg font-semibold rounded-lg p-3  border-2 rounded-lg"
       onClick={cancelPlayBirdClick}
     >
       Cancel Play a bird Action
