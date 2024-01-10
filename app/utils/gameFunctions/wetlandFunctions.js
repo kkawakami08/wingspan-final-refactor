@@ -9,9 +9,6 @@ export const drawBirdDeck = ({
   selectedBirds,
   setSelectedBirds,
   setBirdTray,
-  setCurrentAction,
-  setDisableClick,
-  setCurrentActionText,
 }) => {
   drawCard(birdDeck, setPlayerBirdHand);
   setResourceQuantity((prev) => prev - 1);
@@ -26,13 +23,9 @@ export const drawBirdDeck = ({
         return birds;
       });
     }
-    resetAction(
-      setDisableClick,
-      setResourceQuantity,
-      setCurrentAction,
-      setCurrentActionText
-    );
+    return false;
   }
+  return true;
 };
 
 export const discardEgg = (

@@ -288,6 +288,18 @@ export const continueBrownPower = (brownBirdSupply) => {
           brownBirdSupply
         );
         return;
+      case "wetland":
+        brownBirdSupply.setBrownBirdCopy((state) => ({
+          ...state,
+          dialog: "",
+        }));
+        activateBrownPowers(
+          brownBirdSupply.wetland,
+          brownBirdSupply.brownBirdCopy.copy,
+
+          brownBirdSupply
+        );
+        return;
     }
   } else {
     resetAction(

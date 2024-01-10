@@ -72,7 +72,7 @@ const Wingspan = () => {
       <PlayerBirdHand />
 
       <BirdTray />
-      <BirdDeck />
+      <BirdDeck brownBirdSupply={brownBirdSupply} />
 
       <SelectedBirds brownBirdSupply={brownBirdSupply} />
       <BirdFeeder />

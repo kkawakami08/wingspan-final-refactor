@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { rollBirdFeeder } from "../utils/gameFunctions/birdFeederFunctions";
-import { forestBirds, grasslandBirds } from "./testingBirdCards";
+import { forestBirds, grasslandBirds, wetlandBirds } from "./testingBirdCards";
 
 export const playerFoodSupply = [
   { type: "fruit", id: nanoid() },
@@ -53,6 +53,8 @@ initialGrassland[0].bird = grasslandBirds[0];
 initialGrassland[1].bird = grasslandBirds[1];
 initialGrassland[2].bird = grasslandBirds[2];
 export const initialWetland = createInitialHabitat("cards", "egg", 1);
+initialWetland[0].bird = wetlandBirds[0];
+initialWetland[1].bird = wetlandBirds[1];
 
 const initialRoll = rollBirdFeeder();
 const initialDisableRolling = initialRoll.every(

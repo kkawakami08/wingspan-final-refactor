@@ -10,6 +10,7 @@ import {
   playerFoodSupplyAtom,
   playBirdAtom,
   forestBrownBirdsAtom,
+  wetlandBrownBirdsAtom,
 } from "../../../../utils/jotaiStore";
 import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
@@ -31,6 +32,7 @@ const SelectBtn = ({ brownBirdSupply }) => {
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
+  const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
 
   let disableSave;
   const updateDisable = () => {
@@ -55,7 +57,22 @@ const SelectBtn = ({ brownBirdSupply }) => {
       case "wetland":
         saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
         refillTray(birdTray, birdDeck, setBirdTray);
-        break;
+        if (!wetlandBrownBirds.length) {
+          break;
+        } else {
+          brownBirdSupply.setBrownBirdCopy((state) => ({
+            ...state,
+            location: "wetland",
+          }));
+
+          activateBrownPowers(
+            brownBirdSupply.wetland,
+            wetlandBrownBirds,
+            brownBirdSupply
+          );
+          return;
+        }
+
       case "forest":
         saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
         if (!forestBrownBirds.length) {

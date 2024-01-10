@@ -8,7 +8,10 @@ import {
   brownBirdVariableAtom,
 } from "../../../../utils/jotaiStore";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
-import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
 const BrownSelectBtn = ({ brownBirdSupply }) => {
@@ -45,24 +48,7 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
     ) {
       saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
 
-      switch (brownBirdSupply.brownBirdCopy.location) {
-        case "forest":
-          activateBrownPowers(
-            brownBirdSupply.forest,
-            brownBirdSupply.brownBirdCopy.copy,
-
-            brownBirdSupply
-          );
-          return;
-        case "grassland":
-          activateBrownPowers(
-            brownBirdSupply.grassland,
-            brownBirdSupply.brownBirdCopy.copy,
-
-            brownBirdSupply
-          );
-          return;
-      }
+      continueBrownPower(brownBirdSupply);
     }
   };
 

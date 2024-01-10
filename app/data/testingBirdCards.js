@@ -184,6 +184,66 @@ export const grasslandBirds = [
   // },
 ];
 
+export const wetlandBirds = [
+  {
+    common_name: "Anna's Hummingbird",
+    scientific_name: "Calypte anna",
+    vp: 4,
+    nest: "bowl",
+    egg_limit: 2,
+    wingspan: 13,
+    power: {
+      color: "brown",
+      description:
+        "Each player gains 1 die from the birdfeeder, starting with the player of your choice.",
+      id: 3,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland", "wetland"],
+    food: ["wild"],
+    food_count: 1,
+    locations: ["North America"],
+    bonus_cards: [
+      "Historian",
+      "Omnivore Expert",
+      "Passerine Specialist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
+    common_name: "Osprey",
+    scientific_name: "Pandion haliaetus",
+    vp: 5,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 160,
+    power: {
+      color: "brown",
+      description: "All players gain 1 fish from the supply.",
+      id: 8,
+      variable: "fish",
+    },
+    habitat: ["wetland"],
+    food: ["fish"],
+    food_count: 1,
+    locations: [
+      "North America",
+      "Central America",
+      "South America",
+      "Europe",
+      "Asia",
+      "Africa",
+      "Oceania",
+    ],
+    bonus_cards: [
+      "Fishery Manager",
+      "Large Bird Specialist",
+      "Platform Builder",
+      "Wetland Scientist",
+    ],
+  },
+];
+
 export const playerBirdHand = [
   {
     common_name: "White-Throated Swift",
@@ -376,38 +436,7 @@ export const birdDeck = [
       "Passerine Specialist",
     ],
   },
-  {
-    common_name: "Osprey",
-    scientific_name: "Pandion haliaetus",
-    vp: 5,
-    nest: "platform",
-    egg_limit: 2,
-    wingspan: 160,
-    power: {
-      color: "brown",
-      description: "All players gain 1 fish from the supply.",
-      id: 8,
-      variable: "fish",
-    },
-    habitat: ["wetland"],
-    food: ["fish"],
-    food_count: 1,
-    locations: [
-      "North America",
-      "Central America",
-      "South America",
-      "Europe",
-      "Asia",
-      "Africa",
-      "Oceania",
-    ],
-    bonus_cards: [
-      "Fishery Manager",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Wetland Scientist",
-    ],
-  },
+
   {
     common_name: "Red-Headed Woodpecker",
     scientific_name: "Melanerpes erythrocephalus",
@@ -2134,32 +2163,6 @@ export const birdDeck = [
     food_count: 3,
     locations: ["North America", "Central America"],
     bonus_cards: ["Bird Feeder", "Nest Box Builder", "Passerine Specialist"],
-  },
-
-  {
-    common_name: "Anna's Hummingbird",
-    scientific_name: "Calypte anna",
-    vp: 4,
-    nest: "bowl",
-    egg_limit: 2,
-    wingspan: 13,
-    power: {
-      color: "brown",
-      description:
-        "Each player gains 1 die from the birdfeeder, starting with the player of your choice.",
-      id: 3,
-      variable: "none",
-    },
-    habitat: ["forest", "grassland", "wetland"],
-    food: ["wild"],
-    food_count: 1,
-    locations: ["North America"],
-    bonus_cards: [
-      "Historian",
-      "Omnivore Expert",
-      "Passerine Specialist",
-      "Wildlife Gardener",
-    ],
   },
 
   {

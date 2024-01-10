@@ -6,46 +6,68 @@ import {
   resourceQuantityAtom,
   birdTrayAtom,
   selectedBirdsAtom,
-  currentActionAtom,
-  currentActionTextAtom,
+  wetlandBrownBirdsAtom,
 } from "../../../utils/jotaiStore";
 
 import { drawBirdDeck } from "../../../utils/gameFunctions/wetlandFunctions";
+import { resetAction } from "../../../utils/gameFunctions/habitatFunctions";
+import { activateBrownPowers } from "../../../utils/gameFunctions/birdPowerFunctions";
 
-const BirdDeck = () => {
+const BirdDeck = ({ brownBirdSupply }) => {
   const [birdDeck] = useAtom(birdDeckAtom);
   const [, setBirdTray] = useAtom(birdTrayAtom);
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setPlayerBirdHand] = useAtom(playerBirdHandAtom);
 
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+  const [disableClick] = useAtom(disableClickAtom);
   const disableBirdDeck = disableClick.birdDeck;
 
-  const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
+  const [resourceQuantity] = useAtom(resourceQuantityAtom);
+  const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
 
   const wetlandAction = {
-    birdDeck,
-    setPlayerBirdHand,
-    resourceQuantity,
-    setResourceQuantity,
-    selectedBirds,
-    setSelectedBirds,
-    setBirdTray,
-    setCurrentAction,
-    setDisableClick,
-    setCurrentActionText,
+    birdDeck: birdDeck,
+    setPlayerBirdHand: setPlayerBirdHand,
+    resourceQuantity: resourceQuantity,
+    setResourceQuantity: brownBirdSupply.setResourceQuantity,
+    selectedBirds: selectedBirds,
+    setSelectedBirds: setSelectedBirds,
+    setBirdTray: setBirdTray,
   };
 
   const birdDeckClick = () => {
-    if (disableBirdDeck) console.log("Disabled");
-    else {
-      switch (currentAction) {
+    if (disableBirdDeck) {
+      console.log("Disabled");
+    } else {
+      switch (brownBirdSupply.currentAction) {
         case "wetland":
-          drawBirdDeck(wetlandAction);
-          break;
+          const continueDrawing = drawBirdDeck(wetlandAction);
+          if (continueDrawing) {
+            return;
+          } else {
+            if (!wetlandBrownBirds.length) {
+              break;
+            } else {
+              brownBirdSupply.setBrownBirdCopy((state) => ({
+                ...state,
+                location: "wetland",
+              }));
+
+              activateBrownPowers(
+                brownBirdSupply.wetland,
+                wetlandBrownBirds,
+                brownBirdSupply
+              );
+              return;
+            }
+          }
       }
+      resetAction(
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentAction,
+        brownBirdSupply.setCurrentActionText
+      );
     }
   };
 
