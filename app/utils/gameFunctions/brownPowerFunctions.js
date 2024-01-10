@@ -293,3 +293,18 @@ export const power19 = (
   }));
   return true;
 };
+
+export const power20 = (
+  setResourceQuantity,
+  setDisableClick,
+  setCurrentActionText
+) => {
+  // Draw 1 card.
+  setCurrentActionText("Draw a card from the bird deck.");
+  setResourceQuantity(1);
+  setDisableClick((state) => ({
+    ...state,
+    birdDeck: false,
+  }));
+  return true;
+};

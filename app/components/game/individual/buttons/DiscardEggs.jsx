@@ -2,12 +2,17 @@ import { useAtom } from "jotai";
 import {
   resourceQuantityAtom,
   eggTrackerAtom,
+  grasslandBrownBirdsAtom,
 } from "../../../../utils/jotaiStore";
 import { resetFromGrassland } from "../../../../utils/gameFunctions/grasslandFunctions";
-import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const DiscardEggs = ({ brownBirdSupply }) => {
   const [resourceQuantity] = useAtom(resourceQuantityAtom);
+  const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const [, setEggTracker] = useAtom(eggTrackerAtom);
 
@@ -19,12 +24,25 @@ const DiscardEggs = ({ brownBirdSupply }) => {
       setEggTracker([]);
       continueBrownPower(brownBirdSupply);
     } else {
-      resetFromGrassland(
-        brownBirdSupply.setDisableClick,
-        brownBirdSupply.setCurrentAction,
-        brownBirdSupply.setCurrentActionText
-      );
-      brownBirdSupply.setResourceQuantity(0);
+      if (grasslandBrownBirds.length) {
+        brownBirdSupply.setBrownBirdCopy((state) => ({
+          ...state,
+          location: "grassland",
+        }));
+        activateBrownPowers(
+          brownBirdSupply.grassland,
+          grasslandBrownBirds,
+
+          brownBirdSupply
+        );
+      } else {
+        resetFromGrassland(
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.setCurrentAction,
+          brownBirdSupply.setCurrentActionText
+        );
+        brownBirdSupply.setResourceQuantity(0);
+      }
     }
   };
 

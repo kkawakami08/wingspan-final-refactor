@@ -50,6 +50,7 @@ const Grassland = ({ brownBirdSupply }) => {
           brownBirdSupply.setCurrentActionText(
             "There are no birds to lay eggs. Continuing with brown birds"
           );
+
           if (grasslandBrownBirds.length) {
             brownBirdSupply.setBrownBirdCopy((state) => ({
               ...state,

@@ -39,14 +39,14 @@ const PlayedBirdCard = ({
   const currentEggs = habitat[space].eggCount;
   const currentCache = habitat[space].cacheCount;
 
-  const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
+  const [resourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
   const [eggTracker, setEggTracker] = useAtom(eggTrackerAtom);
   const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+  const [disableClick] = useAtom(disableClickAtom);
   const disableBirdCard = disableClick.playedBird;
 
   const birdCardClick = () => {
@@ -55,9 +55,16 @@ const PlayedBirdCard = ({
       switch (brownBirdSupply.currentAction) {
         case "grassland":
           if (currentEggs == bird.egg_limit) {
-            console.log(currentEggs, bird.egg_limit);
+            brownBirdSupply.setCurrentActionText(
+              "Can't place any more eggs on this bird."
+            );
           } else {
-            layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
+            layEgg(
+              setHabitat,
+              space,
+              brownBirdSupply.setResourceQuantity,
+              setPlayerEggs
+            );
             if (resourceQuantity - 1 == 0) {
               if (grasslandBrownBirds.length) {
                 brownBirdSupply.setBrownBirdCopy((state) => ({
@@ -70,12 +77,13 @@ const PlayedBirdCard = ({
 
                   brownBirdSupply
                 );
+              } else {
+                resetFromGrassland(
+                  brownBirdSupply.setDisableClick,
+                  brownBirdSupply.setCurrentAction,
+                  brownBirdSupply.setCurrentActionText
+                );
               }
-              resetFromGrassland(
-                brownBirdSupply.setDisableClick,
-                brownBirdSupply.setCurrentAction,
-                brownBirdSupply.setCurrentActionText
-              );
             }
           }
 
@@ -103,13 +111,13 @@ const PlayedBirdCard = ({
         case "brownEgg":
           if (bird.egg_limit == currentEggs) {
             brownBirdSupply.setCurrentActionText(
-              "Cannot place an egg on this bird. Select a different one."
+              "Cannot place an egg on this bird. "
             );
           } else {
             if (brownBirdVariable === "this") {
               if (
-                brownBirdSupply.brownBirdCopy.currentSpace !== Number(space)
-                // && brownBirdSupply.brownBirdCopy.location === location
+                brownBirdSupply.brownBirdCopy.currentSpace !== Number(space) &&
+                brownBirdSupply.brownBirdCopy.location === location
               ) {
                 brownBirdSupply.setCurrentActionText(
                   "Must place egg on correct bird."
@@ -117,7 +125,12 @@ const PlayedBirdCard = ({
                 break;
               }
             }
-            layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
+            layEgg(
+              setHabitat,
+              space,
+              brownBirdSupply.setResourceQuantity,
+              setPlayerEggs
+            );
             continueBrownPower(brownBirdSupply);
           }
 
@@ -132,7 +145,12 @@ const PlayedBirdCard = ({
               "Cannot place an egg on this bird. Select a different one."
             );
           } else {
-            layEgg(setHabitat, space, setResourceQuantity, setPlayerEggs);
+            layEgg(
+              setHabitat,
+              space,
+              brownBirdSupply.setResourceQuantity,
+              setPlayerEggs
+            );
             setEggTracker((state) => [...state, bird.common_name]);
             if (resourceQuantity - 1 == 0) {
               setEggTracker([]);
@@ -175,7 +193,7 @@ const PlayedBirdCard = ({
               setPlayerEggs,
 
               brownBirdSupply.setDisableClick,
-              setResourceQuantity
+              brownBirdSupply.setResourceQuantity
             );
           }
           break;

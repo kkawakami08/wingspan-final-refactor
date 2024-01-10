@@ -26,35 +26,26 @@ import {
 } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 
-const DiscardBtn = () => {
+const DiscardBtn = ({ brownBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdDiscard] = useAtom(birdDiscardAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
-  const [, setDisableClick] = useAtom(disableClickAtom);
-
   const [, setForest] = useAtom(forestAtom);
   const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
-  const [forestBrownBirds, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
+  const [, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
 
   const [, setGrassland] = useAtom(grasslandAtom);
   const [grasslandBirdCount, setGrasslandBirdCount] = useAtom(
     grasslandBirdCountAtom
   );
-  const [grasslandBrownBirds, setGrasslandBrownBirds] = useAtom(
-    grasslandBrownBirdsAtom
-  );
+  const [, setGrasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const [, setWetland] = useAtom(wetlandAtom);
   const [wetlandBirdCount, setWetlandBirdCount] = useAtom(wetlandBirdCountAtom);
-  const [wetlandBrownBirds, setWetlandBrownBirds] = useAtom(
-    wetlandBrownBirdsAtom
-  );
+  const [, setWetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
 
   const forestState = {
     setHabitat: setForest,
@@ -76,7 +67,7 @@ const DiscardBtn = () => {
   };
 
   let disableDiscard;
-  switch (currentAction) {
+  switch (brownBirdSupply.currentAction) {
     case "forest":
       disableDiscard = selectedBirds.length === 1;
       break;
@@ -91,28 +82,34 @@ const DiscardBtn = () => {
   }
 
   const discardBtnClick = () => {
-    switch (currentAction) {
+    switch (brownBirdSupply.currentAction) {
       case "forest":
         discardSelection(
-          setResourceQuantity,
+          brownBirdSupply.setResourceQuantity,
           setBirdDiscard,
           selectedBirds,
           setSelectedBirds
         );
-        setDisableClick((state) => ({
+        brownBirdSupply.setDisableClick((state) => ({
           ...state,
           birdHand: true,
         }));
         break;
       case "grassland":
-        discardFoodSelection(setResourceQuantity, setSelectedFood);
-        setDisableClick((state) => ({
+        discardFoodSelection(
+          brownBirdSupply.setResourceQuantity,
+          setSelectedFood
+        );
+        brownBirdSupply.setDisableClick((state) => ({
           ...state,
           playerFood: true,
         }));
         break;
       case "playBird":
-        discardFoodSelection(setResourceQuantity, setSelectedFood);
+        discardFoodSelection(
+          brownBirdSupply.setResourceQuantity,
+          setSelectedFood
+        );
         switch (playBirdState.habitat) {
           case "forest":
             placeBird(playBirdState, forestState);
@@ -129,11 +126,11 @@ const DiscardBtn = () => {
           return hand;
         });
         resetPlayBirdAction(
-          setDisableClick,
-          setResourceQuantity,
-          setCurrentAction,
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.setResourceQuantity,
+          brownBirdSupply.setCurrentAction,
           setPlayBirdState,
-          setCurrentActionText
+          brownBirdSupply.setCurrentActionText
         );
         break;
     }

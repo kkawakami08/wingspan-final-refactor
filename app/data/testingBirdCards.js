@@ -1,31 +1,4 @@
 export const forestBirds = [
-  // {
-  //   common_name: "Lazuli Bunting",
-  //   scientific_name: "Passerina amoena",
-  //   vp: 4,
-  //   nest: "bowl",
-  //   egg_limit: 4,
-  //   wingspan: 23,
-  //   power: {
-  //     color: "brown",
-  //     description:
-  //       "All players lay 1 egg on any 1 bowl bird. You may lay 1 egg on 1 additional bowl bird.",
-  //     id: 17,
-  //     variable: "bowl",
-  //   },
-  //   habitat: ["grassland"],
-  //   food: ["invertebrate", "seed", "fruit"],
-  //   food_count: 3,
-  //   locations: ["North America", "Central America"],
-  //   bonus_cards: [
-  //     "Photographer",
-  //     "Bird Feeder",
-  //     "Passerine Specialist",
-  //     "Prairie Manager",
-  //     "Viticulturalist",
-  //     "Wildlife Gardener",
-  //   ],
-  // },
   {
     common_name: "Chipping Sparrow",
     scientific_name: "Spizella passerina",
@@ -50,30 +23,7 @@ export const forestBirds = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Scaled Quail",
-    scientific_name: "Callipepla squamata",
-    vp: 0,
-    nest: "ground",
-    egg_limit: 6,
-    wingspan: 36,
-    power: {
-      color: "brown",
-      description: "Lay 1 egg on this bird.",
-      id: 19,
-      variable: "none",
-    },
-    habitat: ["grassland"],
-    food: ["seed"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Backyard Birder",
-      "Bird Feeder",
-      "Enclosure Builder",
-      "Prairie Manager",
-    ],
-  },
+
   {
     common_name: "Pileated Woodpecker",
     scientific_name: "Dryocopus pileatus",
@@ -126,6 +76,60 @@ export const forestBirds = [
       "Nest Box Builder",
     ],
   },
+];
+
+export const grasslandBirds = [
+  {
+    common_name: "Lazuli Bunting",
+    scientific_name: "Passerina amoena",
+    vp: 4,
+    nest: "bowl",
+    egg_limit: 4,
+    wingspan: 23,
+    power: {
+      color: "brown",
+      description:
+        "All players lay 1 egg on any 1 bowl bird. You may lay 1 egg on 1 additional bowl bird.",
+      id: 17,
+      variable: "bowl",
+    },
+    habitat: ["grassland"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Photographer",
+      "Bird Feeder",
+      "Passerine Specialist",
+      "Prairie Manager",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
+    common_name: "Scaled Quail",
+    scientific_name: "Callipepla squamata",
+    vp: 0,
+    nest: "ground",
+    egg_limit: 6,
+    wingspan: 36,
+    power: {
+      color: "brown",
+      description: "Lay 1 egg on this bird.",
+      id: 19,
+      variable: "none",
+    },
+    habitat: ["grassland"],
+    food: ["seed"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Backyard Birder",
+      "Bird Feeder",
+      "Enclosure Builder",
+      "Prairie Manager",
+    ],
+  },
   {
     common_name: "Indigo Bunting",
     scientific_name: "Passerina cyanea",
@@ -152,9 +156,6 @@ export const forestBirds = [
       "Wildlife Gardener",
     ],
   },
-];
-
-export const grasslandBirds = [
   // {
   //   common_name: "Greater Roadrunner",
   //   scientific_name: "Geococcyx californianus",

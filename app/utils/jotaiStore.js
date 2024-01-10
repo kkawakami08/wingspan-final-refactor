@@ -18,10 +18,8 @@ export const birdFeederAtom = atom(initialRoll);
 export const forestAtom = atomWithImmer(initialForest);
 
 export const grasslandAtom = atomWithImmer(initialGrassland);
-export const grasslandBirdCountAtom = atom(0);
 
 export const wetlandAtom = atomWithImmer(initialWetland);
-export const wetlandBirdCountAtom = atom(0);
 
 export const removedEggListAtom = atomWithImmer({
   forest: [],
@@ -65,9 +63,11 @@ export const initialPlayBird = {
 export const playBirdAtom = atomWithImmer(initialPlayBird);
 
 export const forestBirdCountAtom = atom(3);
+export const grasslandBirdCountAtom = atom(3);
+export const wetlandBirdCountAtom = atom(0);
 
 export const forestBrownBirdsAtom = atom([0, 1, 2]);
-export const grasslandBrownBirdsAtom = atom([]);
+export const grasslandBrownBirdsAtom = atom([0, 1, 2]);
 export const wetlandBrownBirdsAtom = atom([]);
 
 export const brownBirdCopyAtom = atom({

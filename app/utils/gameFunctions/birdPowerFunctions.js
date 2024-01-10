@@ -12,6 +12,7 @@ import {
   power17,
   power18,
   power19,
+  power20,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -231,6 +232,15 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText
       );
+    case 20:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 20");
+      return power20(
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText
+      );
     default:
       console.log("default case");
       return false;
@@ -261,6 +271,18 @@ export const continueBrownPower = (brownBirdSupply) => {
         }));
         activateBrownPowers(
           brownBirdSupply.forest,
+          brownBirdSupply.brownBirdCopy.copy,
+
+          brownBirdSupply
+        );
+        return;
+      case "grassland":
+        brownBirdSupply.setBrownBirdCopy((state) => ({
+          ...state,
+          dialog: "",
+        }));
+        activateBrownPowers(
+          brownBirdSupply.grassland,
           brownBirdSupply.brownBirdCopy.copy,
 
           brownBirdSupply
