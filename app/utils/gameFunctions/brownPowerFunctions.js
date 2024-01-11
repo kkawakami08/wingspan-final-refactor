@@ -327,3 +327,21 @@ export const power22 = (
   }));
   return true;
 };
+export const power23 = (
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setBrownPowerContinueBtn
+) => {
+  // Draw 2 card. If you do, discard 1 card from your hand at the end of your turn.
+  setBrownPowerContinueBtn(true);
+  setResourceQuantity(2);
+  setCurrentActionText(
+    "Do you want to draw 2 bird cards? (Have to discard one from your hand at the end of your turn)"
+  );
+  setBrownBirdCopy((state) => ({
+    ...state,
+    dialog: "discard",
+  }));
+  return true;
+};

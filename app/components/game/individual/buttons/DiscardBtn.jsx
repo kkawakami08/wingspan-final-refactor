@@ -1,15 +1,11 @@
 import { useAtom } from "jotai";
 import {
   selectedBirdsAtom,
-  resourceQuantityAtom,
   birdDiscardAtom,
-  disableClickAtom,
-  currentActionAtom,
   selectedFoodAtom,
   playBirdAtom,
   forestAtom,
   forestBirdCountAtom,
-  currentActionTextAtom,
   grasslandAtom,
   grasslandBirdCountAtom,
   wetlandAtom,

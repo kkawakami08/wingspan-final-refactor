@@ -2,16 +2,12 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import {
   selectedBirdsAtom,
-  resourceQuantityAtom,
   selectedFoodAtom,
   playerFoodSupplyAtom,
   brownBirdVariableAtom,
 } from "../../../../utils/jotaiStore";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
-import {
-  activateBrownPowers,
-  continueBrownPower,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
 const BrownSelectBtn = ({ brownBirdSupply }) => {
@@ -20,8 +16,6 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
-
   const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
   let disableSave;
@@ -29,12 +23,12 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
     switch (brownBirdSupply.currentAction) {
       case "brownFeeder":
         disableSave =
-          selectedFood.length == resourceQuantity &&
+          selectedFood.length == brownBirdSupply.resourceQuantity &&
           birdFeederCheck(brownBirdVariable, selectedFood);
         break;
       case "brownFood":
         disableSave =
-          selectedFood.length == resourceQuantity &&
+          selectedFood.length == brownBirdSupply.resourceQuantity &&
           selectedFood.some((item) => item.type.includes(brownBirdVariable));
         break;
     }

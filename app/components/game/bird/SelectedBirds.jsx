@@ -1,9 +1,5 @@
 import { useAtom } from "jotai";
-import {
-  selectedBirdsAtom,
-  currentActionAtom,
-  playBirdAtom,
-} from "../../../utils/jotaiStore";
+import { selectedBirdsAtom, playBirdAtom } from "../../../utils/jotaiStore";
 import SelectedBirdCard from "../individual/bird/SelectedBirdCard";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";

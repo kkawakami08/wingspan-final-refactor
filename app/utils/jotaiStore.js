@@ -64,11 +64,11 @@ export const playBirdAtom = atomWithImmer(initialPlayBird);
 
 export const forestBirdCountAtom = atom(1);
 export const grasslandBirdCountAtom = atom(1);
-export const wetlandBirdCountAtom = atom(1);
+export const wetlandBirdCountAtom = atom(2);
 
 export const forestBrownBirdsAtom = atom([0]);
 export const grasslandBrownBirdsAtom = atom([0]);
-export const wetlandBrownBirdsAtom = atom([0]);
+export const wetlandBrownBirdsAtom = atom([0, 1]);
 
 export const brownBirdCopyAtom = atom({
   location: "",
@@ -80,6 +80,7 @@ export const brownBirdCopyAtom = atom({
 
 export const brownPowerContinueBtnAtom = atom(false);
 export const brownPowerEndAtom = atom(false);
+export const discardQuantityAtom = atom(0);
 
 export const brownBirdVariableAtom = atom(null);
 

@@ -54,7 +54,7 @@ initialGrassland[0].bird = grasslandBirds[0];
 // initialGrassland[2].bird = grasslandBirds[2];
 export const initialWetland = createInitialHabitat("cards", "egg", 1);
 initialWetland[0].bird = wetlandBirds[0];
-// initialWetland[1].bird = wetlandBirds[1];
+initialWetland[1].bird = wetlandBirds[1];
 
 const initialRoll = rollBirdFeeder();
 const initialDisableRolling = initialRoll.every(

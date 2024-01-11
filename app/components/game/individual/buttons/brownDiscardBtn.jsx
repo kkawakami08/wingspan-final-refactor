@@ -2,22 +2,16 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import {
   selectedBirdsAtom,
-  resourceQuantityAtom,
   selectedFoodAtom,
   brownBirdVariableAtom,
 } from "../../../../utils/jotaiStore";
 
-import {
-  activateBrownPowers,
-  continueBrownPower,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const BrownDiscardBtn = ({ brownBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
-
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
 
   const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
@@ -25,11 +19,11 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
   const updateDisable = () => {
     switch (brownBirdSupply.currentAction) {
       case "discard":
-        disableSave = selectedBirds.length == resourceQuantity;
+        disableSave = selectedBirds.length == brownBirdSupply.discardQuantity;
         break;
       default:
         disableSave =
-          selectedFood.length == resourceQuantity &&
+          selectedFood.length == brownBirdSupply.resourceQuantity &&
           selectedFood.some((item) => item.type.includes(brownBirdVariable));
         break;
     }
@@ -42,29 +36,12 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
       case "discard":
         setSelectedBirds([]);
         brownBirdSupply.setBrownPowerEnd(false);
-        continueBrownPower(brownBirdSupply);
+        break;
       default:
         setSelectedFood([]);
-
-        switch (brownBirdSupply.brownBirdCopy.location) {
-          case "forest":
-            activateBrownPowers(
-              brownBirdSupply.forest,
-              brownBirdSupply.brownBirdCopy.copy,
-
-              brownBirdSupply
-            );
-            return;
-          case "grassland":
-            activateBrownPowers(
-              brownBirdSupply.grassland,
-              brownBirdSupply.brownBirdCopy.copy,
-
-              brownBirdSupply
-            );
-            return;
-        }
+        break;
     }
+    continueBrownPower(brownBirdSupply);
   };
 
   useEffect(() => {

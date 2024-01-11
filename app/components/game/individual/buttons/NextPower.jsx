@@ -1,10 +1,6 @@
 import { useAtom } from "jotai";
 import { birdFeederAtom, selectedFoodAtom } from "../../../../utils/jotaiStore";
-import {
-  activateBrownPowers,
-  continueBrownPower,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
-import { resetAction } from "../../../../utils/gameFunctions/habitatFunctions";
+import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const NextPower = ({ brownBirdSupply }) => {
   const [, setBirdFeeder] = useAtom(birdFeederAtom);

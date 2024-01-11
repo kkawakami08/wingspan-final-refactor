@@ -3,12 +3,9 @@ import {
   birdDeckAtom,
   playerBirdHandAtom,
   disableClickAtom,
-  resourceQuantityAtom,
   birdTrayAtom,
   selectedBirdsAtom,
   wetlandBrownBirdsAtom,
-  brownBirdVariableAtom,
-  brownPowerEndAtom,
 } from "../../../utils/jotaiStore";
 import { drawCard } from "../../../utils/gameFunctions/cardFunctions";
 
@@ -21,22 +18,19 @@ import {
 
 const BirdDeck = ({ brownBirdSupply }) => {
   const [birdDeck] = useAtom(birdDeckAtom);
-  const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
   const [, setBirdTray] = useAtom(birdTrayAtom);
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setPlayerBirdHand] = useAtom(playerBirdHandAtom);
-  const [, setBrownPowerEnd] = useAtom(brownPowerEndAtom);
 
   const [disableClick] = useAtom(disableClickAtom);
   const disableBirdDeck = disableClick.birdDeck;
 
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
   const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
 
   const wetlandAction = {
     birdDeck: birdDeck,
     setPlayerBirdHand: setPlayerBirdHand,
-    resourceQuantity: resourceQuantity,
+    resourceQuantity: brownBirdSupply.resourceQuantity,
     setResourceQuantity: brownBirdSupply.setResourceQuantity,
     selectedBirds: selectedBirds,
     setSelectedBirds: setSelectedBirds,

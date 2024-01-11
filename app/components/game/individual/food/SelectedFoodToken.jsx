@@ -21,22 +21,10 @@ const SelectedFoodToken = ({ food }) => {
     if (disableSelectedFood) {
       console.log("disabled");
     } else {
-      switch (currentAction) {
-        case "forest":
-          foodSelection(selectedFood, setBirdFeeder, setSelectedFood, food.id);
-          break;
-        case "grassland":
-          foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
-          break;
-        case "playBird":
-          foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
-          break;
-        case "brownFeeder":
-          foodSelection(selectedFood, setBirdFeeder, setSelectedFood, food.id);
-          break;
-        case "brownFood":
-          foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
-          break;
+      if (currentAction === "forest" || currentAction === "brownFeeder") {
+        foodSelection(selectedFood, setBirdFeeder, setSelectedFood, food.id);
+      } else {
+        foodSelection(selectedFood, setPlayerFood, setSelectedFood, food.id);
       }
     }
   };

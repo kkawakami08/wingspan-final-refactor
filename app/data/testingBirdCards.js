@@ -56,6 +56,32 @@ export const grasslandBirds = [
 ];
 
 export const wetlandBirds = [
+  {
+    common_name: "Pied-Billed Grebe",
+    scientific_name: "Podilymbus podiceps",
+    vp: 0,
+    nest: "platform",
+    egg_limit: 4,
+    wingspan: 41,
+    power: {
+      color: "brown",
+      description:
+        "Draw 2 card. If you do, discard 1 card from your hand at the end of your turn.",
+      id: 23,
+      variable: "none",
+    },
+    habitat: ["wetland"],
+    food: ["invertebrate", "fish"],
+    food_count: 1,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Anatomist",
+      "Backyard Birder",
+      "Fishery Manager",
+      "Platform Builder",
+      "Wetland Scientist",
+    ],
+  },
   // {
   //   common_name: "Mallard",
   //   scientific_name: "Anas platyrhynchos",
@@ -220,32 +246,7 @@ export const birdTray = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Pied-Billed Grebe",
-    scientific_name: "Podilymbus podiceps",
-    vp: 0,
-    nest: "platform",
-    egg_limit: 4,
-    wingspan: 41,
-    power: {
-      color: "brown",
-      description:
-        "Draw 2 card. If you do, discard 1 card from your hand at the end of your turn.",
-      id: 23,
-      variable: "none",
-    },
-    habitat: ["wetland"],
-    food: ["invertebrate", "fish"],
-    food_count: 1,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Anatomist",
-      "Backyard Birder",
-      "Fishery Manager",
-      "Platform Builder",
-      "Wetland Scientist",
-    ],
-  },
+
   {
     common_name: "Baltimore Oriole",
     scientific_name: "Icterus galbula",

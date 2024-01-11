@@ -1,20 +1,10 @@
 import { useAtom } from "jotai";
 import {
-  currentActionAtom,
   disableClickAtom,
-  resourceQuantityAtom,
   playerEggSupplyAtom,
-  currentActionTextAtom,
   removedEggListAtom,
   grasslandBrownBirdsAtom,
-  brownBirdCopyAtom,
-  grasslandAtom,
   brownBirdVariableAtom,
-  brownPowerContinueBtnAtom,
-  birdFeederAtom,
-  forestAtom,
-  wetlandAtom,
-  selectedFoodAtom,
   eggTrackerAtom,
 } from "../../../../utils/jotaiStore";
 import {
@@ -39,7 +29,6 @@ const PlayedBirdCard = ({
   const currentEggs = habitat[space].eggCount;
   const currentCache = habitat[space].cacheCount;
 
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
@@ -65,7 +54,7 @@ const PlayedBirdCard = ({
               brownBirdSupply.setResourceQuantity,
               setPlayerEggs
             );
-            if (resourceQuantity - 1 == 0) {
+            if (brownBirdSupply.resourceQuantity - 1 == 0) {
               if (grasslandBrownBirds.length) {
                 brownBirdSupply.setBrownBirdCopy((state) => ({
                   ...state,
@@ -102,7 +91,7 @@ const PlayedBirdCard = ({
               brownBirdSupply.setCurrentActionText,
               brownBirdSupply.setDisableClick,
               brownBirdSupply.setResourceQuantity,
-              resourceQuantity
+              brownBirdSupply.resourceQuantity
             );
             continueBrownPower(brownBirdSupply);
           }
@@ -152,7 +141,7 @@ const PlayedBirdCard = ({
               setPlayerEggs
             );
             setEggTracker((state) => [...state, bird.common_name]);
-            if (resourceQuantity - 1 == 0) {
+            if (brownBirdSupply.resourceQuantity - 1 == 0) {
               setEggTracker([]);
               continueBrownPower(brownBirdSupply);
             } else {
@@ -177,7 +166,7 @@ const PlayedBirdCard = ({
               brownBirdSupply.setCurrentActionText,
               brownBirdSupply.setDisableClick,
               brownBirdSupply.setResourceQuantity,
-              resourceQuantity
+              brownBirdSupply.resourceQuantity
             );
             setRemovedEggList((state) => {
               state[location].push(space);

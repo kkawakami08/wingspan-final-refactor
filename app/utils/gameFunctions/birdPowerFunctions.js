@@ -14,6 +14,7 @@ import {
   power19,
   power20,
   power22,
+  power23,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -251,6 +252,16 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setBrownBirdCopy,
         brownBirdSupply.setBrownPowerContinueBtn
       );
+    case 23:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 23");
+      return power23(
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdCopy,
+        brownBirdSupply.setBrownPowerContinueBtn
+      );
     default:
       console.log("default case");
       return false;
@@ -312,12 +323,9 @@ export const continueBrownPower = (brownBirdSupply) => {
         return;
     }
   } else {
-    //brownPowerEnd = true
-    //brownbirdcopy.dialog
     if (brownBirdSupply.brownPowerEnd) {
-      console.log("brownpower end reached");
       brownBirdSupply.setCurrentActionText(
-        "Discard a bird card from your hand."
+        `Discard ${brownBirdSupply.discardQuantity} bird cards from your hand`
       );
       brownBirdSupply.setDisableClick((state) => ({
         ...state,
@@ -327,7 +335,6 @@ export const continueBrownPower = (brownBirdSupply) => {
       brownBirdSupply.setCurrentAction("discard");
       brownBirdSupply.setBrownPowerEnd(false);
     } else {
-      console.log("brownpower end false");
       resetAction(
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setResourceQuantity,
@@ -347,7 +354,6 @@ export const cacheToken = (
   setWetland,
   setSelectedFood
 ) => {
-  console.log("CHECKING");
   switch (brownBirdCopy.location) {
     case "forest":
       setForest((forest) => {

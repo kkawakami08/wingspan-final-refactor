@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { birdFeederAtom, disableClickAtom } from "../../../utils/jotaiStore";
+import { birdFeederAtom } from "../../../utils/jotaiStore";
 import BirdFeederDie from "../individual/food/BirdFeederDie";
 import RollBirdFeederBtn from "../individual/buttons/RollBirdFeederBtn";
 
