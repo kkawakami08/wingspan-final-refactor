@@ -5,6 +5,7 @@ import {
   disableClickAtom,
   currentActionTextAtom,
 } from "../../../utils/jotaiStore";
+import DiscardEggs from "../individual/buttons/DiscardEggs";
 
 const CurrentAction = () => {
   const [currentAction] = useAtom(currentActionAtom);
@@ -45,8 +46,11 @@ const CurrentAction = () => {
     <div className=" text-2xl font-bold text-center flex items-center justify-center">
       {currentAction === "playBird" ||
       currentAction.includes("brown") ||
-      !currentAction ? (
-        <p>{CurrentActionText}</p>
+      !currentAction ||
+      currentAction === "discard" ? (
+        <div>
+          <p>{CurrentActionText}</p>
+        </div>
       ) : (
         <p>
           Gain {resourceQuantity} {resource}.{" "}

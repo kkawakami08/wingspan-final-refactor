@@ -7,10 +7,13 @@ import {
   brownBirdVariableAtom,
 } from "../../../../utils/jotaiStore";
 
-import { activateBrownPowers } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const BrownDiscardBtn = ({ brownBirdSupply }) => {
-  const [selectedBirds] = useAtom(selectedBirdsAtom);
+  const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
 
@@ -20,33 +23,47 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
 
   let disableSave;
   const updateDisable = () => {
-    disableSave =
-      selectedFood.length == resourceQuantity &&
-      selectedFood.some((item) => item.type.includes(brownBirdVariable));
+    switch (brownBirdSupply.currentAction) {
+      case "discard":
+        disableSave = selectedBirds.length == resourceQuantity;
+        break;
+      default:
+        disableSave =
+          selectedFood.length == resourceQuantity &&
+          selectedFood.some((item) => item.type.includes(brownBirdVariable));
+        break;
+    }
   };
 
   updateDisable();
 
   const discardBtnClick = () => {
-    setSelectedFood([]);
+    switch (brownBirdSupply.currentAction) {
+      case "discard":
+        setSelectedBirds([]);
+        brownBirdSupply.setBrownPowerEnd(false);
+        continueBrownPower(brownBirdSupply);
+      default:
+        setSelectedFood([]);
 
-    switch (brownBirdSupply.brownBirdCopy.location) {
-      case "forest":
-        activateBrownPowers(
-          brownBirdSupply.forest,
-          brownBirdSupply.brownBirdCopy.copy,
+        switch (brownBirdSupply.brownBirdCopy.location) {
+          case "forest":
+            activateBrownPowers(
+              brownBirdSupply.forest,
+              brownBirdSupply.brownBirdCopy.copy,
 
-          brownBirdSupply
-        );
-        return;
-      case "grassland":
-        activateBrownPowers(
-          brownBirdSupply.grassland,
-          brownBirdSupply.brownBirdCopy.copy,
+              brownBirdSupply
+            );
+            return;
+          case "grassland":
+            activateBrownPowers(
+              brownBirdSupply.grassland,
+              brownBirdSupply.brownBirdCopy.copy,
 
-          brownBirdSupply
-        );
-        return;
+              brownBirdSupply
+            );
+            return;
+        }
     }
   };
 

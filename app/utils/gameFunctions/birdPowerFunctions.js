@@ -13,6 +13,7 @@ import {
   power18,
   power19,
   power20,
+  power22,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -95,7 +96,6 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     ...state,
     sameBird: false,
   }));
-  console.log("CEHCK 2");
   switch (currentSpace.bird.power.id) {
     case 1:
       console.log("checking power 1");
@@ -241,6 +241,16 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText
       );
+    case 22:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 22");
+      return power22(
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdCopy,
+        brownBirdSupply.setBrownPowerContinueBtn
+      );
     default:
       console.log("default case");
       return false;
@@ -302,14 +312,31 @@ export const continueBrownPower = (brownBirdSupply) => {
         return;
     }
   } else {
-    resetAction(
-      brownBirdSupply.setDisableClick,
-      brownBirdSupply.setResourceQuantity,
-      brownBirdSupply.setCurrentAction,
+    //brownPowerEnd = true
+    //brownbirdcopy.dialog
+    if (brownBirdSupply.brownPowerEnd) {
+      console.log("brownpower end reached");
+      brownBirdSupply.setCurrentActionText(
+        "Discard a bird card from your hand."
+      );
+      brownBirdSupply.setDisableClick((state) => ({
+        ...state,
+        birdHand: false,
+      }));
+      brownBirdSupply.setResourceQuantity(1);
+      brownBirdSupply.setCurrentAction("discard");
+      brownBirdSupply.setBrownPowerEnd(false);
+    } else {
+      console.log("brownpower end false");
+      resetAction(
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentAction,
 
-      brownBirdSupply.setCurrentActionText
-    );
-    return;
+        brownBirdSupply.setCurrentActionText
+      );
+      return;
+    }
   }
 };
 

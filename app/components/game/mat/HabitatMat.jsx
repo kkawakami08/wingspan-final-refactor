@@ -24,7 +24,7 @@ const HabitatMat = ({ brownBirdSupply }) => {
       )}
 
       <div className="flex gap-20 items-center justify-center">
-        <CurrentAction />
+        <CurrentAction brownBirdSupply={brownBirdSupply} />
         <p className="text-xl font-bold">
           {" "}
           Egg Count: {brownBirdSupply.playerEggs}

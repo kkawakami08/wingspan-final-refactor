@@ -14,34 +14,22 @@ const SelectedBirdCard = ({ bird }) => {
   const [currentAction] = useAtom(currentActionAtom);
 
   const SelectedBirdCardClick = () => {
-    switch (currentAction) {
-      case "wetland":
-        selectCard(
-          setSelectedBirds,
-          setBirdTray,
-          "common_name",
-          bird.common_name,
-          bird
-        );
-        break;
-      case "forest":
-        selectCard(
-          setSelectedBirds,
-          setBirdHand,
-          "common_name",
-          bird.common_name,
-          bird
-        );
-        break;
-      case "playBird":
-        selectCard(
-          setSelectedBirds,
-          setBirdHand,
-          "common_name",
-          bird.common_name,
-          bird
-        );
-        break;
+    if (currentAction === "wetland") {
+      selectCard(
+        setSelectedBirds,
+        setBirdTray,
+        "common_name",
+        bird.common_name,
+        bird
+      );
+    } else {
+      selectCard(
+        setSelectedBirds,
+        setBirdHand,
+        "common_name",
+        bird.common_name,
+        bird
+      );
     }
   };
 

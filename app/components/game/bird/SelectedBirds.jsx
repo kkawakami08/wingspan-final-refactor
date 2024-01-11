@@ -7,6 +7,8 @@ import {
 import SelectedBirdCard from "../individual/bird/SelectedBirdCard";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
+import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
+BrownDiscardBtn;
 
 const SelectedBirds = ({ brownBirdSupply }) => {
   const [selectedBirds] = useAtom(selectedBirdsAtom);
@@ -24,6 +26,8 @@ const SelectedBirds = ({ brownBirdSupply }) => {
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "playBird":
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
+      case "discard":
+        return <BrownDiscardBtn brownBirdSupply={brownBirdSupply} />;
       default:
         break;
     }
