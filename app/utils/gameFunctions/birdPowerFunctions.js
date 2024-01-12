@@ -15,6 +15,7 @@ import {
   power20,
   power22,
   power23,
+  power24,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -155,7 +156,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 9:
       console.log("checking power 9");
       return power9(
-        brownBirdCopy.sameBird,
+        brownBirdSupply.brownBirdCopy.sameBird,
         brownBirdSupply.setDisableClick,
 
         brownBirdSupply.setResourceQuantity,
@@ -166,7 +167,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
       console.log("checking power 10");
       if (checkOtherEggs(playerEggs, currentSpace.eggCount)) {
         return power10(
-          brownBirdCopy.sameBird,
+          brownBirdSupply.brownBirdCopy.sameBird,
           currentSpace.bird.power.variable,
           space,
 
@@ -262,6 +263,17 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setBrownBirdCopy,
         brownBirdSupply.setBrownPowerContinueBtn
       );
+    case 24:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 24");
+      return power24(
+        brownBirdSupply.brownBirdCopy.sameBird,
+        brownBirdSupply.playerEggs,
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setDisableClick
+      );
     default:
       console.log("default case");
       return false;
@@ -284,12 +296,12 @@ export const resetBrownPower = (
 
 export const continueBrownPower = (brownBirdSupply) => {
   if (brownBirdSupply.brownBirdCopy.copy.length) {
+    brownBirdSupply.setBrownBirdCopy((state) => ({
+      ...state,
+      dialog: "",
+    }));
     switch (brownBirdSupply.brownBirdCopy.location) {
       case "forest":
-        brownBirdSupply.setBrownBirdCopy((state) => ({
-          ...state,
-          dialog: "",
-        }));
         activateBrownPowers(
           brownBirdSupply.forest,
           brownBirdSupply.brownBirdCopy.copy,
@@ -298,10 +310,6 @@ export const continueBrownPower = (brownBirdSupply) => {
         );
         return;
       case "grassland":
-        brownBirdSupply.setBrownBirdCopy((state) => ({
-          ...state,
-          dialog: "",
-        }));
         activateBrownPowers(
           brownBirdSupply.grassland,
           brownBirdSupply.brownBirdCopy.copy,
@@ -310,10 +318,6 @@ export const continueBrownPower = (brownBirdSupply) => {
         );
         return;
       case "wetland":
-        brownBirdSupply.setBrownBirdCopy((state) => ({
-          ...state,
-          dialog: "",
-        }));
         activateBrownPowers(
           brownBirdSupply.wetland,
           brownBirdSupply.brownBirdCopy.copy,

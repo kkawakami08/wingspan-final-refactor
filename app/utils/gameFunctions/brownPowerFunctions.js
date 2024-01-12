@@ -345,3 +345,36 @@ export const power23 = (
   }));
   return true;
 };
+export const power24 = (
+  sameBird,
+  playerEggs,
+  setResourceQuantity,
+  setCurrentActionText,
+  setDisableClick
+) => {
+  // Discard 1 egg to draw 2 card.
+  if (playerEggs == 0) {
+    console.log("no eggs");
+    return false;
+  }
+  if (sameBird) {
+    console.log("returned");
+    setDisableClick((state) => ({
+      ...state,
+      birdDeck: false,
+    }));
+    setResourceQuantity(2);
+    setCurrentActionText("Draw 2 bird cards.");
+    return true;
+  } else {
+    console.log("start");
+    setDisableClick((state) => ({
+      ...state,
+      playedBird: false,
+    }));
+    setResourceQuantity(1);
+    setCurrentActionText("Discard 1 egg to draw 2 bird cards.");
+
+    return;
+  }
+};

@@ -186,6 +186,20 @@ const PlayedBirdCard = ({
             );
           }
           break;
+        case "brownCard":
+          if (currentEggs > 0) {
+            discardEgg(
+              setHabitat,
+              space,
+
+              setPlayerEggs,
+
+              brownBirdSupply.setDisableClick,
+              brownBirdSupply.setResourceQuantity
+            );
+          }
+          continueBrownPower(brownBirdSupply);
+          break;
       }
     }
   };

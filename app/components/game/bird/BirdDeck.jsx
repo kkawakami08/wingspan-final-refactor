@@ -63,10 +63,14 @@ const BirdDeck = ({ brownBirdSupply }) => {
           }
         case "brownCard":
           //1 resource quantity
-          drawCard(birdDeck, setPlayerBirdHand);
 
-          continueBrownPower(brownBirdSupply);
-          return;
+          drawCard(birdDeck, setPlayerBirdHand);
+          brownBirdSupply.setResourceQuantity((state) => state - 1);
+          if (brownBirdSupply.resourceQuantity - 1 == 0) {
+            continueBrownPower(brownBirdSupply);
+          } else {
+            return;
+          }
       }
       resetAction(
         brownBirdSupply.setDisableClick,

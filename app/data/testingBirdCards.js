@@ -57,6 +57,25 @@ export const grasslandBirds = [
 
 export const wetlandBirds = [
   {
+    common_name: "Killdeer",
+    scientific_name: "Charadrius vociferus",
+    vp: 1,
+    nest: "ground",
+    egg_limit: 3,
+    wingspan: 46,
+    power: {
+      color: "brown",
+      description: "Discard 1 egg to draw 2 card.",
+      id: 24,
+      variable: "none",
+    },
+    habitat: ["grassland", "wetland"],
+    food: ["invertebrate", "seed"],
+    food_count: 1,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: ["Backyard Birder", "Bird Feeder", "Enclosure Builder"],
+  },
+  {
     common_name: "Pied-Billed Grebe",
     scientific_name: "Podilymbus podiceps",
     vp: 0,
@@ -3065,25 +3084,7 @@ export const birdDeck = [
       "Viticulturalist",
     ],
   },
-  {
-    common_name: "Killdeer",
-    scientific_name: "Charadrius vociferus",
-    vp: 1,
-    nest: "ground",
-    egg_limit: 3,
-    wingspan: 46,
-    power: {
-      color: "brown",
-      description: "Discard 1 egg to draw 2 card.",
-      id: 24,
-      variable: "none",
-    },
-    habitat: ["grassland", "wetland"],
-    food: ["invertebrate", "seed"],
-    food_count: 1,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: ["Backyard Birder", "Bird Feeder", "Enclosure Builder"],
-  },
+
   {
     common_name: "Franklin's Gull",
     scientific_name: "Leucophaeus pipixcan",
