@@ -294,7 +294,7 @@ export const power19 = (
   return true;
 };
 
-export const power20 = (
+export const power20_25 = (
   setResourceQuantity,
   setDisableClick,
   setCurrentActionText

@@ -12,10 +12,10 @@ import {
   power17,
   power18,
   power19,
-  power20,
   power22,
   power23,
   power24,
+  power20_25,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -237,7 +237,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 20:
       brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 20");
-      return power20(
+      return power20_25(
         brownBirdSupply.setResourceQuantity,
 
         brownBirdSupply.setDisableClick,
@@ -273,6 +273,15 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
 
         brownBirdSupply.setCurrentActionText,
         brownBirdSupply.setDisableClick
+      );
+    case 25:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 25");
+      return power20_25(
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText
       );
     default:
       console.log("default case");

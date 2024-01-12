@@ -57,6 +57,30 @@ export const grasslandBirds = [
 
 export const wetlandBirds = [
   {
+    common_name: "Wilson's Snipe",
+    scientific_name: "Gallinago delicata",
+    vp: 5,
+    nest: "ground",
+    egg_limit: 2,
+    wingspan: 41,
+    power: {
+      color: "brown",
+      description: "All players draw 1 card from the deck.",
+      id: 25,
+      variable: "none",
+    },
+    habitat: ["wetland"],
+    food: ["invertebrate"],
+    food_count: 1,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Historian",
+      "Enclosure Builder",
+      "Food Web Expert",
+      "Wetland Scientist",
+    ],
+  },
+  {
     common_name: "Killdeer",
     scientific_name: "Charadrius vociferus",
     vp: 1,
@@ -3114,30 +3138,7 @@ export const birdDeck = [
       "Wildlife Gardener",
     ],
   },
-  {
-    common_name: "Wilson's Snipe",
-    scientific_name: "Gallinago delicata",
-    vp: 5,
-    nest: "ground",
-    egg_limit: 2,
-    wingspan: 41,
-    power: {
-      color: "brown",
-      description: "All players draw 1 card from the deck.",
-      id: 25,
-      variable: "none",
-    },
-    habitat: ["wetland"],
-    food: ["invertebrate"],
-    food_count: 1,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Historian",
-      "Enclosure Builder",
-      "Food Web Expert",
-      "Wetland Scientist",
-    ],
-  },
+
   {
     common_name: "Spotted Sandpiper",
     scientific_name: "Actitis macularius",
