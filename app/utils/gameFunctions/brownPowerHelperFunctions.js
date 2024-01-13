@@ -41,3 +41,60 @@ export const initialTuck = (
     currentSpace: space,
   }));
 };
+
+export const moveBirdSource = (
+  setSourceHabitat,
+  currentSpace,
+  setSourceBirdCount,
+  setSourceBrownBirds
+) => {
+  setSourceHabitat((state) => {
+    state[currentSpace].bird = null;
+    state[currentSpace].eggCount = 0;
+    state[currentSpace].cacheCount = 0;
+    state[currentSpace].tuckedCount = 0;
+    return state;
+  });
+  setSourceBirdCount((state) => state - 1);
+  setSourceBrownBirds((state) => {
+    state.pop();
+    return state;
+  });
+};
+
+export const moveBirdDestination = (
+  setDestination,
+  destinationBirdCount,
+  setDestinationBrownBirds,
+  setDestinationBirdCount,
+  brownBirdSupply
+) => {
+  let birdSource;
+  switch (brownBirdSupply.brownBirdCopy.location) {
+    case "forest":
+      birdSource =
+        brownBirdSupply.forest[brownBirdSupply.brownBirdCopy.currentSpace];
+      break;
+    case "grassland":
+      birdSource =
+        brownBirdSupply.grassland[brownBirdSupply.brownBirdCopy.currentSpace];
+      break;
+    case "wetland":
+      birdSource =
+        brownBirdSupply.wetland[brownBirdSupply.brownBirdCopy.currentSpace];
+      break;
+  }
+
+  setDestination((state) => {
+    state[destinationBirdCount].bird = birdSource.bird;
+    state[destinationBirdCount].eggCount = birdSource.eggCount;
+    state[destinationBirdCount].cacheCount = birdSource.cacheCount;
+    state[destinationBirdCount].tuckedCount = birdSource.tuckedCount;
+    return state;
+  });
+  setDestinationBrownBirds((state) => {
+    state.push(destinationBirdCount);
+    return state;
+  });
+  setDestinationBirdCount((state) => state + 1);
+};

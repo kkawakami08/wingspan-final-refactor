@@ -66,9 +66,9 @@ export const forestBirdCountAtom = atom(1);
 export const grasslandBirdCountAtom = atom(1);
 export const wetlandBirdCountAtom = atom(2);
 
-export const forestBrownBirdsAtom = atom([0]);
-export const grasslandBrownBirdsAtom = atom([0]);
-export const wetlandBrownBirdsAtom = atom([0, 1]);
+export const forestBrownBirdsAtom = atomWithImmer([0]);
+export const grasslandBrownBirdsAtom = atomWithImmer([0]);
+export const wetlandBrownBirdsAtom = atomWithImmer([0, 1]);
 
 export const brownBirdCopyAtom = atom({
   location: "",

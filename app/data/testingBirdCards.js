@@ -1,5 +1,31 @@
 export const forestBirds = [
   {
+    common_name: "Song Sparrow",
+    scientific_name: "Melospiza melodia",
+    vp: 0,
+    nest: "bowl",
+    egg_limit: 5,
+    wingspan: 20,
+    power: {
+      color: "brown",
+      description:
+        "If this bird is to the right of all other birds in its habitat, move it to another habitat.",
+      id: 38,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland", "wetland"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 1,
+    locations: ["North America"],
+    bonus_cards: [
+      "Backyard Birder",
+      "Bird Feeder",
+      "Passerine Specialist",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
     common_name: "Red-Shouldered Hawk",
     scientific_name: "Buteo lineatus",
     vp: 3,
@@ -4198,32 +4224,7 @@ export const birdDeck = [
       "Rodentologist",
     ],
   },
-  {
-    common_name: "Song Sparrow",
-    scientific_name: "Melospiza melodia",
-    vp: 0,
-    nest: "bowl",
-    egg_limit: 5,
-    wingspan: 20,
-    power: {
-      color: "brown",
-      description:
-        "If this bird is to the right of all other birds in its habitat, move it to another habitat.",
-      id: 38,
-      variable: "none",
-    },
-    habitat: ["forest", "grassland", "wetland"],
-    food: ["invertebrate", "seed", "fruit"],
-    food_count: 1,
-    locations: ["North America"],
-    bonus_cards: [
-      "Backyard Birder",
-      "Bird Feeder",
-      "Passerine Specialist",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "White-Crowned Sparrow",
     scientific_name: "Zonotrichia leucophrys",

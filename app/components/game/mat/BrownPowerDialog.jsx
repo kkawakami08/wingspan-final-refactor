@@ -3,6 +3,7 @@ import CacheOrSupply from "../individual/buttons/brownPowerDialog/CacheOrSupplyB
 import DrawOrSkipBtn from "../individual/buttons/brownPowerDialog/DrawOrSkipBtn";
 import TuckOrSkipBtn from "../individual/buttons/brownPowerDialog/TuckOrSkipBtn";
 import DiscardOrSkipBtn from "../individual/buttons/brownPowerDialog/DiscardOrSkipBtn";
+import MoveOrSkipBtn from "../individual/buttons/brownPowerDialog/MoveOrSkipBtn";
 
 const BrownPowerDialog = ({ brownBirdSupply }) => {
   const dialog = brownBirdSupply.brownBirdCopy.dialog;
@@ -19,6 +20,8 @@ const BrownPowerDialog = ({ brownBirdSupply }) => {
         return <TuckOrSkipBtn brownBirdSupply={brownBirdSupply} />;
       case "discard":
         return <DiscardOrSkipBtn brownBirdSupply={brownBirdSupply} />;
+      case "move":
+        return <MoveOrSkipBtn brownBirdSupply={brownBirdSupply} />;
       default:
         break;
     }

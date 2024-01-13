@@ -1,56 +1,64 @@
 import { useAtom } from "jotai";
 import {
-  currentActionAtom,
-  resourceQuantityAtom,
   disableClickAtom,
-  forestBirdCountAtom,
   playBirdAtom,
-  playerEggSupplyAtom,
   playerBirdHandAtom,
-  playerFoodSupplyAtom,
-  currentActionTextAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
+import {
+  continueBrownPower,
+  moveBird,
+} from "../../../utils/gameFunctions/birdPowerFunctions";
+import { moveBirdDestination } from "../../../utils/gameFunctions/brownPowerHelperFunctions";
 
-const Forest = () => {
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+const Forest = ({ moveBirdSupply, brownBirdSupply }) => {
+  const [disableClick] = useAtom(disableClickAtom);
   const disableForest = disableClick.habitats;
-
-  const [forestBirdCount] = useAtom(forestBirdCountAtom);
 
   const [, setPlayBird] = useAtom(playBirdAtom);
 
-  const [playerEggs, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
-  const [playerFood] = useAtom(playerFoodSupplyAtom);
 
   const forestClick = () => {
     if (disableForest) console.log("Disabled");
     else {
-      if (currentAction === "playBird") {
+      if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
-          forestBirdCount,
-          setDisableClick,
-          playerEggs,
-          setCurrentActionText,
+          moveBirdSupply.forestBirdCount,
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.playerEggs,
+          brownBirdSupply.setCurrentActionText,
           setPlayBird,
           "forest",
           birdHand,
-          playerFood,
-          setResourceQuantity
+          brownBirdSupply.playerFood,
+          brownBirdSupply.setResourceQuantity
         );
+      } else if (brownBirdSupply.currentAction === "brownMove") {
+        if (brownBirdSupply.brownBirdCopy.location == "forest") {
+          brownBirdSupply.setCurrentActionText(
+            "Bird must move to a different location."
+          );
+          return;
+        } else {
+          moveBirdDestination(
+            brownBirdSupply.setForest,
+            moveBirdSupply.forestBirdCount,
+            moveBirdSupply.setForestBrownBirds,
+            moveBirdSupply.setForestBirdCount,
+            brownBirdSupply
+          );
+          moveBird(brownBirdSupply, moveBirdSupply);
+          continueBrownPower(brownBirdSupply);
+        }
       } else {
         activateHabitat(
-          setCurrentAction,
+          brownBirdSupply.setCurrentAction,
           "forest",
-          forestBirdCount,
-          setResourceQuantity,
-          setDisableClick
+          moveBirdSupply.forestBirdCount,
+          brownBirdSupply.setResourceQuantity,
+          brownBirdSupply.setDisableClick
         );
       }
     }

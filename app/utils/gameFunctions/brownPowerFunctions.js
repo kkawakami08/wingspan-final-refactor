@@ -685,3 +685,35 @@ export const power36_37 = (
   }
   return false;
 };
+
+export const power38 = (
+  habitat,
+  space,
+  setBrownPowerContinueBtn,
+  setCurrentActionText,
+  setBrownBirdCopy
+) => {
+  // If this bird is to the right of all other birds in its habitat, move it to another habitat.
+  if (habitat[space + 1].bird == null) {
+    setBrownPowerContinueBtn(true);
+    setCurrentActionText(
+      "Do you want to move this bird to a different location?"
+    );
+    setBrownBirdCopy((state) => ({
+      ...state,
+      currentSpace: space,
+      dialog: "move",
+    }));
+
+    return true;
+  } else {
+    return false;
+  }
+};
+// export const initialPlayBird = {
+//   habitat: "",
+//   bird: "",
+//   eggReq: 0,
+//   playable: true,
+//   confirmHabitat: true,
+// };

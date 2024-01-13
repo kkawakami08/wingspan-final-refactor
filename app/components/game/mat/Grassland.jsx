@@ -1,44 +1,62 @@
 import { useAtom } from "jotai";
 import {
   disableClickAtom,
-  grasslandBirdCountAtom,
   playBirdAtom,
   playerBirdHandAtom,
-  playerFoodSupplyAtom,
   grasslandBrownBirdsAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import DiscardEggs from "../individual/buttons/DiscardEggs";
 import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
 import { checkBirdEggCapacity } from "../../../utils/gameFunctions/grasslandFunctions";
-import { activateBrownPowers } from "../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  activateBrownPowers,
+  continueBrownPower,
+  moveBird,
+} from "../../../utils/gameFunctions/birdPowerFunctions";
+import { moveBirdDestination } from "../../../utils/gameFunctions/brownPowerHelperFunctions";
 
-const Grassland = ({ brownBirdSupply }) => {
+const Grassland = ({ brownBirdSupply, moveBirdSupply }) => {
   const [disableClick] = useAtom(disableClickAtom);
   const disableGrassland = disableClick.habitats;
 
   const [, setPlayBird] = useAtom(playBirdAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
-  const [playerFood] = useAtom(playerFoodSupplyAtom);
 
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
-  const [grasslandBirdCount] = useAtom(grasslandBirdCountAtom);
 
   const grasslandClick = () => {
     if (disableGrassland) console.log("Disabled");
     else {
       if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
-          grasslandBirdCount,
+          moveBirdSupply.grasslandBirdCount,
           brownBirdSupply.setDisableClick,
           brownBirdSupply.playerEggs,
           brownBirdSupply.setCurrentActionText,
           setPlayBird,
           "grassland",
           birdHand,
-          playerFood,
+          brownBirdSupply.playerFood,
           brownBirdSupply.setResourceQuantity
         );
+      } else if (brownBirdSupply.currentAction === "brownMove") {
+        if (brownBirdSupply.brownBirdCopy.location == "grassland") {
+          brownBirdSupply.setCurrentActionText(
+            "Bird must move to a different location."
+          );
+          return;
+        } else {
+          moveBirdDestination(
+            brownBirdSupply.setGrassland,
+            moveBirdSupply.grasslandBirdCount,
+            moveBirdSupply.setGrasslandBrownBirds,
+            moveBirdSupply.setGrasslandBirdCount,
+            brownBirdSupply
+          );
+          moveBird(brownBirdSupply, moveBirdSupply);
+          continueBrownPower(brownBirdSupply);
+        }
       } else {
         if (
           checkBirdEggCapacity(
@@ -67,7 +85,7 @@ const Grassland = ({ brownBirdSupply }) => {
           activateHabitat(
             brownBirdSupply.setCurrentAction,
             "grassland",
-            grasslandBirdCount,
+            moveBirdSupply.grasslandBirdCount,
             brownBirdSupply.setResourceQuantity,
             brownBirdSupply.setDisableClick
           );

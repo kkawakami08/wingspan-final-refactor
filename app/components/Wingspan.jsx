@@ -26,14 +26,20 @@ import {
   brownPowerEndAtom,
   discardQuantityAtom,
   playerFoodSupplyAtom,
+  forestBirdCountAtom,
+  forestBrownBirdsAtom,
+  grasslandBirdCountAtom,
+  grasslandBrownBirdsAtom,
+  wetlandBrownBirdsAtom,
+  wetlandBirdCountAtom,
 } from "../utils/jotaiStore";
 
 const Wingspan = () => {
   const [playerEggs] = useAtom(playerEggSupplyAtom);
   const [playerFood] = useAtom(playerFoodSupplyAtom);
-  const [forest] = useAtom(forestAtom);
-  const [grassland] = useAtom(grasslandAtom);
-  const [wetland] = useAtom(wetlandAtom);
+  const [forest, setForest] = useAtom(forestAtom);
+  const [grassland, setGrassland] = useAtom(grasslandAtom);
+  const [wetland, setWetland] = useAtom(wetlandAtom);
   const [brownPowerContinue, setBrownPowerContinue] = useAtom(
     brownPowerContinueBtnAtom
   );
@@ -50,10 +56,41 @@ const Wingspan = () => {
   const [brownPowerEnd, setBrownPowerEnd] = useAtom(brownPowerEndAtom);
   const [discardQuantity, setDiscardQuantity] = useAtom(discardQuantityAtom);
 
+  const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
+  const [grasslandBirdCount, setGrasslandBirdCount] = useAtom(
+    grasslandBirdCountAtom
+  );
+  const [wetlandBirdCount, setWetlandBirdCount] = useAtom(wetlandBirdCountAtom);
+
+  const [forestBrownBirds, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
+  const [grasslandBrownBirds, setGrasslandBrownBirds] = useAtom(
+    grasslandBrownBirdsAtom
+  );
+  const [wetlandBrownBirds, setWetlandBrownBirds] = useAtom(
+    wetlandBrownBirdsAtom
+  );
+
+  const moveBirdSupply = {
+    forestBirdCount: forestBirdCount,
+    setForestBirdCount: setForestBirdCount,
+    grasslandBirdCount: grasslandBirdCount,
+    setGrasslandBirdCount: setGrasslandBirdCount,
+    wetlandBirdCount: wetlandBirdCount,
+    setWetlandBirdCount: setWetlandBirdCount,
+    setForestBrownBirds: setForestBrownBirds,
+    setGrasslandBrownBirds: setGrasslandBrownBirds,
+    setWetlandBrownBirds: setWetlandBrownBirds,
+  };
+
   const brownBirdSupply = {
     forest: forest,
+    setForest: setForest,
+
     grassland: grassland,
+    setGrassland: setGrassland,
+
     wetland: wetland,
+    setWetland: setWetland,
 
     birdFeeder: birdFeeder,
 
@@ -97,7 +134,10 @@ const Wingspan = () => {
       <PlayerFoodSupply />
       <SelectedFood brownBirdSupply={brownBirdSupply} />
       <FoodSupply brownBirdSupply={brownBirdSupply} />
-      <HabitatMat brownBirdSupply={brownBirdSupply} />
+      <HabitatMat
+        brownBirdSupply={brownBirdSupply}
+        moveBirdSupply={moveBirdSupply}
+      />
     </div>
   );
 };

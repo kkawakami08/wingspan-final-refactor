@@ -12,45 +12,59 @@ import {
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
+import { moveBirdDestination } from "../../../utils/gameFunctions/brownPowerHelperFunctions";
+import {
+  continueBrownPower,
+  moveBird,
+} from "../../../utils/gameFunctions/birdPowerFunctions";
 
-const Wetland = () => {
-  const [currentAction, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
-  const [, setResourceQuantity] = useAtom(resourceQuantityAtom);
-
+const Wetland = ({ moveBirdSupply, brownBirdSupply }) => {
   const [disableClick, setDisableClick] = useAtom(disableClickAtom);
   const disableWetland = disableClick.habitats;
 
-  const [wetlandBirdCount] = useAtom(wetlandBirdCountAtom);
-
   const [, setPlayBird] = useAtom(playBirdAtom);
 
-  const [playerEggs] = useAtom(playerEggSupplyAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
-  const [playerFood] = useAtom(playerFoodSupplyAtom);
 
   const wetlandClick = () => {
     if (disableWetland) console.log("Disabled");
     else {
-      if (currentAction === "playBird") {
+      if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
-          wetlandBirdCount,
-          setDisableClick,
-          playerEggs,
-          setCurrentActionText,
+          moveBirdSupply.wetlandBirdCount,
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.playerEggs,
+          brownBirdSupply.setCurrentActionText,
           setPlayBird,
           "wetland",
           birdHand,
-          playerFood,
-          setResourceQuantity
+          brownBirdSupply.playerFood,
+          brownBirdSupply.setResourceQuantity
         );
+      } else if (brownBirdSupply.currentAction === "brownMove") {
+        if (brownBirdSupply.brownBirdCopy.location == "grassland") {
+          brownBirdSupply.setCurrentActionText(
+            "Bird must move to a different location."
+          );
+          return;
+        } else {
+          moveBirdDestination(
+            brownBirdSupply.setWetland,
+            moveBirdSupply.wetlandBirdCount,
+            moveBirdSupply.setWetlandBrownBirds,
+            moveBirdSupply.setWetlandBirdCount,
+            brownBirdSupply
+          );
+          moveBird(brownBirdSupply, moveBirdSupply);
+          continueBrownPower(brownBirdSupply);
+        }
       } else {
         activateHabitat(
-          setCurrentAction,
+          brownBirdSupply.setCurrentAction,
           "wetland",
-          wetlandBirdCount,
-          setResourceQuantity,
-          setDisableClick
+          moveBirdSupply.wetlandBirdCount,
+          brownBirdSupply.setResourceQuantity,
+          brownBirdSupply.setDisableClick
         );
       }
     }

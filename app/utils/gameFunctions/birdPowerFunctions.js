@@ -23,9 +23,14 @@ import {
   power34,
   power35,
   power36_37,
+  power38,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
-import { checkOtherEggs } from "./brownPowerHelperFunctions";
+import {
+  checkOtherEggs,
+  moveBirdDestination,
+  moveBirdSource,
+} from "./brownPowerHelperFunctions";
 
 const birdFeederPowers = [1, 3, 4, 13];
 const foodPowers = [6, 8, 9, 10];
@@ -47,11 +52,7 @@ export const activateBrownPowers = (
   while (tempCopy.length) {
     let lastSpace = tempCopy.pop();
     //if false, do stuff, come back around to same bird
-    const continuePower = brownPowerCheck(
-      habitat[lastSpace],
-      lastSpace,
-      brownBirdSupply
-    );
+    const continuePower = brownPowerCheck(habitat, lastSpace, brownBirdSupply);
     if (continuePower) {
       console.log("power was true");
       brownBirdSupply.setBrownBirdCopy((state) => ({
@@ -79,7 +80,8 @@ export const activateBrownPowers = (
   //stops looping after all brown birds are checked
 };
 
-export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
+export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
+  const currentSpace = habitat[space];
   console.log(`Checking ${currentSpace.bird.common_name}'s brown power`);
 
   if (birdFeederPowers.includes(currentSpace.bird.power.id)) {
@@ -413,6 +415,18 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setBrownBirdVariable,
         brownBirdSupply.setBrownBirdCopy
       );
+    case 38:
+      console.log("checking power 38");
+      brownBirdSupply.setCurrentAction("brownMove");
+      return power38(
+        habitat,
+        space,
+
+        brownBirdSupply.setBrownPowerContinueBtn,
+        brownBirdSupply.setCurrentActionText,
+
+        brownBirdSupply.setBrownBirdCopy
+      );
     default:
       console.log("default case");
       return false;
@@ -543,6 +557,35 @@ export const tuckCard = (
         wetland[brownBirdCopy.currentSpace].tuckedCount += 1;
         return wetland;
       });
+      break;
+  }
+};
+
+export const moveBird = (brownBirdSupply, moveBirdSupply) => {
+  switch (brownBirdSupply.brownBirdCopy.location) {
+    case "forest":
+      moveBirdSource(
+        brownBirdSupply.setForest,
+        brownBirdSupply.brownBirdCopy.currentSpace,
+        moveBirdSupply.setForestBirdCount,
+        moveBirdSupply.setForestBrownBirds
+      );
+      break;
+    case "grassland":
+      moveBirdSource(
+        brownBirdSupply.setGrassland,
+        brownBirdSupply.brownBirdCopy.currentSpace,
+        moveBirdSupply.setGrasslandBirdCount,
+        moveBirdSupply.setGrasslandBrownBirds
+      );
+      break;
+    case "wetland":
+      moveBirdSource(
+        brownBirdSupply.setWetland,
+        brownBirdSupply.brownBirdCopy.currentSpace,
+        moveBirdSupply.setWetlandBirdCount,
+        moveBirdSupply.setWetlandBrownBirds
+      );
       break;
   }
 };

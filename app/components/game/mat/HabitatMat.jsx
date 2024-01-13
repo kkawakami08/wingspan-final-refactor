@@ -10,7 +10,7 @@ import WetlandRow from "./WetlandRow";
 import BrownPowerDialog from "./BrownPowerDialog";
 import NextPower from "../individual/buttons/NextPower";
 
-const HabitatMat = ({ brownBirdSupply }) => {
+const HabitatMat = ({ brownBirdSupply, moveBirdSupply }) => {
   return (
     <div className="row-start-6 col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">
@@ -34,9 +34,18 @@ const HabitatMat = ({ brownBirdSupply }) => {
       <div className="grid grid-cols-7 gap-5 ">
         <PlayABird brownBirdSupply={brownBirdSupply} />
         <PlayABirdRow />
-        <Forest />
-        <Grassland brownBirdSupply={brownBirdSupply} />
-        <Wetland />
+        <Forest
+          brownBirdSupply={brownBirdSupply}
+          moveBirdSupply={moveBirdSupply}
+        />
+        <Grassland
+          brownBirdSupply={brownBirdSupply}
+          moveBirdSupply={moveBirdSupply}
+        />
+        <Wetland
+          brownBirdSupply={brownBirdSupply}
+          moveBirdSupply={moveBirdSupply}
+        />
         <ForestRow brownBirdSupply={brownBirdSupply} />
         <GrasslandRow brownBirdSupply={brownBirdSupply} />
         <WetlandRow brownBirdSupply={brownBirdSupply} />
