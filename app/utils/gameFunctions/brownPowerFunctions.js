@@ -430,3 +430,45 @@ export const power30 = (
     return true;
   }
 };
+
+export const power31 = (
+  sameBird,
+  space,
+  setBrownPowerContinueBtn,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setBrownBirdVariable,
+  setCurrentAction,
+  setDisableClick
+) => {
+  //Tuck 1 card from your hand behind this bird. If you do, draw 1 card.
+  if (sameBird) {
+    console.log("coming back");
+
+    setCurrentAction("brownCard");
+    setCurrentActionText("Can now draw a card from the bird deck.");
+    setDisableClick((state) => ({
+      ...state,
+      birdDeck: false,
+    }));
+    setResourceQuantity(1);
+
+    return true;
+  } else {
+    console.log("starting");
+    setCurrentAction("brownTuck");
+    setBrownPowerContinueBtn(true);
+    setBrownBirdVariable("hand");
+    setResourceQuantity(1);
+    setCurrentActionText(
+      "Do you want to tuck a bird from your hand behind this bird or skip to next power? (If you tuck, you may draw a card from the bird deck.)"
+    );
+    setBrownBirdCopy((state) => ({
+      ...state,
+      dialog: "tuck",
+      currentSpace: space,
+    }));
+    return true;
+  }
+};
