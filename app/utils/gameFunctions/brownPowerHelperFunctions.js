@@ -17,3 +17,27 @@ export const checkOtherEggs = (playerEggs, currentBirdEggs) => {
     return false;
   } else return true;
 };
+
+export const initialTuck = (
+  setCurrentAction,
+  setBrownPowerContinueBtn,
+  setBrownBirdVariable,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  space
+) => {
+  console.log("starting");
+  setCurrentAction("brownTuck");
+  setBrownPowerContinueBtn(true);
+  setBrownBirdVariable("hand");
+  setResourceQuantity(1);
+  setCurrentActionText(
+    "Do you want to tuck a bird from your hand behind this bird or skip to next power?"
+  );
+  setBrownBirdCopy((state) => ({
+    ...state,
+    dialog: "tuck",
+    currentSpace: space,
+  }));
+};

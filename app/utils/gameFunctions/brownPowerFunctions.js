@@ -1,4 +1,4 @@
-import { birdFeederCheck } from "./brownPowerHelperFunctions";
+import { birdFeederCheck, initialTuck } from "./brownPowerHelperFunctions";
 
 export const power1 = (
   powerVariable,
@@ -414,19 +414,18 @@ export const power30 = (
       return false;
     }
   } else {
-    console.log("starting");
-    setCurrentAction("brownTuck");
-    setBrownPowerContinueBtn(true);
-    setBrownBirdVariable("hand");
-    setResourceQuantity(1);
-    setCurrentActionText(
-      "Do you want to tuck a bird from your hand behind this bird or skip to next power? (If you tuck, you may also lay 1 egg on this bird.)"
+    initialTuck(
+      setCurrentAction,
+      setBrownPowerContinueBtn,
+      setBrownBirdVariable,
+      setResourceQuantity,
+      setCurrentActionText,
+      setBrownBirdCopy,
+      space
     );
-    setBrownBirdCopy((state) => ({
-      ...state,
-      dialog: "tuck",
-      currentSpace: space,
-    }));
+    setCurrentActionText(
+      (state) => state + " (If you do, you can also lay 1 egg on this bird)"
+    );
     return true;
   }
 };
@@ -456,19 +455,61 @@ export const power31 = (
 
     return true;
   } else {
-    console.log("starting");
-    setCurrentAction("brownTuck");
-    setBrownPowerContinueBtn(true);
-    setBrownBirdVariable("hand");
-    setResourceQuantity(1);
-    setCurrentActionText(
-      "Do you want to tuck a bird from your hand behind this bird or skip to next power? (If you tuck, you may draw a card from the bird deck.)"
+    initialTuck(
+      setCurrentAction,
+      setBrownPowerContinueBtn,
+      setBrownBirdVariable,
+      setResourceQuantity,
+      setCurrentActionText,
+      setBrownBirdCopy,
+      space
     );
-    setBrownBirdCopy((state) => ({
+    setCurrentActionText(
+      (state) =>
+        state + " (If you do, you can also draw 1 card from the bird deck)"
+    );
+    return true;
+  }
+};
+export const power32 = (
+  sameBird,
+  space,
+  setBrownPowerContinueBtn,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setBrownBirdVariable,
+  setCurrentAction,
+  setDisableClick
+) => {
+  //Tuck 1 card from your hand behind this bird. If you do, gain 1 fruit from the supply.
+  if (sameBird) {
+    console.log("coming back");
+
+    setCurrentAction("brownFood");
+    setCurrentActionText("Can now take a fruit from the supply.");
+    setDisableClick((state) => ({
       ...state,
-      dialog: "tuck",
-      currentSpace: space,
+      foodSupply: false,
     }));
+    setResourceQuantity(1);
+    setBrownBirdVariable("fruit");
+
+    return true;
+  } else {
+    initialTuck(
+      setCurrentAction,
+      setBrownPowerContinueBtn,
+      setBrownBirdVariable,
+      setResourceQuantity,
+      setCurrentActionText,
+      setBrownBirdCopy,
+      space
+    );
+    setCurrentActionText(
+      (state) =>
+        state + " (If you do, you can also gain 1 fruit from the supply)"
+    );
     return true;
   }
 };

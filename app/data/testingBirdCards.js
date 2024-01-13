@@ -1,5 +1,32 @@
 export const forestBirds = [
   {
+    common_name: "Cedar Waxwing",
+    scientific_name: "Bombycilla cedrorum",
+    vp: 3,
+    nest: "bowl",
+    egg_limit: 3,
+    wingspan: 25,
+    power: {
+      color: "brown",
+      description:
+        "Tuck 1 card from your hand behind this bird. If you do, gain 1 fruit from the supply.",
+      id: 32,
+      variable: "fruit",
+    },
+    habitat: ["forest", "grassland"],
+    food: ["fruit", "fruit"],
+    food_count: 2,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Backyard Birder",
+      "Bird Counter",
+      "Passerine Specialist",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
     common_name: "Yellow-Rumped Warbler",
     scientific_name: "Setophaga coronata",
     vp: 1,
@@ -1508,34 +1535,6 @@ export const birdDeck = [
       "Photographer",
       "Omnivore Expert",
       "Passerine Specialist",
-      "Wildlife Gardener",
-    ],
-  },
-
-  {
-    common_name: "Cedar Waxwing",
-    scientific_name: "Bombycilla cedrorum",
-    vp: 3,
-    nest: "bowl",
-    egg_limit: 3,
-    wingspan: 25,
-    power: {
-      color: "brown",
-      description:
-        "Tuck 1 card from your hand behind this bird. If you do, gain 1 fruit from the supply.",
-      id: 32,
-      variable: "fruit",
-    },
-    habitat: ["forest", "grassland"],
-    food: ["fruit", "fruit"],
-    food_count: 2,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Backyard Birder",
-      "Bird Counter",
-      "Passerine Specialist",
-      "Viticulturalist",
       "Wildlife Gardener",
     ],
   },
