@@ -25,10 +25,12 @@ import {
   wetlandAtom,
   brownPowerEndAtom,
   discardQuantityAtom,
+  playerFoodSupplyAtom,
 } from "../utils/jotaiStore";
 
 const Wingspan = () => {
   const [playerEggs] = useAtom(playerEggSupplyAtom);
+  const [playerFood] = useAtom(playerFoodSupplyAtom);
   const [forest] = useAtom(forestAtom);
   const [grassland] = useAtom(grasslandAtom);
   const [wetland] = useAtom(wetlandAtom);
@@ -39,7 +41,9 @@ const Wingspan = () => {
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [, setBrownBirdVariable] = useAtom(brownBirdVariableAtom);
+  const [brownbirdVariable, setBrownBirdVariable] = useAtom(
+    brownBirdVariableAtom
+  );
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
@@ -57,6 +61,8 @@ const Wingspan = () => {
     setCurrentActionText: setCurrentActionText,
     resourceQuantity: resourceQuantity,
     setResourceQuantity: setResourceQuantity,
+
+    brownbirdVariable: brownbirdVariable,
     setBrownBirdVariable: setBrownBirdVariable,
 
     setBrownPowerContinueBtn: setBrownPowerContinue,
@@ -70,6 +76,7 @@ const Wingspan = () => {
 
     setSelectedFood: setSelectedFood,
     playerEggs: playerEggs,
+    playerFood: playerFood,
 
     brownPowerEnd: brownPowerEnd,
     setBrownPowerEnd: setBrownPowerEnd,

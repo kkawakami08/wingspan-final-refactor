@@ -6,6 +6,9 @@ import {
   birdTrayAtom,
   selectedBirdsAtom,
   wetlandBrownBirdsAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
 } from "../../../utils/jotaiStore";
 import { drawCard } from "../../../utils/gameFunctions/cardFunctions";
 
@@ -14,6 +17,7 @@ import { resetAction } from "../../../utils/gameFunctions/habitatFunctions";
 import {
   activateBrownPowers,
   continueBrownPower,
+  tuckCard,
 } from "../../../utils/gameFunctions/birdPowerFunctions";
 
 const BirdDeck = ({ brownBirdSupply }) => {
@@ -21,6 +25,9 @@ const BirdDeck = ({ brownBirdSupply }) => {
   const [, setBirdTray] = useAtom(birdTrayAtom);
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setPlayerBirdHand] = useAtom(playerBirdHandAtom);
+  const [, setForest] = useAtom(forestAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [, setWetland] = useAtom(wetlandAtom);
 
   const [disableClick] = useAtom(disableClickAtom);
   const disableBirdDeck = disableClick.birdDeck;
@@ -65,6 +72,23 @@ const BirdDeck = ({ brownBirdSupply }) => {
           //1 resource quantity
 
           drawCard(birdDeck, setPlayerBirdHand);
+          brownBirdSupply.setResourceQuantity((state) => state - 1);
+          if (brownBirdSupply.resourceQuantity - 1 == 0) {
+            continueBrownPower(brownBirdSupply);
+            return;
+          } else {
+            return;
+          }
+        case "brownTuck":
+          //1 resource quantity
+
+          tuckCard(
+            brownBirdSupply.brownBirdCopy,
+            setForest,
+            setGrassland,
+            setWetland,
+            setSelectedBirds
+          );
           brownBirdSupply.setResourceQuantity((state) => state - 1);
           if (brownBirdSupply.resourceQuantity - 1 == 0) {
             continueBrownPower(brownBirdSupply);

@@ -323,10 +323,11 @@ export const power22 = (
   );
   setBrownBirdCopy((state) => ({
     ...state,
-    dialog: "discard",
+    dialog: "discardLater",
   }));
   return true;
 };
+
 export const power23 = (
   setResourceQuantity,
   setCurrentActionText,
@@ -341,7 +342,7 @@ export const power23 = (
   );
   setBrownBirdCopy((state) => ({
     ...state,
-    dialog: "discard",
+    dialog: "discardLater",
   }));
   return true;
 };
@@ -404,11 +405,7 @@ export const power30 = (
         playedBird: false,
       }));
       setResourceQuantity(1);
-      setBrownBirdCopy((state) => ({
-        ...state,
 
-        currentSpace: space,
-      }));
       return true;
     } else {
       return false;
@@ -511,5 +508,52 @@ export const power32 = (
         state + " (If you do, you can also gain 1 fruit from the supply)"
     );
     return true;
+  }
+};
+
+export const power33 = (
+  sameBird,
+  space,
+  playerFoodSupply,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setDisableClick,
+  setBrownBirdVariable,
+  setResourceQuantity,
+  setCurrentAction,
+  setBrownPowerContinueBtn
+) => {
+  // Discard 1 fish to tuck 2 card from the deck behind this bird.
+  if (sameBird) {
+    setCurrentAction("brownTuck");
+    setCurrentActionText(
+      "Can now tuck 2 cards from the bird deck behind this bird."
+    );
+    setDisableClick((state) => ({
+      ...state,
+      birdDeck: false,
+    }));
+    setResourceQuantity(2);
+    return true;
+  } else {
+    if (birdFeederCheck("fish", playerFoodSupply)) {
+      setBrownPowerContinueBtn(true);
+      setCurrentAction("brownFood");
+      setCurrentActionText(
+        "Do you want to discard 1 fish to tuck 2 cards from the deck behind this bird?"
+      );
+
+      setBrownBirdCopy((state) => ({
+        ...state,
+        dialog: "discard",
+        currentSpace: space,
+      }));
+
+      setBrownBirdVariable("fish");
+      setResourceQuantity(1);
+      return true;
+    } else {
+      return false;
+    }
   }
 };
