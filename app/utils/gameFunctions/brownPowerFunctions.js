@@ -1,3 +1,4 @@
+import { rollBirdFeeder } from "./birdFeederFunctions";
 import { birdFeederCheck, initialTuck } from "./brownPowerHelperFunctions";
 
 export const power1 = (
@@ -643,4 +644,43 @@ export const power35 = (
     currentSpace: space,
   }));
   return true;
+};
+
+export const power36 = (
+  space,
+  birdFeeder,
+  setCurrentActionText,
+  setDisableClick,
+  setResourceQuantity,
+  setBrownBirdVariable,
+  setBrownBirdCopy
+) => {
+  // Roll all dice not in birdfeeder. If any are fish, cache 1 fish from the supply on this bird.
+  if (birdFeeder.length == 5) {
+    return false;
+  }
+  let roll = rollBirdFeeder();
+  for (let i = birdFeeder.length; i > 0; i--) {
+    roll.pop();
+  }
+  console.log("roll check after pop", roll);
+  for (const die of roll) {
+    if (die.type == "fish") {
+      setCurrentActionText(
+        `Rolled at least 1 fish from dice not in bird feeder. Can now cache 1 fish from the supply on this bird.`
+      );
+      setDisableClick((state) => ({
+        ...state,
+        foodSupply: false,
+      }));
+      setResourceQuantity(1);
+      setBrownBirdVariable("fish");
+      setBrownBirdCopy((state) => ({
+        ...state,
+        currentSpace: space,
+      }));
+      return true;
+    }
+  }
+  return false;
 };

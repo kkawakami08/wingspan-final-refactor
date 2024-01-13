@@ -3,8 +3,10 @@ import { nanoid } from "nanoid";
 import {
   disableClickAtom,
   playerFoodSupplyAtom,
-  brownBirdVariableAtom,
   resourceQuantityAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
 } from "../../../../utils/jotaiStore";
 import {
   cacheToken,
@@ -16,6 +18,9 @@ const FoodSupplyBoxes = ({ type, bg, brownBirdSupply }) => {
   const disableFood = disableClick.foodSupply;
 
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
+  const [, setForest] = useAtom(forestAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [, setWetland] = useAtom(wetlandAtom);
 
   const [resourceQuantity] = useAtom(resourceQuantityAtom);
 

@@ -280,6 +280,33 @@ export const grasslandBirds = [
 
 export const wetlandBirds = [
   {
+    common_name: "Snowy Egret",
+    scientific_name: "Egretta thula",
+    vp: 4,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 104,
+    power: {
+      color: "brown",
+      description:
+        "Roll all dice not in birdfeeder. If any are fish, cache 1 fish from the supply on this bird.",
+      id: 36,
+      variable: "none",
+    },
+    habitat: ["wetland"],
+    food: ["invertebrate", "fish"],
+    food_count: 1,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Photographer",
+      "Falconer",
+      "Fishery Manager",
+      "Large Bird Specialist",
+      "Platform Builder",
+      "Wetland Scientist",
+    ],
+  },
+  {
     common_name: "Black-Bellied Whistling-Duck",
     scientific_name: "Dendrocygna autumnalis",
     vp: 2,
@@ -3843,33 +3870,6 @@ export const birdDeck = [
     ],
   },
 
-  {
-    common_name: "Snowy Egret",
-    scientific_name: "Egretta thula",
-    vp: 4,
-    nest: "platform",
-    egg_limit: 2,
-    wingspan: 104,
-    power: {
-      color: "brown",
-      description:
-        "Roll all dice not in birdfeeder. If any are fish, cache 1 fish from the supply on this bird.",
-      id: 36,
-      variable: "none",
-    },
-    habitat: ["wetland"],
-    food: ["invertebrate", "fish"],
-    food_count: 1,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Photographer",
-      "Falconer",
-      "Fishery Manager",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Wetland Scientist",
-    ],
-  },
   {
     common_name: "Willet",
     scientific_name: "Tringa semipalmata",

@@ -22,6 +22,7 @@ import {
   power33,
   power34,
   power35,
+  power36,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -384,6 +385,19 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setBrownBirdVariable,
         brownBirdSupply.setBrownBirdCopy
       );
+    case 36:
+      console.log("checking power 36");
+      brownBirdSupply.setCurrentAction("brownCache");
+      return power36(
+        space,
+        brownBirdSupply.birdFeeder,
+
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setBrownBirdCopy
+      );
     default:
       console.log("default case");
       return false;
@@ -473,6 +487,12 @@ export const cacheToken = (
       setForest((forest) => {
         forest[brownBirdCopy.currentSpace].cacheCount += 1;
         return forest;
+      });
+      setSelectedFood([]);
+    case "wetland":
+      setWetland((wetland) => {
+        wetland[brownBirdCopy.currentSpace].cacheCount += 1;
+        return wetland;
       });
       setSelectedFood([]);
     default:
