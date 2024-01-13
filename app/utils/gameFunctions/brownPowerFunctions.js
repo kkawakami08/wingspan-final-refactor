@@ -710,10 +710,24 @@ export const power38 = (
     return false;
   }
 };
-// export const initialPlayBird = {
-//   habitat: "",
-//   bird: "",
-//   eggReq: 0,
-//   playable: true,
-//   confirmHabitat: true,
-// };
+
+export const power39 = (
+  setCurrentActionText,
+  setDisableClick,
+  setBrownBirdCopy,
+  space
+) => {
+  // Repeat a brown power on another bird in this habitat.
+  setCurrentActionText(
+    "Select another bird in this habitat with a brown power to activate."
+  );
+  setDisableClick((state) => ({
+    ...state,
+    playedBird: false,
+  }));
+  setBrownBirdCopy((state) => ({
+    ...state,
+    currentSpace: space,
+  }));
+  return true;
+};

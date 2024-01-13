@@ -1,14 +1,8 @@
 import { useAtom } from "jotai";
 import {
-  currentActionAtom,
-  resourceQuantityAtom,
   disableClickAtom,
-  wetlandBirdCountAtom,
   playBirdAtom,
-  playerEggSupplyAtom,
   playerBirdHandAtom,
-  playerFoodSupplyAtom,
-  currentActionTextAtom,
 } from "../../../utils/jotaiStore";
 import { activateHabitat } from "../../../utils/gameFunctions/habitatFunctions";
 import { eggReqCheck } from "../../../utils/gameFunctions/playABirdFunctions";
@@ -19,7 +13,7 @@ import {
 } from "../../../utils/gameFunctions/birdPowerFunctions";
 
 const Wetland = ({ moveBirdSupply, brownBirdSupply }) => {
-  const [disableClick, setDisableClick] = useAtom(disableClickAtom);
+  const [disableClick] = useAtom(disableClickAtom);
   const disableWetland = disableClick.habitats;
 
   const [, setPlayBird] = useAtom(playBirdAtom);
@@ -42,7 +36,7 @@ const Wetland = ({ moveBirdSupply, brownBirdSupply }) => {
           brownBirdSupply.setResourceQuantity
         );
       } else if (brownBirdSupply.currentAction === "brownMove") {
-        if (brownBirdSupply.brownBirdCopy.location == "grassland") {
+        if (brownBirdSupply.brownBirdCopy.location == "wetland") {
           brownBirdSupply.setCurrentActionText(
             "Bird must move to a different location."
           );

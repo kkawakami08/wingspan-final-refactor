@@ -1,35 +1,21 @@
 import { useAtom } from "jotai";
 import {
   playBirdAtom,
-  currentActionAtom,
   selectedBirdsAtom,
   playerBirdHandAtom,
-  disableClickAtom,
-  resourceQuantityAtom,
   playerEggSupplyAtom,
-  currentActionTextAtom,
   removedEggListAtom,
-  forestAtom,
-  grasslandAtom,
-  wetlandAtom,
 } from "../../../../utils/jotaiStore";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { replaceEggs } from "../../../../utils/gameFunctions/playABirdFunctions";
 
-const CancelBtn = () => {
+const CancelBtn = ({ brownBirdSupply }) => {
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
-  const [, setCurrentAction] = useAtom(currentActionAtom);
-  const [, setCurrentActionText] = useAtom(currentActionTextAtom);
 
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
-  const [, setDisableClick] = useAtom(disableClickAtom);
-  const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [removedEggList, setRemovedEggList] = useAtom(removedEggListAtom);
-  const [, setForest] = useAtom(forestAtom);
-  const [, setGrassland] = useAtom(grasslandAtom);
-  const [, setWetland] = useAtom(wetlandAtom);
 
   const cancelPlayBirdClick = () => {
     if (selectedBirds.length) {
@@ -42,22 +28,27 @@ const CancelBtn = () => {
         return state;
       });
     }
-    if (resourceQuantity == 0) {
+    if (brownBirdSupply.resourceQuantity == 0) {
       setPlayerEggs((eggs) => eggs + playBirdState.eggReq);
     } else {
       setPlayerEggs((eggs) => eggs + 1);
     }
-    replaceEggs(removedEggList, setForest, setGrassland, setWetland);
+    replaceEggs(
+      removedEggList,
+      brownBirdSupply.setForest,
+      brownBirdSupply.setGrassland,
+      brownBirdSupply.setWetland
+    );
     setRemovedEggList((list) => {
       list = { forest: [], grassland: [], wetland: [] };
       return list;
     });
     resetPlayBirdAction(
-      setDisableClick,
-      setResourceQuantity,
-      setCurrentAction,
+      brownBirdSupply.setDisableClick,
+      brownBirdSupply.setResourceQuantity,
+      brownBirdSupply.setCurrentAction,
       setPlayBirdState,
-      setCurrentActionText
+      brownBirdSupply.setCurrentActionText
     );
   };
 

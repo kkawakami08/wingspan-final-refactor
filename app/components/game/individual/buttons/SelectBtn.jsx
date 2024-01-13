@@ -2,7 +2,6 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import {
   selectedBirdsAtom,
-  resourceQuantityAtom,
   playerBirdHandAtom,
   birdTrayAtom,
   birdDeckAtom,
@@ -27,8 +26,6 @@ const SelectBtn = ({ brownBirdSupply }) => {
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
-
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
@@ -38,10 +35,10 @@ const SelectBtn = ({ brownBirdSupply }) => {
   const updateDisable = () => {
     switch (brownBirdSupply.currentAction) {
       case "wetland":
-        disableSave = selectedBirds.length === resourceQuantity;
+        disableSave = selectedBirds.length === brownBirdSupply.resourceQuantity;
         break;
       case "forest":
-        disableSave = selectedFood.length === resourceQuantity;
+        disableSave = selectedFood.length === brownBirdSupply.resourceQuantity;
         break;
       case "playBird":
         disableSave =

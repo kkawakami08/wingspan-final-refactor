@@ -7,7 +7,7 @@ import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
 import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 BrownDiscardBtn;
 
-const SelectedBirds = ({ brownBirdSupply }) => {
+const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedBirds] = useAtom(selectedBirdsAtom);
   const [playBirdState] = useAtom(playBirdAtom);
 
@@ -18,7 +18,12 @@ const SelectedBirds = ({ brownBirdSupply }) => {
   const btnDisplay = () => {
     switch (brownBirdSupply.currentAction) {
       case "forest":
-        return <DiscardBtn brownBirdSupply={brownBirdSupply} />;
+        return (
+          <DiscardBtn
+            brownBirdSupply={brownBirdSupply}
+            moveBirdSupply={moveBirdSupply}
+          />
+        );
       case "wetland":
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "playBird":

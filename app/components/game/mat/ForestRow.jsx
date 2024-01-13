@@ -1,26 +1,29 @@
 import ActionSpace from "../individual/habitat/ActionSpace";
 import PlayedBirdCard from "../individual/bird/PlayedBirdCard";
-import { useAtom } from "jotai";
-import { forestAtom } from "../../../utils/jotaiStore";
 
 const ForestRow = ({ brownBirdSupply }) => {
-  const [forest, setForest] = useAtom(forestAtom);
-  const forestArray = Object.keys(forest);
+  const forestArray = Object.keys(brownBirdSupply.forest);
 
   const forestContent = forestArray.map((space) => {
-    if (forest[space].bird) {
+    if (brownBirdSupply.forest[space].bird) {
       return (
         <PlayedBirdCard
-          key={forest[space].bird.common_name}
-          habitat={forest}
-          setHabitat={setForest}
+          key={brownBirdSupply.forest[space].bird.common_name}
+          habitat={brownBirdSupply.forest}
+          setHabitat={brownBirdSupply.setForest}
           space={space}
           location={"forest"}
           brownBirdSupply={brownBirdSupply}
         />
       );
     } else {
-      return <ActionSpace key={space} space={forest[space]} num={space} />;
+      return (
+        <ActionSpace
+          key={space}
+          space={brownBirdSupply.forest[space]}
+          num={space}
+        />
+      );
     }
   });
 

@@ -3,10 +3,6 @@ import { nanoid } from "nanoid";
 import {
   disableClickAtom,
   playerFoodSupplyAtom,
-  resourceQuantityAtom,
-  forestAtom,
-  grasslandAtom,
-  wetlandAtom,
 } from "../../../../utils/jotaiStore";
 import {
   cacheToken,
@@ -18,11 +14,6 @@ const FoodSupplyBoxes = ({ type, bg, brownBirdSupply }) => {
   const disableFood = disableClick.foodSupply;
 
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
-  const [, setForest] = useAtom(forestAtom);
-  const [, setGrassland] = useAtom(grasslandAtom);
-  const [, setWetland] = useAtom(wetlandAtom);
-
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
 
   const foodSupplyClick = () => {
     if (disableFood) {
@@ -36,18 +27,12 @@ const FoodSupplyBoxes = ({ type, bg, brownBirdSupply }) => {
             setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);
             break;
           case "brownCache":
-            cacheToken(
-              brownBirdSupply.brownBirdCopy,
-              setForest,
-              setGrassland,
-              setWetland,
-              brownBirdSupply.setSelectedFood
-            );
+            cacheToken(brownBirdSupply, brownBirdSupply.setSelectedFood);
             break;
         }
 
         brownBirdSupply.setResourceQuantity((state) => state - 1);
-        if (resourceQuantity - 1 == 0) {
+        if (brownBirdSupply.resourceQuantity - 1 == 0) {
           continueBrownPower(brownBirdSupply);
         }
       }

@@ -6,7 +6,7 @@ import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 import SelectedFoodToken from "../individual/food/SelectedFoodToken";
 import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
 
-const SelectedFood = ({ brownBirdSupply }) => {
+const SelectedFood = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedFood] = useAtom(selectedFoodAtom);
 
   const selectedFoodContent = selectedFood.map((food) => (
@@ -19,9 +19,19 @@ const SelectedFood = ({ brownBirdSupply }) => {
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
 
       case "grassland":
-        return <DiscardBtn brownBirdSupply={brownBirdSupply} />;
+        return (
+          <DiscardBtn
+            brownBirdSupply={brownBirdSupply}
+            moveBirdSupply={moveBirdSupply}
+          />
+        );
       case "playBird":
-        return <DiscardBtn brownBirdSupply={brownBirdSupply} />;
+        return (
+          <DiscardBtn
+            brownBirdSupply={brownBirdSupply}
+            moveBirdSupply={moveBirdSupply}
+          />
+        );
       case "brownFeeder":
         return <BrownSelectBtn brownBirdSupply={brownBirdSupply} />;
       case "brownFood":

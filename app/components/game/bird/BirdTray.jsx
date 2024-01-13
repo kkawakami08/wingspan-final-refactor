@@ -3,7 +3,7 @@ import { birdTrayAtom } from "../../../utils/jotaiStore";
 import BirdTrayCard from "../individual/bird/BirdTrayCard";
 
 const BirdTray = () => {
-  const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
+  const [birdTray] = useAtom(birdTrayAtom);
 
   const birdTrayContent = birdTray.map((bird) => (
     <BirdTrayCard key={bird.common_name} bird={bird} />

@@ -1,8 +1,5 @@
 import { useAtom } from "jotai";
 import {
-  forestAtom,
-  grasslandAtom,
-  wetlandAtom,
   playerFoodSupplyAtom,
   selectedFoodAtom,
 } from "../../../../../utils/jotaiStore";
@@ -15,9 +12,6 @@ import { saveFoodSelection } from "../../../../../utils/gameFunctions/foodFuncti
 const CacheOrSupply = ({ brownBirdSupply }) => {
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
-  const [, setForest] = useAtom(forestAtom);
-  const [, setGrassland] = useAtom(grasslandAtom);
-  const [, setWetland] = useAtom(wetlandAtom);
 
   const continueBrownBirds = () => {
     brownBirdSupply.setBrownPowerContinueBtn(false);
@@ -35,13 +29,7 @@ const CacheOrSupply = ({ brownBirdSupply }) => {
   };
 
   const cacheTokenClick = () => {
-    cacheToken(
-      brownBirdSupply.brownBirdCopy,
-      setForest,
-      setGrassland,
-      setWetland,
-      setSelectedFood
-    );
+    cacheToken(brownBirdSupply, setSelectedFood);
 
     continueBrownBirds();
   };

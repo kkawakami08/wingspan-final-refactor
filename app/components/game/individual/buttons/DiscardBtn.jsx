@@ -4,15 +4,6 @@ import {
   birdDiscardAtom,
   selectedFoodAtom,
   playBirdAtom,
-  forestAtom,
-  forestBirdCountAtom,
-  grasslandAtom,
-  grasslandBirdCountAtom,
-  wetlandAtom,
-  wetlandBirdCountAtom,
-  forestBrownBirdsAtom,
-  grasslandBrownBirdsAtom,
-  wetlandBrownBirdsAtom,
 } from "../../../../utils/jotaiStore";
 import { discardSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { discardFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
@@ -22,44 +13,30 @@ import {
 } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 
-const DiscardBtn = ({ brownBirdSupply }) => {
+const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdDiscard] = useAtom(birdDiscardAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
 
-  const [, setForest] = useAtom(forestAtom);
-  const [forestBirdCount, setForestBirdCount] = useAtom(forestBirdCountAtom);
-  const [, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
-
-  const [, setGrassland] = useAtom(grasslandAtom);
-  const [grasslandBirdCount, setGrasslandBirdCount] = useAtom(
-    grasslandBirdCountAtom
-  );
-  const [, setGrasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
-
-  const [, setWetland] = useAtom(wetlandAtom);
-  const [wetlandBirdCount, setWetlandBirdCount] = useAtom(wetlandBirdCountAtom);
-  const [, setWetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
-
   const forestState = {
-    setHabitat: setForest,
-    birdCount: forestBirdCount,
-    setBirdCount: setForestBirdCount,
-    setBrownBirds: setForestBrownBirds,
+    setHabitat: brownBirdSupply.setForest,
+    birdCount: moveBirdSupply.forestBirdCount,
+    setBirdCount: moveBirdSupply.setForestBirdCount,
+    setBrownBirds: moveBirdSupply.setForestBrownBirds,
   };
   const grasslandState = {
-    setHabitat: setGrassland,
-    birdCount: grasslandBirdCount,
-    setBirdCount: setGrasslandBirdCount,
-    setBrownBirds: setGrasslandBrownBirds,
+    setHabitat: brownBirdSupply.setGrassland,
+    birdCount: moveBirdSupply.grasslandBirdCount,
+    setBirdCount: moveBirdSupply.setGrasslandBirdCount,
+    setBrownBirds: moveBirdSupply.setGrasslandBrownBirds,
   };
   const wetlandState = {
-    setHabitat: setWetland,
-    birdCount: wetlandBirdCount,
-    setBirdCount: setWetlandBirdCount,
-    setBrownBirds: setWetlandBrownBirds,
+    setHabitat: brownBirdSupply.setWetland,
+    birdCount: moveBirdSupply.wetlandBirdCount,
+    setBirdCount: moveBirdSupply.setWetlandBirdCount,
+    setBrownBirds: moveBirdSupply.setWetlandBrownBirds,
   };
 
   let disableDiscard;
@@ -117,10 +94,7 @@ const DiscardBtn = ({ brownBirdSupply }) => {
             placeBird(playBirdState, wetlandState);
             break;
         }
-        setSelectedBirds((hand) => {
-          hand = [];
-          return hand;
-        });
+        setSelectedBirds([]);
         resetPlayBirdAction(
           brownBirdSupply.setDisableClick,
           brownBirdSupply.setResourceQuantity,

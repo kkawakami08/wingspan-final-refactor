@@ -21,7 +21,7 @@ const PlayABird = ({ brownBirdSupply }) => {
     >
       <p>Play a Bird</p>
       {brownBirdSupply.currentAction === "playBird" && !playBirdState.bird && (
-        <CancelBtn />
+        <CancelBtn brownBirdSupply={brownBirdSupply} />
       )}
     </div>
   );

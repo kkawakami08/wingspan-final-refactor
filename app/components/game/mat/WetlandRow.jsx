@@ -1,26 +1,29 @@
 import ActionSpace from "../individual/habitat/ActionSpace";
 import PlayedBirdCard from "../individual/bird/PlayedBirdCard";
-import { useAtom } from "jotai";
-import { wetlandAtom } from "../../../utils/jotaiStore";
 
 const WetlandRow = ({ brownBirdSupply }) => {
-  const [wetland, setWetland] = useAtom(wetlandAtom);
-  const wetlandArray = Object.keys(wetland);
+  const wetlandArray = Object.keys(brownBirdSupply.wetland);
 
   const wetlandContent = wetlandArray.map((space) => {
-    if (wetland[space].bird) {
+    if (brownBirdSupply.wetland[space].bird) {
       return (
         <PlayedBirdCard
-          key={wetland[space].bird.common_name}
-          habitat={wetland}
-          setHabitat={setWetland}
+          key={brownBirdSupply.wetland[space].bird.common_name}
+          habitat={brownBirdSupply.wetland}
+          setHabitat={brownBirdSupply.setWetland}
           space={space}
           location={"wetland"}
           brownBirdSupply={brownBirdSupply}
         />
       );
     } else {
-      return <ActionSpace key={space} space={wetland[space]} num={space} />;
+      return (
+        <ActionSpace
+          key={space}
+          space={brownBirdSupply.wetland[space]}
+          num={space}
+        />
+      );
     }
   });
 

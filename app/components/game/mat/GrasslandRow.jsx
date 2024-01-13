@@ -1,26 +1,29 @@
 import ActionSpace from "../individual/habitat/ActionSpace";
 import PlayedBirdCard from "../individual/bird/PlayedBirdCard";
-import { useAtom } from "jotai";
-import { grasslandAtom } from "../../../utils/jotaiStore";
 
 const GrasslandRow = ({ brownBirdSupply }) => {
-  const [grassland, setGrassland] = useAtom(grasslandAtom);
-  const grasslandArray = Object.keys(grassland);
+  const grasslandArray = Object.keys(brownBirdSupply.grassland);
 
   const grasslandContent = grasslandArray.map((space) => {
-    if (grassland[space].bird) {
+    if (brownBirdSupply.grassland[space].bird) {
       return (
         <PlayedBirdCard
-          key={grassland[space].bird.common_name}
-          habitat={grassland}
-          setHabitat={setGrassland}
+          key={brownBirdSupply.grassland[space].bird.common_name}
+          habitat={brownBirdSupply.grassland}
+          setHabitat={brownBirdSupply.setGrassland}
           space={space}
           location={"grassland"}
           brownBirdSupply={brownBirdSupply}
         />
       );
     } else {
-      return <ActionSpace key={space} space={grassland[space]} num={space} />;
+      return (
+        <ActionSpace
+          key={space}
+          space={brownBirdSupply.grassland[space]}
+          num={space}
+        />
+      );
     }
   });
 

@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import {
-  resourceQuantityAtom,
   eggTrackerAtom,
   grasslandBrownBirdsAtom,
 } from "../../../../utils/jotaiStore";
@@ -11,7 +10,6 @@ import {
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const DiscardEggs = ({ brownBirdSupply }) => {
-  const [resourceQuantity] = useAtom(resourceQuantityAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const [, setEggTracker] = useAtom(eggTrackerAtom);
@@ -51,7 +49,7 @@ const DiscardEggs = ({ brownBirdSupply }) => {
       className="bg-amber-300 text-amber-900 text-lg font-semibold rounded-lg p-3 disabled:bg-slate-300 border-2 rounded-lg"
       onClick={discardEggsClick}
     >
-      Discard remaining {resourceQuantity} eggs
+      Discard remaining {brownBirdSupply.resourceQuantity} eggs
     </button>
   );
 };

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import {
   selectedBirdsAtom,
   selectedFoodAtom,
-  brownBirdVariableAtom,
 } from "../../../../utils/jotaiStore";
 
 import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
@@ -12,8 +11,6 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
-
-  const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
   let disableSave;
   const updateDisable = () => {
@@ -24,7 +21,9 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
       default:
         disableSave =
           selectedFood.length == brownBirdSupply.resourceQuantity &&
-          selectedFood.some((item) => item.type.includes(brownBirdVariable));
+          selectedFood.some((item) =>
+            item.type.includes(brownBirdSupply.brownBirdVariable)
+          );
         break;
     }
   };

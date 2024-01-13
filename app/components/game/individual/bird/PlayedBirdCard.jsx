@@ -4,7 +4,6 @@ import {
   playerEggSupplyAtom,
   removedEggListAtom,
   grasslandBrownBirdsAtom,
-  brownBirdVariableAtom,
   eggTrackerAtom,
 } from "../../../../utils/jotaiStore";
 import {
@@ -15,6 +14,7 @@ import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { discardEgg } from "../../../../utils/gameFunctions/wetlandFunctions";
 import {
   activateBrownPowers,
+  brownPowerCheck,
   continueBrownPower,
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
@@ -34,7 +34,6 @@ const PlayedBirdCard = ({
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
   const [eggTracker, setEggTracker] = useAtom(eggTrackerAtom);
-  const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
   const [disableClick] = useAtom(disableClickAtom);
   const disableBirdCard = disableClick.playedBird;
@@ -104,7 +103,7 @@ const PlayedBirdCard = ({
               "Cannot place an egg on this bird. "
             );
           } else {
-            if (brownBirdVariable === "this") {
+            if (brownBirdSupply.brownBirdVariable === "this") {
               console.log("brown egg and this");
               if (
                 brownBirdSupply.brownBirdCopy.currentSpace === Number(space) &&
@@ -130,7 +129,7 @@ const PlayedBirdCard = ({
         case "brownNest":
           if (
             eggTracker.includes(bird.common_name) ||
-            bird.nest !== brownBirdVariable ||
+            bird.nest !== brownBirdSupply.brownBirdVariable ||
             bird.egg_limit == currentEggs
           ) {
             brownBirdSupply.setCurrentActionText(
@@ -202,6 +201,25 @@ const PlayedBirdCard = ({
             );
           }
           continueBrownPower(brownBirdSupply);
+          break;
+        case "brownRepeat":
+          console.log("bronw power check");
+          if (brownBirdSupply.brownBirdCopy.location !== location) {
+            console.log("location not match");
+            brownBirdSupply.setCurrentActionText(
+              `Select a bird in the ${brownBirdSupply.brownBirdCopy.location} habitat.`
+            );
+          } else {
+            if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
+              console.log("same bird");
+              brownBirdSupply.setCurrentActionText(
+                "Can't select the same bird..."
+              );
+            } else {
+              console.log("good");
+              brownPowerCheck(habitat, space, brownBirdSupply);
+            }
+          }
           break;
       }
     }

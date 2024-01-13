@@ -1,11 +1,6 @@
-import { useAtom } from "jotai";
-import { brownBirdVariableAtom } from "../../../../../utils/jotaiStore";
-
 const TuckOrSkipBtn = ({ brownBirdSupply }) => {
-  const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
-
   const drawBirdCardClick = () => {
-    switch (brownBirdVariable) {
+    switch (brownBirdSupply.brownBirdVariable) {
       case "hand":
         brownBirdSupply.setDisableClick((state) => ({
           ...state,

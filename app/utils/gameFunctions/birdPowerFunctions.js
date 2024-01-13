@@ -24,6 +24,7 @@ import {
   power35,
   power36_37,
   power38,
+  power39,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import {
@@ -427,6 +428,15 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
 
         brownBirdSupply.setBrownBirdCopy
       );
+    case 39:
+      console.log("checking power 39");
+      brownBirdSupply.setCurrentAction("brownRepeat");
+      return power39(
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setBrownBirdCopy,
+        space
+      );
     default:
       console.log("default case");
       return false;
@@ -504,57 +514,46 @@ export const continueBrownPower = (brownBirdSupply) => {
   }
 };
 
-export const cacheToken = (
-  brownBirdCopy,
-  setForest,
-  setGrassland,
-  setWetland,
-  setSelectedFood
-) => {
-  switch (brownBirdCopy.location) {
+export const cacheToken = (brownBirdSupply, setSelectedFood) => {
+  switch (brownBirdSupply.brownBirdCopy.location) {
     case "forest":
-      setForest((forest) => {
-        forest[brownBirdCopy.currentSpace].cacheCount += 1;
+      brownBirdSupply.setForest((forest) => {
+        forest[brownBirdSupply.brownBirdCopy.currentSpace].cacheCount += 1;
         return forest;
       });
 
     case "wetland":
-      setWetland((wetland) => {
-        wetland[brownBirdCopy.currentSpace].cacheCount += 1;
+      brownBirdSupply.setWetland((wetland) => {
+        wetland[brownBirdSupply.brownBirdCopy.currentSpace].cacheCount += 1;
         return wetland;
       });
 
     case "grassland":
-      setGrassland((grassland) => {
-        grassland[brownBirdCopy.currentSpace].cacheCount += 1;
+      brownBirdSupply.setGrassland((grassland) => {
+        grassland[brownBirdSupply.brownBirdCopy.currentSpace].cacheCount += 1;
         return grassland;
       });
   }
   setSelectedFood([]);
 };
 
-export const tuckCard = (
-  brownBirdCopy,
-  setForest,
-  setGrassland,
-  setWetland
-) => {
-  switch (brownBirdCopy.location) {
+export const tuckCard = (brownBirdSupply) => {
+  switch (brownBirdSupply.brownBirdCopy.location) {
     case "forest":
-      setForest((forest) => {
-        forest[brownBirdCopy.currentSpace].tuckedCount += 1;
+      brownBirdSupply.setForest((forest) => {
+        forest[brownBirdSupply.brownBirdCopy.currentSpace].tuckedCount += 1;
         return forest;
       });
       break;
     case "grassland":
-      setGrassland((grassland) => {
-        grassland[brownBirdCopy.currentSpace].tuckedCount += 1;
+      brownBirdSupply.setGrassland((grassland) => {
+        grassland[brownBirdSupply.brownBirdCopy.currentSpace].tuckedCount += 1;
         return grassland;
       });
       break;
     case "wetland":
-      setWetland((wetland) => {
-        wetland[brownBirdCopy.currentSpace].tuckedCount += 1;
+      brownBirdSupply.setWetland((wetland) => {
+        wetland[brownBirdSupply.brownBirdCopy.currentSpace].tuckedCount += 1;
         return wetland;
       });
       break;
