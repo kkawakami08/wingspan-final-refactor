@@ -5,16 +5,25 @@ import {
   selectedFoodAtom,
   playerFoodSupplyAtom,
   brownBirdVariableAtom,
+  forestAtom,
+  grasslandAtom,
+  wetlandAtom,
 } from "../../../../utils/jotaiStore";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
-import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import {
+  continueBrownPower,
+  tuckCard,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 
 const BrownSelectBtn = ({ brownBirdSupply }) => {
-  const [selectedBirds] = useAtom(selectedBirdsAtom);
+  const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
+  const [, setForest] = useAtom(forestAtom);
+  const [, setGrassland] = useAtom(grasslandAtom);
+  const [, setWetland] = useAtom(wetlandAtom);
 
   const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
 
@@ -31,6 +40,9 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
           selectedFood.length == brownBirdSupply.resourceQuantity &&
           selectedFood.some((item) => item.type.includes(brownBirdVariable));
         break;
+      case "brownTuck":
+        disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
+        break;
     }
   };
   updateDisable();
@@ -41,9 +53,17 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
       brownBirdSupply.currentAction === "brownFeeder"
     ) {
       saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-
-      continueBrownPower(brownBirdSupply);
+    } else {
+      //tucking
+      tuckCard(
+        brownBirdSupply.brownBirdCopy,
+        setForest,
+        setGrassland,
+        setWetland,
+        setSelectedBirds
+      );
     }
+    continueBrownPower(brownBirdSupply);
   };
 
   useEffect(() => {

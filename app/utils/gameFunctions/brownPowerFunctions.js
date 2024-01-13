@@ -294,7 +294,7 @@ export const power19 = (
   return true;
 };
 
-export const power20_25 = (
+export const power20_25_26 = (
   setResourceQuantity,
   setDisableClick,
   setCurrentActionText
@@ -376,5 +376,57 @@ export const power24 = (
     setCurrentActionText("Discard 1 egg to draw 2 bird cards.");
 
     return;
+  }
+};
+
+export const power30 = (
+  currentBirdEggCount,
+  currentBirdEggLimit,
+  sameBird,
+  space,
+  setBrownPowerContinueBtn,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setBrownBirdVariable,
+  setCurrentAction,
+  setDisableClick
+) => {
+  // Tuck 1 card from your hand behind this bird. If you do, you may also lay 1 egg on this bird.
+  if (sameBird) {
+    console.log("coming back");
+    if (currentBirdEggCount < currentBirdEggLimit) {
+      setBrownBirdVariable("this");
+      setCurrentAction("brownEgg");
+      setCurrentActionText("Can now lay an egg on this bird.");
+      setDisableClick((state) => ({
+        ...state,
+        playedBird: false,
+      }));
+      setResourceQuantity(1);
+      setBrownBirdCopy((state) => ({
+        ...state,
+
+        currentSpace: space,
+      }));
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    console.log("starting");
+    setCurrentAction("brownTuck");
+    setBrownPowerContinueBtn(true);
+    setBrownBirdVariable("hand");
+    setResourceQuantity(1);
+    setCurrentActionText(
+      "Do you want to tuck a bird from your hand behind this bird or skip to next power? (If you tuck, you may also lay 1 egg on this bird.)"
+    );
+    setBrownBirdCopy((state) => ({
+      ...state,
+      dialog: "tuck",
+      currentSpace: space,
+    }));
+    return true;
   }
 };

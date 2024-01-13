@@ -15,7 +15,8 @@ import {
   power22,
   power23,
   power24,
-  power20_25,
+  power20_25_26,
+  power30,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -23,6 +24,7 @@ import { checkOtherEggs } from "./brownPowerHelperFunctions";
 const birdFeederPowers = [1, 3, 4, 13];
 const foodPowers = [6, 8, 9, 10];
 const cachePowers = [12];
+const special = [30];
 
 export const activateBrownPowers = (
   habitat,
@@ -237,7 +239,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 20:
       brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 20");
-      return power20_25(
+      return power20_25_26(
         brownBirdSupply.setResourceQuantity,
 
         brownBirdSupply.setDisableClick,
@@ -277,11 +279,35 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 25:
       brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 25");
-      return power20_25(
+      return power20_25_26(
         brownBirdSupply.setResourceQuantity,
 
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText
+      );
+    case 26:
+      brownBirdSupply.setCurrentAction("brownCard");
+      console.log("checking power 26");
+      return power20_25_26(
+        brownBirdSupply.setResourceQuantity,
+
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText
+      );
+    case 30:
+      console.log("checking power 30");
+      return power30(
+        currentSpace.eggCount,
+        currentSpace.bird.egg_limit,
+        brownBirdSupply.brownBirdCopy.sameBird,
+        space,
+        brownBirdSupply.setBrownPowerContinueBtn,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdCopy,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setCurrentAction,
+        brownBirdSupply.setDisableClick
       );
     default:
       console.log("default case");
@@ -377,4 +403,34 @@ export const cacheToken = (
     default:
       break;
   }
+};
+
+export const tuckCard = (
+  brownBirdCopy,
+  setForest,
+  setGrassland,
+  setWetland,
+  setSelectedBirds
+) => {
+  switch (brownBirdCopy.location) {
+    case "forest":
+      setForest((forest) => {
+        forest[brownBirdCopy.currentSpace].tuckedCount += 1;
+        return forest;
+      });
+      break;
+    case "grassland":
+      setGrassland((grassland) => {
+        grassland[brownBirdCopy.currentSpace].tuckedCount += 1;
+        return grassland;
+      });
+      break;
+    case "wetland":
+      setWetland((wetland) => {
+        wetland[brownBirdCopy.currentSpace].tuckedCount += 1;
+        return wetland;
+      });
+      break;
+  }
+  setSelectedBirds([]);
 };

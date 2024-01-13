@@ -4,6 +4,7 @@ import SelectedBirdCard from "../individual/bird/SelectedBirdCard";
 import DiscardBtn from "../individual/buttons/DiscardBtn";
 import SelectBtn from "../individual/buttons/SelectBtn";
 import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
+import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 BrownDiscardBtn;
 
 const SelectedBirds = ({ brownBirdSupply }) => {
@@ -24,6 +25,8 @@ const SelectedBirds = ({ brownBirdSupply }) => {
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "discard":
         return <BrownDiscardBtn brownBirdSupply={brownBirdSupply} />;
+      case "brownTuck":
+        return <BrownSelectBtn brownBirdSupply={brownBirdSupply} />;
       default:
         break;
     }

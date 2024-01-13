@@ -5,7 +5,6 @@ import {
   disableClickAtom,
   currentActionTextAtom,
 } from "../../../utils/jotaiStore";
-import DiscardEggs from "../individual/buttons/DiscardEggs";
 
 const CurrentAction = () => {
   const [currentAction] = useAtom(currentActionAtom);
@@ -41,23 +40,19 @@ const CurrentAction = () => {
       }
       break;
   }
-
   return (
     <div className=" text-2xl font-bold text-center flex items-center justify-center">
-      {currentAction === "playBird" ||
-      currentAction.includes("brown") ||
-      !currentAction ||
-      currentAction === "discard" ? (
-        <div>
-          <p>{CurrentActionText}</p>
-        </div>
-      ) : (
+      {currentAction === "wetland" ||
+      currentAction === "forest" ||
+      currentAction === "grassland" ? (
         <p>
           Gain {resourceQuantity} {resource}.{" "}
           {canDiscard && (
             <span>Can discard {discardResource} for an extra resource</span>
           )}
         </p>
+      ) : (
+        <p>{CurrentActionText}</p>
       )}
     </div>
   );

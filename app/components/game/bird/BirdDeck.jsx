@@ -68,6 +68,7 @@ const BirdDeck = ({ brownBirdSupply }) => {
           brownBirdSupply.setResourceQuantity((state) => state - 1);
           if (brownBirdSupply.resourceQuantity - 1 == 0) {
             continueBrownPower(brownBirdSupply);
+            return;
           } else {
             return;
           }

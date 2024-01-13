@@ -28,6 +28,7 @@ const PlayedBirdCard = ({
   const bird = habitat[space].bird;
   const currentEggs = habitat[space].eggCount;
   const currentCache = habitat[space].cacheCount;
+  const currentTucked = habitat[space].tuckedCount;
 
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
@@ -104,10 +105,12 @@ const PlayedBirdCard = ({
             );
           } else {
             if (brownBirdVariable === "this") {
+              console.log("brown egg and this");
               if (
-                brownBirdSupply.brownBirdCopy.currentSpace !== Number(space) &&
+                brownBirdSupply.brownBirdCopy.currentSpace === Number(space) &&
                 brownBirdSupply.brownBirdCopy.location === location
               ) {
+              } else {
                 brownBirdSupply.setCurrentActionText(
                   "Must place egg on correct bird."
                 );
@@ -247,6 +250,7 @@ const PlayedBirdCard = ({
         <p className="text-white text-lg">Eggs laid: {currentEggs}</p>
         <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
         <p className="text-white text-lg">Cache Count: {currentCache}</p>
+        <p className="text-white text-lg">Tuck Count: {currentTucked}</p>
       </div>
       <div className={powerCSS}>
         <p className="font-semibold text-lg text-black">
