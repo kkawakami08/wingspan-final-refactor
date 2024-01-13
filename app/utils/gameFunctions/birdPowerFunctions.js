@@ -22,7 +22,7 @@ import {
   power33,
   power34,
   power35,
-  power36,
+  power36_37,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -388,7 +388,22 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 36:
       console.log("checking power 36");
       brownBirdSupply.setCurrentAction("brownCache");
-      return power36(
+      return power36_37(
+        "fish",
+        space,
+        brownBirdSupply.birdFeeder,
+
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setBrownBirdCopy
+      );
+    case 37:
+      console.log("checking power 37");
+      brownBirdSupply.setCurrentAction("brownCache");
+      return power36_37(
+        "rodent",
         space,
         brownBirdSupply.birdFeeder,
 
@@ -488,16 +503,20 @@ export const cacheToken = (
         forest[brownBirdCopy.currentSpace].cacheCount += 1;
         return forest;
       });
-      setSelectedFood([]);
+
     case "wetland":
       setWetland((wetland) => {
         wetland[brownBirdCopy.currentSpace].cacheCount += 1;
         return wetland;
       });
-      setSelectedFood([]);
-    default:
-      break;
+
+    case "grassland":
+      setGrassland((grassland) => {
+        grassland[brownBirdCopy.currentSpace].cacheCount += 1;
+        return grassland;
+      });
   }
+  setSelectedFood([]);
 };
 
 export const tuckCard = (

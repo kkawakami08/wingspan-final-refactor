@@ -196,6 +196,32 @@ export const forestBirds = [
 
 export const grasslandBirds = [
   {
+    common_name: "Mississippi Kite",
+    scientific_name: "Ictinia mississippiensis",
+    vp: 4,
+    nest: "platform",
+    egg_limit: 1,
+    wingspan: 79,
+    power: {
+      color: "brown",
+      description:
+        "Roll all dice not in birdfeeder. If any are rodent, cache 1 rodent from the supply on this bird.",
+      id: 37,
+      variable: "none",
+    },
+    habitat: ["forest", "grassland"],
+    food: ["invertebrate", "rodent"],
+    food_count: 1,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Cartographer",
+      "Falconer",
+      "Large Bird Specialist",
+      "Platform Builder",
+      "Rodentologist",
+    ],
+  },
+  {
     common_name: "Greater Roadrunner",
     scientific_name: "Geococcyx californianus",
     vp: 7,
@@ -4004,32 +4030,7 @@ export const birdDeck = [
       "Wetland Scientist",
     ],
   },
-  {
-    common_name: "Mississippi Kite",
-    scientific_name: "Ictinia mississippiensis",
-    vp: 4,
-    nest: "platform",
-    egg_limit: 1,
-    wingspan: 79,
-    power: {
-      color: "brown",
-      description:
-        "Roll all dice not in birdfeeder. If any are rodent, cache 1 rodent from the supply on this bird.",
-      id: 37,
-      variable: "none",
-    },
-    habitat: ["forest", "grassland"],
-    food: ["invertebrate", "rodent"],
-    food_count: 1,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Cartographer",
-      "Falconer",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Rodentologist",
-    ],
-  },
+
   {
     common_name: "Eastern Screech-Owl",
     scientific_name: "Megascops asio",

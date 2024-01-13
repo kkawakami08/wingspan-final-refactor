@@ -646,7 +646,8 @@ export const power35 = (
   return true;
 };
 
-export const power36 = (
+export const power36_37 = (
+  type,
   space,
   birdFeeder,
   setCurrentActionText,
@@ -665,16 +666,16 @@ export const power36 = (
   }
   console.log("roll check after pop", roll);
   for (const die of roll) {
-    if (die.type == "fish") {
+    if (die.type == type) {
       setCurrentActionText(
-        `Rolled at least 1 fish from dice not in bird feeder. Can now cache 1 fish from the supply on this bird.`
+        `Rolled at least 1 ${type} from dice not in bird feeder. Can now cache 1 ${type} from the supply on this bird.`
       );
       setDisableClick((state) => ({
         ...state,
         foodSupply: false,
       }));
       setResourceQuantity(1);
-      setBrownBirdVariable("fish");
+      setBrownBirdVariable(type);
       setBrownBirdCopy((state) => ({
         ...state,
         currentSpace: space,
