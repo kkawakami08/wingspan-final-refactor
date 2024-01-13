@@ -11,6 +11,8 @@ import BrownPowerDialog from "./BrownPowerDialog";
 import NextPower from "../individual/buttons/NextPower";
 
 const HabitatMat = ({ brownBirdSupply }) => {
+  console.log(brownBirdSupply.currentAction, "current action from habitat");
+  console.log(brownBirdSupply.brownBirdVariable, "variable from habitat");
   return (
     <div className="row-start-6 col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">

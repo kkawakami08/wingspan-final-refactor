@@ -328,6 +328,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
     case 32:
       console.log("checking power 32");
       return power32(
+        currentSpace.bird.power.variable,
         brownBirdSupply.brownBirdCopy.sameBird,
         space,
         brownBirdSupply.setBrownPowerContinueBtn,
@@ -342,6 +343,7 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
       console.log("checking power 33");
 
       return power33(
+        currentSpace.bird.power.variable,
         brownBirdSupply.brownBirdCopy.sameBird,
         space,
         brownBirdSupply.playerFood,

@@ -17,14 +17,13 @@ const FoodSupplyBoxes = ({ type, bg, brownBirdSupply }) => {
 
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
-  const [brownBirdVariable] = useAtom(brownBirdVariableAtom);
   const [resourceQuantity] = useAtom(resourceQuantityAtom);
 
   const foodSupplyClick = () => {
     if (disableFood) {
       console.log("disabled");
     } else {
-      if (!type.includes(brownBirdVariable)) {
+      if (!brownBirdSupply.brownBirdVariable.includes(type)) {
         console.log("not the right type");
       } else {
         switch (brownBirdSupply.currentAction) {

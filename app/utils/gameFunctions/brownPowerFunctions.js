@@ -469,6 +469,7 @@ export const power31 = (
   }
 };
 export const power32 = (
+  powerVariable,
   sameBird,
   space,
   setBrownPowerContinueBtn,
@@ -479,18 +480,18 @@ export const power32 = (
   setCurrentAction,
   setDisableClick
 ) => {
-  //Tuck 1 card from your hand behind this bird. If you do, gain 1 fruit from the supply.
+  //Tuck 1 card from your hand behind this bird. If you do, gain 1 fruit/seed/invertebrate or seed from the supply.
   if (sameBird) {
     console.log("coming back");
 
     setCurrentAction("brownFood");
-    setCurrentActionText("Can now take a fruit from the supply.");
+    setCurrentActionText(`Can now take a ${powerVariable} from the supply`);
     setDisableClick((state) => ({
       ...state,
       foodSupply: false,
     }));
     setResourceQuantity(1);
-    setBrownBirdVariable("fruit");
+    setBrownBirdVariable(powerVariable);
 
     return true;
   } else {
@@ -505,13 +506,15 @@ export const power32 = (
     );
     setCurrentActionText(
       (state) =>
-        state + " (If you do, you can also gain 1 fruit from the supply)"
+        state +
+        ` (If you do, you can also gain 1 ${powerVariable} from the supply)`
     );
     return true;
   }
 };
 
 export const power33 = (
+  powerVariable,
   sameBird,
   space,
   playerFoodSupply,
@@ -536,11 +539,11 @@ export const power33 = (
     setResourceQuantity(2);
     return true;
   } else {
-    if (birdFeederCheck("fish", playerFoodSupply)) {
+    if (birdFeederCheck(powerVariable, playerFoodSupply)) {
       setBrownPowerContinueBtn(true);
       setCurrentAction("brownFood");
       setCurrentActionText(
-        "Do you want to discard 1 fish to tuck 2 cards from the deck behind this bird?"
+        `Do you want to discard 1 ${powerVariable} to tuck 2 cards from the deck behind this bird?`
       );
 
       setBrownBirdCopy((state) => ({
@@ -549,7 +552,7 @@ export const power33 = (
         currentSpace: space,
       }));
 
-      setBrownBirdVariable("fish");
+      setBrownBirdVariable(powerVariable);
       setResourceQuantity(1);
       return true;
     } else {

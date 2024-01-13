@@ -41,7 +41,7 @@ const Wingspan = () => {
   const [, setCurrentActionText] = useAtom(currentActionTextAtom);
   const [, setDisableClick] = useAtom(disableClickAtom);
   const [resourceQuantity, setResourceQuantity] = useAtom(resourceQuantityAtom);
-  const [brownbirdVariable, setBrownBirdVariable] = useAtom(
+  const [brownBirdVariable, setBrownBirdVariable] = useAtom(
     brownBirdVariableAtom
   );
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
@@ -62,7 +62,7 @@ const Wingspan = () => {
     resourceQuantity: resourceQuantity,
     setResourceQuantity: setResourceQuantity,
 
-    brownbirdVariable: brownbirdVariable,
+    brownBirdVariable: brownBirdVariable,
     setBrownBirdVariable: setBrownBirdVariable,
 
     setBrownPowerContinueBtn: setBrownPowerContinue,
