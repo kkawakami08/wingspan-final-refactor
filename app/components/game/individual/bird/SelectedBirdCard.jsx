@@ -73,6 +73,7 @@ const SelectedBirdCard = ({ bird }) => {
         <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
         <div>{habitatContent}</div>
         <p className="text-emerald-900 text-lg">Egg limit: {bird.egg_limit}</p>
+        <p className="text-emerald-900 text-lg">Wingspan: {bird.wingspan}</p>
       </div>
       <div className={powerCSS}>
         <p className="font-semibold text-lg">

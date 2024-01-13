@@ -21,6 +21,7 @@ import {
   power32,
   power33,
   power34,
+  power35,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -370,6 +371,19 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentAction,
         brownBirdSupply.setDisableClick
       );
+    case 35:
+      console.log("checking power 35");
+      brownBirdSupply.setCurrentAction("brownWing");
+      return power35(
+        space,
+        currentSpace.bird.power.variable,
+        brownBirdSupply.setDisableClick,
+
+        brownBirdSupply.setCurrentActionText,
+
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setBrownBirdCopy
+      );
     default:
       console.log("default case");
       return false;
@@ -470,8 +484,7 @@ export const tuckCard = (
   brownBirdCopy,
   setForest,
   setGrassland,
-  setWetland,
-  setSelectedBirds
+  setWetland
 ) => {
   switch (brownBirdCopy.location) {
     case "forest":
@@ -493,5 +506,4 @@ export const tuckCard = (
       });
       break;
   }
-  setSelectedBirds([]);
 };

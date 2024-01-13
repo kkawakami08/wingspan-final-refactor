@@ -1,9 +1,14 @@
 import { useAtom } from "jotai";
-import { birdFeederAtom, selectedFoodAtom } from "../../../../utils/jotaiStore";
+import {
+  birdFeederAtom,
+  selectedFoodAtom,
+  selectedBirdsAtom,
+} from "../../../../utils/jotaiStore";
 import { continueBrownPower } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const NextPower = ({ brownBirdSupply }) => {
   const [, setBirdFeeder] = useAtom(birdFeederAtom);
+  const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
 
@@ -14,6 +19,9 @@ const NextPower = ({ brownBirdSupply }) => {
       setSelectedFood([]);
     }
     //
+    if (brownBirdSupply.currentAction === "brownWing") {
+      setSelectedBirds([]);
+    }
     brownBirdSupply.setBrownPowerContinueBtn(false);
 
     brownBirdSupply.setBrownBirdCopy((state) => ({

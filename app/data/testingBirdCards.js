@@ -1,5 +1,34 @@
 export const forestBirds = [
   {
+    common_name: "Red-Shouldered Hawk",
+    scientific_name: "Buteo lineatus",
+    vp: 3,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 102,
+    power: {
+      color: "brown",
+      description:
+        "Look at a card from the deck. If less than 75cm, tuck it behind this bird. If not, discard it.",
+      id: 35,
+      variable: 75,
+    },
+    habitat: ["forest"],
+    food: ["rodent"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Backyard Birder",
+      "Falconer",
+      "Forester",
+      "Large Bird Specialist",
+      "Platform Builder",
+      "Rodentologist",
+    ],
+  },
+  {
     common_name: "Vaux's Swift",
     scientific_name: "Chaetura vauxi",
     vp: 2,
@@ -166,6 +195,32 @@ export const forestBirds = [
 ];
 
 export const grasslandBirds = [
+  {
+    common_name: "Greater Roadrunner",
+    scientific_name: "Geococcyx californianus",
+    vp: 7,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 56,
+    power: {
+      color: "brown",
+      description:
+        "Look at a card from the deck. If less than 50cm, tuck it behind this bird. If not, discard it.",
+      id: 35,
+      variable: 50,
+    },
+    habitat: ["grassland"],
+    food: ["invertebrate", "rodent", "wild"],
+    food_count: 3,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Falconer",
+      "Omnivore Expert",
+      "Platform Builder",
+      "Prairie Manager",
+      "Rodentologist",
+    ],
+  },
   {
     common_name: "White-Throated Swift",
     scientific_name: "Aeronautes saxatalis",
@@ -1000,35 +1055,6 @@ export const birdDeck = [
     ],
   },
 
-  {
-    common_name: "Red-Shouldered Hawk",
-    scientific_name: "Buteo lineatus",
-    vp: 3,
-    nest: "platform",
-    egg_limit: 2,
-    wingspan: 102,
-    power: {
-      color: "brown",
-      description:
-        "Look at a card from the deck. If less than 75cm, tuck it behind this bird. If not, discard it.",
-      id: 35,
-      variable: 75,
-    },
-    habitat: ["forest"],
-    food: ["rodent"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Backyard Birder",
-      "Falconer",
-      "Forester",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Rodentologist",
-    ],
-  },
   {
     common_name: "Cooper's Hawk",
     scientific_name: "Accipiter cooperii",

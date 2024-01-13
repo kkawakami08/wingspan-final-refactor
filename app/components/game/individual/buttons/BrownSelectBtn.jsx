@@ -59,9 +59,9 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
         brownBirdSupply.brownBirdCopy,
         setForest,
         setGrassland,
-        setWetland,
-        setSelectedBirds
+        setWetland
       );
+      setSelectedBirds([]);
     }
     continueBrownPower(brownBirdSupply);
   };

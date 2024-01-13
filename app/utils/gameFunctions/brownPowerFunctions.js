@@ -620,3 +620,27 @@ export const power34 = (
     return true;
   }
 };
+
+export const power35 = (
+  space,
+  powerVariable,
+  setDisableClick,
+  setCurrentActionText,
+  setBrownBirdVariable,
+  setBrownBirdCopy
+) => {
+  // Look at a card from the deck. If less than 50cm, tuck it behind this bird. If not, discard it.
+  setDisableClick((state) => ({
+    ...state,
+    birdDeck: false,
+  }));
+  setCurrentActionText(
+    `If the top card of the bird deck has a wingspan less than ${powerVariable}, tuck it behind this bird. Else discard it.`
+  );
+  setBrownBirdVariable(powerVariable);
+  setBrownBirdCopy((state) => ({
+    ...state,
+    currentSpace: space,
+  }));
+  return true;
+};
