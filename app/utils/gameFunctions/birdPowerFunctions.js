@@ -20,6 +20,7 @@ import {
   power31,
   power32,
   power33,
+  power34,
 } from "./brownPowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs } from "./brownPowerHelperFunctions";
@@ -354,6 +355,20 @@ export const brownPowerCheck = (currentSpace, space, brownBirdSupply) => {
         brownBirdSupply.setResourceQuantity,
         brownBirdSupply.setCurrentAction,
         brownBirdSupply.setBrownPowerContinueBtn
+      );
+    case 34:
+      console.log("checking power 34");
+      return power34(
+        currentSpace.bird.power.variable,
+        brownBirdSupply.brownBirdCopy.sameBird,
+        space,
+        brownBirdSupply.setBrownPowerContinueBtn,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setBrownBirdCopy,
+        brownBirdSupply.setBrownBirdVariable,
+        brownBirdSupply.setCurrentAction,
+        brownBirdSupply.setDisableClick
       );
     default:
       console.log("default case");

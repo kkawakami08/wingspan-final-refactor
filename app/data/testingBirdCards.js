@@ -1,5 +1,32 @@
 export const forestBirds = [
   {
+    common_name: "Vaux's Swift",
+    scientific_name: "Chaetura vauxi",
+    vp: 2,
+    nest: "cavity",
+    egg_limit: 3,
+    wingspan: 31,
+    power: {
+      color: "brown",
+      description:
+        "Tuck 1 card from your hand behind this bird. If you do, gain 1 invertebrate from the supply.",
+      id: 34,
+      variable: "invertebrate",
+    },
+    habitat: ["forest"],
+    food: ["invertebrate"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Historian",
+      "Backyard Birder",
+      "Bird Counter",
+      "Food Web Expert",
+      "Forester",
+      "Nest Box Builder",
+    ],
+  },
+  {
     common_name: "Pygmy Nuthatch",
     scientific_name: "Sitta pygmaea",
     vp: 2,
@@ -139,6 +166,34 @@ export const forestBirds = [
 ];
 
 export const grasslandBirds = [
+  {
+    common_name: "White-Throated Swift",
+    scientific_name: "Aeronautes saxatalis",
+    vp: 2,
+    nest: "cavity",
+    egg_limit: 2,
+    wingspan: 38,
+    power: {
+      color: "brown",
+      description:
+        "Tuck 1 card from your hand behind this bird. If you do, lay 1 egg on any bird.",
+      id: 34,
+      variable: "egg",
+    },
+    habitat: ["grassland"],
+    food: ["invertebrate"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Backyard Birder",
+      "Bird Counter",
+      "Food Web Expert",
+      "Nest Box Builder",
+      "Prairie Manager",
+    ],
+  },
   {
     common_name: "Lazuli Bunting",
     scientific_name: "Passerina amoena",
@@ -391,34 +446,6 @@ export const wetlandBirds = [
 ];
 
 export const playerBirdHand = [
-  {
-    common_name: "White-Throated Swift",
-    scientific_name: "Aeronautes saxatalis",
-    vp: 2,
-    nest: "cavity",
-    egg_limit: 2,
-    wingspan: 38,
-    power: {
-      color: "brown",
-      description:
-        "Tuck 1 card from your hand behind this bird. If you do, lay 1 egg on any bird.",
-      id: 34,
-      variable: "egg",
-    },
-    habitat: ["grassland"],
-    food: ["invertebrate"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Backyard Birder",
-      "Bird Counter",
-      "Food Web Expert",
-      "Nest Box Builder",
-      "Prairie Manager",
-    ],
-  },
   {
     common_name: "King Rail",
     scientific_name: "Rallus elegans",
@@ -3790,33 +3817,6 @@ export const birdDeck = [
     ],
   },
 
-  {
-    common_name: "Vaux's Swift",
-    scientific_name: "Chaetura vauxi",
-    vp: 2,
-    nest: "cavity",
-    egg_limit: 3,
-    wingspan: 31,
-    power: {
-      color: "brown",
-      description:
-        "Tuck 1 card from your hand behind this bird. If you do, gain 1 invertebrate from the supply.",
-      id: 34,
-      variable: "invertebrate",
-    },
-    habitat: ["forest"],
-    food: ["invertebrate"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Historian",
-      "Backyard Birder",
-      "Bird Counter",
-      "Food Web Expert",
-      "Forester",
-      "Nest Box Builder",
-    ],
-  },
   {
     common_name: "Snowy Egret",
     scientific_name: "Egretta thula",

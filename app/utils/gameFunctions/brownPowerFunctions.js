@@ -560,3 +560,63 @@ export const power33 = (
     }
   }
 };
+
+export const power34 = (
+  powerVariable,
+  sameBird,
+  space,
+  setBrownPowerContinueBtn,
+  setResourceQuantity,
+  setCurrentActionText,
+  setBrownBirdCopy,
+  setBrownBirdVariable,
+  setCurrentAction,
+  setDisableClick
+) => {
+  // Tuck 1 card from your hand behind this bird. If you do, lay 1 egg on any bird.
+  if (sameBird) {
+    console.log("coming back");
+    if (powerVariable === "egg") {
+      setCurrentAction("brownEgg");
+      setCurrentActionText(`Can now lay 1 egg on any bird`);
+      setDisableClick((state) => ({
+        ...state,
+        playedBird: false,
+      }));
+      setResourceQuantity(1);
+    } else {
+      setCurrentAction("brownFood");
+      setCurrentActionText(`Can now take 1 invertebrate from the supply`);
+      setDisableClick((state) => ({
+        ...state,
+        foodSupply: false,
+      }));
+      setResourceQuantity(1);
+      setBrownBirdVariable("invertebrate");
+    }
+
+    return true;
+  } else {
+    initialTuck(
+      setCurrentAction,
+      setBrownPowerContinueBtn,
+      setBrownBirdVariable,
+      setResourceQuantity,
+      setCurrentActionText,
+      setBrownBirdCopy,
+      space
+    );
+    if (powerVariable === "egg") {
+      setCurrentActionText(
+        (state) => state + ` (If you do, you can lay 1 egg on any bird.)`
+      );
+    } else {
+      setCurrentActionText(
+        (state) =>
+          state + ` (If you do, you can gain 1 invertebrate from the supply.)`
+      );
+    }
+
+    return true;
+  }
+};
