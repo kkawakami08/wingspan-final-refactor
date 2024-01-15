@@ -32,3 +32,21 @@ export const power2 = (
     return false;
   }
 };
+
+export const power7 = (
+  powerVariable,
+  setDisableClick,
+  setCurrentActionText,
+  setResourceQuantity,
+  setBrownBirdVariable
+) => {
+  // Gain 3 seed/fish from the supply
+  setResourceQuantity(3);
+  setCurrentActionText(`Select 3 ${powerVariable} from supply`);
+  setBrownBirdVariable(powerVariable);
+  setDisableClick((state) => ({
+    ...state,
+    foodSupply: false,
+  }));
+  return true;
+};

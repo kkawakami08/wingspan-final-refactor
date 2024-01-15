@@ -26,6 +26,9 @@ const FoodSupplyBoxes = ({ type, bg, brownBirdSupply }) => {
           case "brownFood":
             setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);
             break;
+          case "whiteFood":
+            setPlayerFood((state) => [...state, { type: type, id: nanoid() }]);
+            break;
           case "brownCache":
             cacheToken(brownBirdSupply, brownBirdSupply.setSelectedFood);
             break;

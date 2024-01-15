@@ -203,11 +203,14 @@ const PlayedBirdCard = ({
           continueBrownPower(brownBirdSupply);
           break;
         case "brownRepeat":
-          console.log("bronw power check");
           if (brownBirdSupply.brownBirdCopy.location !== location) {
             console.log("location not match");
             brownBirdSupply.setCurrentActionText(
               `Select a bird in the ${brownBirdSupply.brownBirdCopy.location} habitat.`
+            );
+          } else if (bird.power.color !== "brown") {
+            brownBirdSupply.setCurrentActionText(
+              `Select a bird with a brown power.`
             );
           } else {
             if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
