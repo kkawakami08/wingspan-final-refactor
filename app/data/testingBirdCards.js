@@ -605,6 +605,31 @@ export const wetlandBirds = [
 
 export const playerBirdHand = [
   {
+    common_name: "Northern Flicker",
+    scientific_name: "Colaptes auratus",
+    vp: 2,
+    nest: "cavity",
+    egg_limit: 4,
+    wingspan: 51,
+    power: {
+      color: "white",
+      description: "Gain all invertebrate that are in the birdfeeder.",
+      id: 2,
+      variable: "invertebrate",
+    },
+    habitat: ["forest", "grassland"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 1,
+    locations: ["North America"],
+    bonus_cards: [
+      "Cartographer",
+      "Backyard Birder",
+      "Bird Feeder",
+      "Nest Box Builder",
+      "Viticulturalist",
+    ],
+  },
+  {
     common_name: "King Rail",
     scientific_name: "Rallus elegans",
     vp: 4,
@@ -1906,32 +1931,6 @@ export const birdDeck = [
       "Bird Feeder",
       "Enclosure Builder",
       "Prairie Manager",
-    ],
-  },
-
-  {
-    common_name: "Northern Flicker",
-    scientific_name: "Colaptes auratus",
-    vp: 2,
-    nest: "cavity",
-    egg_limit: 4,
-    wingspan: 51,
-    power: {
-      color: "white",
-      description: "Gain all invertebrate that are in the birdfeeder.",
-      id: 2,
-      variable: "invertebrate",
-    },
-    habitat: ["forest", "grassland"],
-    food: ["invertebrate", "seed", "fruit"],
-    food_count: 1,
-    locations: ["North America"],
-    bonus_cards: [
-      "Cartographer",
-      "Backyard Birder",
-      "Bird Feeder",
-      "Nest Box Builder",
-      "Viticulturalist",
     ],
   },
 

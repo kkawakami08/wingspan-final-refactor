@@ -12,6 +12,11 @@ import {
   playBird,
 } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
+import {
+  activateWhitePowers,
+  brownPowerCheck,
+  whitePowerCheck,
+} from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
@@ -89,12 +94,25 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
             break;
           case "grassland":
             placeBird(playBirdState, grasslandState);
+
             break;
           case "wetland":
             placeBird(playBirdState, wetlandState);
+
             break;
         }
         setSelectedBirds([]);
+        //activate white powers
+        if (playBirdState.bird.power.color === "white") {
+          const canActivate = whitePowerCheck(
+            playBirdState.bird,
+            brownBirdSupply
+          );
+          if (canActivate) {
+            return;
+          }
+        }
+
         resetPlayBirdAction(
           brownBirdSupply.setDisableClick,
           brownBirdSupply.setResourceQuantity,

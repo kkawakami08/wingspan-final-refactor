@@ -2,7 +2,6 @@ import { enableRolling } from "./birdFeederFunctions";
 import { resetAction } from "./habitatFunctions";
 import {
   power1,
-  power2,
   power3_4,
   power6_8,
   power9,
@@ -26,17 +25,16 @@ import {
   power38,
   power39,
 } from "./brownPowerFunctions";
+import { power2 } from "./whitePowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
-import {
-  checkOtherEggs,
-  moveBirdDestination,
-  moveBirdSource,
-} from "./brownPowerHelperFunctions";
+import { checkOtherEggs, moveBirdSource } from "./brownPowerHelperFunctions";
 
-const birdFeederPowers = [1, 3, 4, 13];
-const foodPowers = [6, 8, 9, 10];
-const cachePowers = [12];
-const special = [30];
+const birdFeederPowers = [1, 2, 3, 4, 13];
+const foodPowers = [6, 7, 8, 9, 10];
+const cachePowers = [12, 36, 37];
+const eggPowers = [18, 19];
+const cardPowers = [20, 21, 22, 23, 24, 25, 26, 27, 28, 41];
+const nestPowers = [16, 17];
 
 export const activateBrownPowers = (
   habitat,
@@ -81,16 +79,14 @@ export const activateBrownPowers = (
   //stops looping after all brown birds are checked
 };
 
-export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
-  const currentSpace = habitat[space];
-  console.log(`Checking ${currentSpace.bird.common_name}'s brown power`);
-
-  if (birdFeederPowers.includes(currentSpace.bird.power.id)) {
-    brownBirdSupply.setCurrentAction("brownFeeder");
-    if (
-      enableRolling(brownBirdSupply.birdFeeder) &&
-      !brownBirdSupply.brownBirdCopy.sameBird
-    ) {
+export const currentActionNamer = (powerID, powerColor, brownBirdSupply) => {
+  if (birdFeederPowers.includes(powerID)) {
+    let enableRoll = enableRolling(brownBirdSupply.birdFeeder);
+    brownBirdSupply.setCurrentAction(`${powerColor}Feeder`);
+    if (powerColor === "brown") {
+      enableRoll = enableRoll && !brownBirdSupply.brownBirdCopy.sameBird;
+    }
+    if (enableRoll) {
       brownBirdSupply.setCurrentActionText(
         "do you want to roll the birdFeeder before checking this birds power?"
       );
@@ -102,9 +98,54 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
       return;
     }
   }
-  if (foodPowers.includes(currentSpace.bird.power.id)) {
-    brownBirdSupply.setCurrentAction("brownFood");
+  if (foodPowers.includes(powerID)) {
+    brownBirdSupply.setCurrentAction(`${powerColor}Food`);
   }
+  if (cachePowers.includes(powerID)) {
+    brownBirdSupply.setCurrentAction(`${powerColor}Cache`);
+  }
+  if (eggPowers.includes(powerID)) {
+    brownBirdSupply.setCurrentAction(`${powerColor}Egg`);
+  }
+  if (cardPowers.includes(powerID)) {
+    brownBirdSupply.setCurrentAction(`${powerColor}Card`);
+  }
+  if (nestPowers.includes(powerID)) {
+    brownBirdSupply.setCurrentAction(`${powerColor}Nest`);
+  }
+};
+
+export const whitePowerCheck = (playedBird, brownBirdSupply) => {
+  console.log(`Checking ${playedBird.common_name}'s white power`);
+
+  currentActionNamer(
+    playedBird.power.id,
+    playedBird.power.color,
+    brownBirdSupply
+  );
+  switch (playedBird.power.id) {
+    case 2:
+      console.log("checking power 2");
+      return power2(
+        playedBird.power.variable,
+        brownBirdSupply.birdFeeder,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setBrownBirdVariable
+      );
+  }
+};
+
+export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
+  const currentSpace = habitat[space];
+  console.log(`Checking ${currentSpace.bird.common_name}'s brown power`);
+
+  currentActionNamer(
+    currentSpace.bird.power.id,
+    currentSpace.bird.power.color,
+    brownBirdSupply
+  );
   brownBirdSupply.setBrownBirdCopy((state) => ({
     ...state,
     sameBird: false,
@@ -120,16 +161,7 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setResourceQuantity,
         brownBirdSupply.setBrownBirdVariable
       );
-    case 2:
-      console.log("checking power 2");
-      return power2(
-        currentSpace.bird.power.variable,
-        brownBirdSupply.birdFeeder,
-        brownBirdSupply.setDisableClick,
-        brownBirdSupply.setCurrentActionText,
-        brownBirdSupply.setResourceQuantity,
-        brownBirdSupply.setBrownBirdVariable
-      );
+
     case 3:
       console.log("checking power 3");
       return power3_4(
@@ -191,7 +223,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
       } else return false;
     case 12:
       console.log("checking power 12");
-      brownBirdSupply.setCurrentAction("brownCache");
       return power12(
         space,
         brownBirdSupply.setDisableClick,
@@ -215,7 +246,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setSelectedFood
       );
     case 17:
-      brownBirdSupply.setCurrentAction("brownNest");
       console.log("checking power 17");
       return power17(
         currentSpace.bird.power.variable,
@@ -225,7 +255,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText
       );
     case 18:
-      brownBirdSupply.setCurrentAction("brownEgg");
       console.log("checking power 18");
       return power18(
         brownBirdSupply.setResourceQuantity,
@@ -234,7 +263,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText
       );
     case 19:
-      brownBirdSupply.setCurrentAction("brownEgg");
       console.log("checking power 19");
       return power19(
         space,
@@ -246,7 +274,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText
       );
     case 20:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 20");
       return power20_25_26(
         brownBirdSupply.setResourceQuantity,
@@ -255,7 +282,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText
       );
     case 22:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 22");
       return power22(
         brownBirdSupply.setResourceQuantity,
@@ -265,7 +291,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setBrownPowerContinueBtn
       );
     case 23:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 23");
       return power23(
         brownBirdSupply.setResourceQuantity,
@@ -275,7 +300,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setBrownPowerContinueBtn
       );
     case 24:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 24");
       return power24(
         brownBirdSupply.brownBirdCopy.sameBird,
@@ -286,7 +310,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setDisableClick
       );
     case 25:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 25");
       return power20_25_26(
         brownBirdSupply.setResourceQuantity,
@@ -295,7 +318,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText
       );
     case 26:
-      brownBirdSupply.setCurrentAction("brownCard");
       console.log("checking power 26");
       return power20_25_26(
         brownBirdSupply.setResourceQuantity,
@@ -390,7 +412,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
       );
     case 36:
       console.log("checking power 36");
-      brownBirdSupply.setCurrentAction("brownCache");
       return power36_37(
         "fish",
         space,
@@ -404,7 +425,6 @@ export const brownPowerCheck = (habitat, space, brownBirdSupply) => {
       );
     case 37:
       console.log("checking power 37");
-      brownBirdSupply.setCurrentAction("brownCache");
       return power36_37(
         "rodent",
         space,

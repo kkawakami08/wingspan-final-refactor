@@ -39,37 +39,6 @@ export const power1 = (
   return continuePower1;
 };
 
-export const power2 = (
-  powerVariable,
-  birdFeeder,
-  setDisableClick,
-  setCurrentActionText,
-  setResourceQuantity,
-  setBrownBirdVariable
-) => {
-  //gain all [type] in bird feeder
-  //invertebrate/fish
-  if (birdFeederCheck(powerVariable, birdFeeder)) {
-    let dieCount = 0;
-    for (const die of birdFeeder) {
-      if (die.type === powerVariable) dieCount++;
-    }
-    setResourceQuantity(dieCount);
-    setDisableClick((state) => ({
-      ...state,
-      birdFeeder: false,
-    }));
-    setBrownBirdVariable(powerVariable);
-    setCurrentActionText(`Select all ${powerVariable} from bird Feeder`);
-    return true;
-  } else {
-    setCurrentActionText(
-      `${powerVariable} not found in bird Feeder. Continuing on`
-    );
-    return false;
-  }
-};
-
 export const power3_4 = (
   setDisableClick,
   setCurrentActionText,
