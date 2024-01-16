@@ -9,8 +9,7 @@ export const eggReqCheck = (
   location,
   birdHand,
   playerFoodSupply,
-  setResourceQuantity,
-  currentAction = null
+  setResourceQuantity
 ) => {
   let eggReq = 0;
   if (birdCount == 1 || birdCount == 2) {
@@ -20,11 +19,16 @@ export const eggReqCheck = (
   }
   setResourceQuantity(eggReq);
   if (playerEggs < eggReq) {
-    setCurrentActionText(
-      `Not enough eggs to play in ${location}. Select a different habitat`
-    );
-
-    return false;
+    if (currentAction == "whiteBird") {
+      setCurrentActionText(
+        `Not enough eggs to play in ${location}. Click Skip Bird's power.`
+      );
+    } else {
+      setCurrentActionText(
+        `Not enough eggs to play in ${location}. Select a different habitat`
+      );
+    }
+    return;
   }
   if (checkFoodSupply(birdHand, playerFoodSupply, location)) {
     if (eggReq == 0) {
@@ -48,10 +52,15 @@ export const eggReqCheck = (
     });
     return true;
   } else {
-    setCurrentActionText(
-      `Not enough food to play in ${location}. Select a different habitat`
-    );
-
+    if (currentAction == "whiteBird") {
+      setCurrentActionText(
+        `Not enough food to play in ${location}. Click Skip Bird's power.`
+      );
+    } else {
+      setCurrentActionText(
+        `Not enough food to play in ${location}. Select a different habitat`
+      );
+    }
     return false;
   }
 };
@@ -181,27 +190,19 @@ export const placeBird = (
 };
 
 export const playBird = (selectedFood, selectedBird) => {
-  console.log("in function");
+  if (!selectedFood.length) return false;
   let foodCount = [];
   let neededTokens = 0;
   let wildCount = 0;
 
   //documenting what selected food
-  console.log("before selected food");
-  console.log(selectedFood);
-  if (!selectedFood.length) {
-    console.log("UNDFINED FOOD");
-  } else {
-    for (const { type } of selectedFood) {
-      console.log("in selected food");
-      foodCount.push(type);
-    }
+  for (const { type } of selectedFood) {
+    foodCount.push(type);
   }
   //checks each food bird req vs what is in selected food
   //if missing food, adds to needed token count else removes from selected food
 
   for (let i = 0; i < selectedBird.food.length; i++) {
-    console.log("in bird food");
     let currentItem = selectedBird.food[i];
     if (currentItem === "wild") {
       wildCount++;
@@ -294,13 +295,6 @@ export const replaceEggs = (
         for (const space of removedEggList[habitat]) {
           setGrassland((grassland) => {
             grassland[space].eggCount = grassland[space].eggCount + 1;
-          });
-        }
-        break;
-      case "wetland":
-        for (const space of removedEggList[habitat]) {
-          setWetland((wetland) => {
-            wetland[space].eggCount = wetland[space].eggCount + 1;
           });
         }
         break;

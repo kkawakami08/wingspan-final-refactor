@@ -61,9 +61,6 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
         disableDiscard = playBird(selectedFood, selectedBirds[0]);
       }
       break;
-    // case "whiteBird":
-    //   disableDiscard = playBird(selectedFood, selectedBirds[0]);
-    //   break;
   }
 
   const discardBtnClick = () => {

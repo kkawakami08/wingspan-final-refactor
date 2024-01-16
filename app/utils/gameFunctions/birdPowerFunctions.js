@@ -187,10 +187,8 @@ export const whitePowerCheck = (
       );
     case 42:
       console.log("checking power 42");
-      brownBirdSupply.setCurrentAction("whiteBird");
       return power42(
         playedBirdState.habitat,
-
         brownBirdSupply,
         moveBirdSupply,
         birdHand

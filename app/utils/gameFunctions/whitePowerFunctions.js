@@ -145,9 +145,9 @@ export const power42 = (
   let canPlay;
   switch (location) {
     case "forest":
-      console.log("two");
+      console.log("forest");
       canPlay = eggReqCheck(
-        moveBirdSupply.forestBirdCount,
+        moveBirdSupply.forestBirdCount + 1,
         brownBirdSupply.setDisableClick,
         brownBirdSupply.playerEggs,
         brownBirdSupply.setCurrentActionText,
@@ -160,9 +160,9 @@ export const power42 = (
       );
       break;
     case "grassland":
-      console.log("two");
+      console.log("grassland");
       canPlay = eggReqCheck(
-        moveBirdSupply.grasslandBirdCount,
+        moveBirdSupply.grasslandBirdCount + 1,
         brownBirdSupply.setDisableClick,
         brownBirdSupply.playerEggs,
         brownBirdSupply.setCurrentActionText,
@@ -175,9 +175,9 @@ export const power42 = (
       );
       break;
     case "wetland":
-      console.log("two");
+      console.log("wetland");
       canPlay = eggReqCheck(
-        moveBirdSupply.wetlandBirdCount,
+        moveBirdSupply.wetlandBirdCount + 1,
         brownBirdSupply.setDisableClick,
         brownBirdSupply.playerEggs,
         brownBirdSupply.setCurrentActionText,

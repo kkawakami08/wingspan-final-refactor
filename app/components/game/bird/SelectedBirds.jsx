@@ -29,8 +29,6 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "playBird":
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
-      case "whiteBird":
-        return <SelectBtn brownBirdSupply={brownBirdSupply} />;
 
       case "discard":
         return <BrownDiscardBtn brownBirdSupply={brownBirdSupply} />;

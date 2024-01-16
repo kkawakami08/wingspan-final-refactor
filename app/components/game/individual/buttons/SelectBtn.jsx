@@ -45,11 +45,6 @@ const SelectBtn = ({ brownBirdSupply }) => {
           selectedBirds.length === 1 &&
           selectedBirds[0].habitat.includes(playBirdState.habitat);
         break;
-      case "whiteBird":
-        disableSave =
-          selectedBirds.length === 1 &&
-          selectedBirds[0].habitat.includes(playBirdState.habitat);
-        break;
     }
   };
   updateDisable();
@@ -94,20 +89,6 @@ const SelectBtn = ({ brownBirdSupply }) => {
         }
 
       case "playBird":
-        setPlayBirdState((state) => {
-          state.bird = selectedBirds[0];
-        });
-        brownBirdSupply.setDisableClick((state) => ({
-          ...state,
-          playerFood: false,
-          birdHand: true,
-        }));
-        brownBirdSupply.setCurrentActionText(
-          `Selected ${selectedBirds[0].common_name}. Discard required food`
-        );
-
-        return;
-      case "whiteBird":
         setPlayBirdState((state) => {
           state.bird = selectedBirds[0];
         });

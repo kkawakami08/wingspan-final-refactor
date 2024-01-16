@@ -5,9 +5,12 @@ import { forestBirds, grasslandBirds, wetlandBirds } from "./testingBirdCards";
 export const playerFoodSupply = [
   { type: "fruit", id: nanoid() },
   { type: "fruit", id: nanoid() },
+  { type: "fruit", id: nanoid() },
+  { type: "seed", id: nanoid() },
   { type: "seed", id: nanoid() },
   { type: "fish", id: nanoid() },
   { type: "rodent", id: nanoid() },
+  { type: "invertebrate", id: nanoid() },
   { type: "invertebrate", id: nanoid() },
   { type: "invertebrate", id: nanoid() },
 ];
