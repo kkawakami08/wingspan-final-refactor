@@ -605,6 +605,32 @@ export const wetlandBirds = [
 
 export const playerBirdHand = [
   {
+    common_name: "Inca Dove",
+    scientific_name: "Columbina inca",
+    vp: 2,
+    nest: "platform",
+    egg_limit: 4,
+    wingspan: 28,
+    power: {
+      color: "white",
+      description: "Lay 1 egg on each of your birds with a platform nest.",
+      id: 16,
+      variable: "platform",
+    },
+    habitat: ["grassland"],
+    food: ["seed", "seed"],
+    food_count: 2,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Cartographer",
+      "Backyard Birder",
+      "Bird Feeder",
+      "Passerine Specialist",
+      "Platform Builder",
+      "Prairie Manager",
+    ],
+  },
+  {
     common_name: "Brown Pelican",
     scientific_name: "Pelecanus occidentalis",
     vp: 4,

@@ -5,12 +5,16 @@ import {
   removedEggListAtom,
   grasslandBrownBirdsAtom,
   eggTrackerAtom,
+  playBirdAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
   resetFromGrassland,
 } from "../../../../utils/gameFunctions/grasslandFunctions";
-import { removeEgg } from "../../../../utils/gameFunctions/playABirdFunctions";
+import {
+  removeEgg,
+  resetPlayBirdAction,
+} from "../../../../utils/gameFunctions/playABirdFunctions";
 import { discardEgg } from "../../../../utils/gameFunctions/wetlandFunctions";
 import {
   activateBrownPowers,
@@ -31,6 +35,7 @@ const PlayedBirdCard = ({
   const currentTucked = habitat[space].tuckedCount;
 
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
+  const [, setPlayBirdState] = useAtom(playBirdAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
   const [eggTracker, setEggTracker] = useAtom(eggTrackerAtom);
@@ -146,6 +151,40 @@ const PlayedBirdCard = ({
             if (brownBirdSupply.resourceQuantity - 1 == 0) {
               setEggTracker([]);
               continueBrownPower(brownBirdSupply);
+            } else {
+              brownBirdSupply.setCurrentActionText(
+                "Select another bird to lay an egg on."
+              );
+            }
+          }
+
+          break;
+        case "whiteNest":
+          if (
+            eggTracker.includes(bird.common_name) ||
+            bird.nest !== brownBirdSupply.brownBirdVariable ||
+            bird.egg_limit == currentEggs
+          ) {
+            brownBirdSupply.setCurrentActionText(
+              "Cannot place an egg on this bird. Select a different one."
+            );
+          } else {
+            layEgg(
+              setHabitat,
+              space,
+              brownBirdSupply.setResourceQuantity,
+              setPlayerEggs
+            );
+            setEggTracker((state) => [...state, bird.common_name]);
+            if (brownBirdSupply.resourceQuantity - 1 == 0) {
+              setEggTracker([]);
+              resetPlayBirdAction(
+                brownBirdSupply.setDisableClick,
+                brownBirdSupply.setResourceQuantity,
+                brownBirdSupply.setCurrentAction,
+                setPlayBirdState,
+                brownBirdSupply.setCurrentActionText
+              );
             } else {
               brownBirdSupply.setCurrentActionText(
                 "Select another bird to lay an egg on."

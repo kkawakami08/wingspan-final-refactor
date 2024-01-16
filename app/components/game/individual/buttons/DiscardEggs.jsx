@@ -2,17 +2,20 @@ import { useAtom } from "jotai";
 import {
   eggTrackerAtom,
   grasslandBrownBirdsAtom,
+  playBirdAtom,
 } from "../../../../utils/jotaiStore";
 import { resetFromGrassland } from "../../../../utils/gameFunctions/grasslandFunctions";
 import {
   activateBrownPowers,
   continueBrownPower,
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const DiscardEggs = ({ brownBirdSupply }) => {
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const [, setEggTracker] = useAtom(eggTrackerAtom);
+  const [, setPlayBirdState] = useAtom(playBirdAtom);
 
   const discardEggsClick = () => {
     if (
@@ -21,6 +24,15 @@ const DiscardEggs = ({ brownBirdSupply }) => {
     ) {
       setEggTracker([]);
       continueBrownPower(brownBirdSupply);
+    } else if (brownBirdSupply.currentAction === "whiteNest") {
+      setEggTracker([]);
+      resetPlayBirdAction(
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentAction,
+        setPlayBirdState,
+        brownBirdSupply.setCurrentActionText
+      );
     } else {
       if (grasslandBrownBirds.length) {
         brownBirdSupply.setBrownBirdCopy((state) => ({

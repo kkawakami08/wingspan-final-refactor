@@ -1,4 +1,5 @@
 import { birdFeederCheck } from "./brownPowerHelperFunctions";
+import { nestTypeCounter } from "./whitePowerHelperFunctions";
 
 export const power2 = (
   powerVariable,
@@ -48,5 +49,34 @@ export const power7 = (
     ...state,
     foodSupply: false,
   }));
+  return true;
+};
+
+export const power16 = (brownBirdSupply, powerVariable) => {
+  // Lay 1 egg on each of your birds with a [nest type] nest
+  let nestCount = 1;
+
+  const habitats = [
+    brownBirdSupply.forest,
+    brownBirdSupply.grassland,
+    brownBirdSupply.wetland,
+  ];
+
+  for (const habitat of habitats) {
+    console.log("checking habitat");
+    nestCount += nestTypeCounter(habitat, powerVariable);
+  }
+  console.log(nestCount);
+
+  brownBirdSupply.setResourceQuantity(nestCount);
+  brownBirdSupply.setCurrentActionText(
+    `Place ${nestCount} eggs (1 on each bird with a ${powerVariable} nest type.)`
+  );
+  brownBirdSupply.setDisableClick((state) => ({
+    ...state,
+    playedBird: false,
+  }));
+  brownBirdSupply.setBrownBirdVariable(powerVariable);
+
   return true;
 };
