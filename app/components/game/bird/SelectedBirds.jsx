@@ -15,7 +15,6 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
   const selectedBirdsContent = selectedBirds.map((bird) => (
     <SelectedBirdCard key={bird.common_name} bird={bird} />
   ));
-  console.log(brownBirdSupply.currentAction, "current action check");
 
   const btnDisplay = () => {
     switch (brownBirdSupply.currentAction) {

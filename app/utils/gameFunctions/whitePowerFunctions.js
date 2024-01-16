@@ -159,6 +159,36 @@ export const power42 = (
         "whiteBird"
       );
       break;
+    case "grassland":
+      console.log("two");
+      canPlay = eggReqCheck(
+        moveBirdSupply.grasslandBirdCount,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.playerEggs,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setPlayBirdState,
+        location,
+        birdHand,
+        brownBirdSupply.playerFood,
+        brownBirdSupply.setResourceQuantity,
+        "whiteBird"
+      );
+      break;
+    case "wetland":
+      console.log("two");
+      canPlay = eggReqCheck(
+        moveBirdSupply.wetlandBirdCount,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.playerEggs,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setPlayBirdState,
+        location,
+        birdHand,
+        brownBirdSupply.playerFood,
+        brownBirdSupply.setResourceQuantity,
+        "whiteBird"
+      );
+      break;
   }
   if (canPlay) {
     console.log("three");

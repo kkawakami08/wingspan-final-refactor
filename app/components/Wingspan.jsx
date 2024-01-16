@@ -100,11 +100,15 @@ const Wingspan = () => {
     setWetland: setWetland,
 
     birdFeeder: birdFeeder,
+
     setPlayBirdState: setPlayBirdState,
+
     setSelectedCards: setSelectedCards,
 
     setDisableClick: setDisableClick,
+
     setCurrentActionText: setCurrentActionText,
+
     resourceQuantity: resourceQuantity,
     setResourceQuantity: setResourceQuantity,
 
@@ -121,6 +125,7 @@ const Wingspan = () => {
     brownBirdCopy: brownBirdCopy,
 
     setSelectedFood: setSelectedFood,
+
     playerEggs: playerEggs,
     playerFood: playerFood,
 
@@ -135,7 +140,7 @@ const Wingspan = () => {
     <div className="grid grid-cols-12 p-5 gap-5">
       <PlayerBirdHand />
 
-      <BirdTray brownBirdSupply={brownBirdSupply} />
+      <BirdTray />
       <BirdDeck brownBirdSupply={brownBirdSupply} />
 
       <SelectedBirds

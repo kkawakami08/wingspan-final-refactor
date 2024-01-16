@@ -45,43 +45,14 @@ const BirdDeck = ({ brownBirdSupply }) => {
     if (disableBirdDeck) {
       console.log("Disabled");
     } else {
-      switch (brownBirdSupply.currentAction) {
-        case "wetland":
-          const continueDrawing = drawBirdDeck(wetlandAction);
-          if (continueDrawing) {
-            return;
-          } else {
-            if (wetlandBrownBirds.length) {
-              brownBirdSupply.setBrownBirdCopy((state) => ({
-                ...state,
-                location: "wetland",
-              }));
-
-              activateBrownPowers(
-                brownBirdSupply.wetland,
-                wetlandBrownBirds,
-                brownBirdSupply
-              );
-              return;
-            } else break;
-          }
-        case "brownCard":
-          //1 resource quantity
-
-          drawCard(birdDeck, setPlayerBirdHand);
-          brownBirdSupply.setResourceQuantity((state) => state - 1);
-          if (brownBirdSupply.resourceQuantity - 1 == 0) {
+      if (brownBirdSupply.currentAction.includes("Card")) {
+        //1 resource quantity
+        drawCard(birdDeck, setPlayerBirdHand);
+        brownBirdSupply.setResourceQuantity((state) => state - 1);
+        if (brownBirdSupply.resourceQuantity - 1 == 0) {
+          if (brownBirdSupply.currentAction.includes("brown")) {
             continueBrownPower(brownBirdSupply);
-            return;
           } else {
-            return;
-          }
-        case "whiteCard":
-          //1 resource quantity
-
-          drawCard(birdDeck, setPlayerBirdHand);
-          brownBirdSupply.setResourceQuantity((state) => state - 1);
-          if (brownBirdSupply.resourceQuantity - 1 == 0) {
             resetPlayBirdAction(
               brownBirdSupply.setDisableClick,
               brownBirdSupply.setResourceQuantity,
@@ -89,46 +60,68 @@ const BirdDeck = ({ brownBirdSupply }) => {
               brownBirdSupply.setPlayBirdState,
               brownBirdSupply.setCurrentActionText
             );
-            return;
-          } else {
-            return;
           }
-        case "brownWing":
-          const currentCard = birdDeck.pop();
-          setSelectedBirds([currentCard]);
-          if (currentCard.wingspan < brownBirdSupply.brownBirdVariable) {
+        }
+        return;
+      } else {
+        switch (brownBirdSupply.currentAction) {
+          case "wetland":
+            const continueDrawing = drawBirdDeck(wetlandAction);
+            if (continueDrawing) {
+              return;
+            } else {
+              if (wetlandBrownBirds.length) {
+                brownBirdSupply.setBrownBirdCopy((state) => ({
+                  ...state,
+                  location: "wetland",
+                }));
+
+                activateBrownPowers(
+                  brownBirdSupply.wetland,
+                  wetlandBrownBirds,
+                  brownBirdSupply
+                );
+                return;
+              } else break;
+            }
+
+          case "brownWing":
+            const currentCard = birdDeck.pop();
+            setSelectedBirds([currentCard]);
+            if (currentCard.wingspan < brownBirdSupply.brownBirdVariable) {
+              tuckCard(brownBirdSupply);
+
+              brownBirdSupply.setCurrentActionText(
+                `Tucked ${currentCard.common_name} under bird. Click next power to continue.`
+              );
+            } else {
+              setBirdDiscard((state) => [...state, currentCard]);
+              brownBirdSupply.setCurrentActionText(
+                `${currentCard.common_name} has a bigger wingspan. Click next power to continue.`
+              );
+            }
+            return;
+
+          case "brownTuck":
+            //1 resource quantity
+
             tuckCard(brownBirdSupply);
-
-            brownBirdSupply.setCurrentActionText(
-              `Tucked ${currentCard.common_name} under bird. Click next power to continue.`
-            );
-          } else {
-            setBirdDiscard((state) => [...state, currentCard]);
-            brownBirdSupply.setCurrentActionText(
-              `${currentCard.common_name} has a bigger wingspan. Click next power to continue.`
-            );
-          }
-          return;
-
-        case "brownTuck":
-          //1 resource quantity
-
-          tuckCard(brownBirdSupply);
-          setSelectedBirds([]);
-          brownBirdSupply.setResourceQuantity((state) => state - 1);
-          if (brownBirdSupply.resourceQuantity - 1 == 0) {
-            continueBrownPower(brownBirdSupply);
-            return;
-          } else {
-            return;
-          }
+            setSelectedBirds([]);
+            brownBirdSupply.setResourceQuantity((state) => state - 1);
+            if (brownBirdSupply.resourceQuantity - 1 == 0) {
+              continueBrownPower(brownBirdSupply);
+              return;
+            } else {
+              return;
+            }
+        }
+        resetAction(
+          brownBirdSupply.setDisableClick,
+          brownBirdSupply.setResourceQuantity,
+          brownBirdSupply.setCurrentAction,
+          brownBirdSupply.setCurrentActionText
+        );
       }
-      resetAction(
-        brownBirdSupply.setDisableClick,
-        brownBirdSupply.setResourceQuantity,
-        brownBirdSupply.setCurrentAction,
-        brownBirdSupply.setCurrentActionText
-      );
     }
   };
 

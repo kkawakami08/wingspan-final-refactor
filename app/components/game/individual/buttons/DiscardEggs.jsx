@@ -2,7 +2,6 @@ import { useAtom } from "jotai";
 import {
   eggTrackerAtom,
   grasslandBrownBirdsAtom,
-  playBirdAtom,
 } from "../../../../utils/jotaiStore";
 import { resetFromGrassland } from "../../../../utils/gameFunctions/grasslandFunctions";
 import {
@@ -15,17 +14,15 @@ const DiscardEggs = ({ brownBirdSupply }) => {
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const [, setEggTracker] = useAtom(eggTrackerAtom);
-  const [, setPlayBirdState] = useAtom(playBirdAtom);
 
   const discardEggsClick = () => {
+    setEggTracker([]);
     if (
       brownBirdSupply.currentAction === "brownEgg" ||
       brownBirdSupply.currentAction === "brownNest"
     ) {
-      setEggTracker([]);
       continueBrownPower(brownBirdSupply);
     } else if (brownBirdSupply.currentAction === "whiteNest") {
-      setEggTracker([]);
       resetPlayBirdAction(
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setResourceQuantity,

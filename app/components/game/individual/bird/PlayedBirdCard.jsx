@@ -35,7 +35,6 @@ const PlayedBirdCard = ({
   const currentTucked = habitat[space].tuckedCount;
 
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
-  const [, setPlayBirdState] = useAtom(playBirdAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
   const [eggTracker, setEggTracker] = useAtom(eggTrackerAtom);
@@ -46,138 +45,28 @@ const PlayedBirdCard = ({
   const birdCardClick = () => {
     if (disableBirdCard) console.log("Disabled");
     else {
-      switch (brownBirdSupply.currentAction) {
-        case "grassland":
-          if (currentEggs == bird.egg_limit) {
-            brownBirdSupply.setCurrentActionText(
-              "Can't place any more eggs on this bird."
-            );
-          } else {
-            layEgg(
-              setHabitat,
-              space,
-              brownBirdSupply.setResourceQuantity,
-              setPlayerEggs
-            );
-            if (brownBirdSupply.resourceQuantity - 1 == 0) {
-              if (grasslandBrownBirds.length) {
-                brownBirdSupply.setBrownBirdCopy((state) => ({
-                  ...state,
-                  location: "grassland",
-                }));
-                activateBrownPowers(
-                  brownBirdSupply.grassland,
-                  grasslandBrownBirds,
-
-                  brownBirdSupply
-                );
-              } else {
-                resetFromGrassland(
-                  brownBirdSupply.setDisableClick,
-                  brownBirdSupply.setCurrentAction,
-                  brownBirdSupply.setCurrentActionText
-                );
-              }
-            }
-          }
-
-          break;
-        case "brownFood":
-          if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
-            brownBirdSupply.setCurrentActionText(
-              "Can't remove egg from this bird."
-            );
-          } else {
-            removeEgg(
-              setHabitat,
-              space,
-
-              setPlayerEggs,
-              brownBirdSupply.setCurrentActionText,
-              brownBirdSupply.setDisableClick,
-              brownBirdSupply.setResourceQuantity,
-              brownBirdSupply.resourceQuantity
-            );
-            continueBrownPower(brownBirdSupply);
-          }
-
-          break;
-        case "brownEgg":
-          if (bird.egg_limit == currentEggs) {
-            brownBirdSupply.setCurrentActionText(
-              "Cannot place an egg on this bird. "
-            );
-          } else {
-            if (brownBirdSupply.brownBirdVariable === "this") {
-              console.log("brown egg and this");
-              if (
-                brownBirdSupply.brownBirdCopy.currentSpace === Number(space) &&
-                brownBirdSupply.brownBirdCopy.location === location
-              ) {
-              } else {
-                brownBirdSupply.setCurrentActionText(
-                  "Must place egg on correct bird."
-                );
-                break;
-              }
-            }
-            layEgg(
-              setHabitat,
-              space,
-              brownBirdSupply.setResourceQuantity,
-              setPlayerEggs
-            );
-            continueBrownPower(brownBirdSupply);
-          }
-
-          break;
-        case "brownNest":
-          if (
-            eggTracker.includes(bird.common_name) ||
-            bird.nest !== brownBirdSupply.brownBirdVariable ||
-            bird.egg_limit == currentEggs
-          ) {
-            brownBirdSupply.setCurrentActionText(
-              "Cannot place an egg on this bird. Select a different one."
-            );
-          } else {
-            layEgg(
-              setHabitat,
-              space,
-              brownBirdSupply.setResourceQuantity,
-              setPlayerEggs
-            );
-            setEggTracker((state) => [...state, bird.common_name]);
-            if (brownBirdSupply.resourceQuantity - 1 == 0) {
-              setEggTracker([]);
+      if (brownBirdSupply.currentAction.includes("Nest")) {
+        if (
+          eggTracker.includes(bird.common_name) ||
+          bird.nest !== brownBirdSupply.brownBirdVariable ||
+          bird.egg_limit == currentEggs
+        ) {
+          brownBirdSupply.setCurrentActionText(
+            "Cannot place an egg on this bird. Select a different one."
+          );
+        } else {
+          layEgg(
+            setHabitat,
+            space,
+            brownBirdSupply.setResourceQuantity,
+            setPlayerEggs
+          );
+          setEggTracker((state) => [...state, bird.common_name]);
+          if (brownBirdSupply.resourceQuantity - 1 == 0) {
+            setEggTracker([]);
+            if (brownBirdSupply.currentAction.includes("brown")) {
               continueBrownPower(brownBirdSupply);
             } else {
-              brownBirdSupply.setCurrentActionText(
-                "Select another bird to lay an egg on."
-              );
-            }
-          }
-
-          break;
-        case "whiteNest":
-          if (
-            eggTracker.includes(bird.common_name) ||
-            bird.nest !== brownBirdSupply.brownBirdVariable ||
-            bird.egg_limit == currentEggs
-          ) {
-            brownBirdSupply.setCurrentActionText(
-              "Cannot place an egg on this bird. Select a different one."
-            );
-          } else {
-            layEgg(
-              setHabitat,
-              space,
-              brownBirdSupply.setResourceQuantity,
-              setPlayerEggs
-            );
-            setEggTracker((state) => [...state, bird.common_name]);
-            if (brownBirdSupply.resourceQuantity - 1 == 0) {
-              setEggTracker([]);
               resetPlayBirdAction(
                 brownBirdSupply.setDisableClick,
                 brownBirdSupply.setResourceQuantity,
@@ -185,84 +74,173 @@ const PlayedBirdCard = ({
                 brownBirdSupply.setPlayBirdState,
                 brownBirdSupply.setCurrentActionText
               );
-            } else {
-              brownBirdSupply.setCurrentActionText(
-                "Select another bird to lay an egg on."
-              );
             }
-          }
-
-          break;
-        case "playBird":
-          if (currentEggs == 0) {
-            brownBirdSupply.setCurrentActionText(
-              "This bird doesn't have any eggs. Select a different bird."
-            );
           } else {
-            removeEgg(
-              setHabitat,
-              space,
-
-              setPlayerEggs,
-              brownBirdSupply.setCurrentActionText,
-              brownBirdSupply.setDisableClick,
-              brownBirdSupply.setResourceQuantity,
-              brownBirdSupply.resourceQuantity
-            );
-            setRemovedEggList((state) => {
-              state[location].push(space);
-            });
-          }
-          break;
-        case "wetland":
-          if (currentEggs > 0) {
-            discardEgg(
-              setHabitat,
-              space,
-
-              setPlayerEggs,
-
-              brownBirdSupply.setDisableClick,
-              brownBirdSupply.setResourceQuantity
-            );
-          }
-          break;
-        case "brownCard":
-          if (currentEggs > 0) {
-            discardEgg(
-              setHabitat,
-              space,
-
-              setPlayerEggs,
-
-              brownBirdSupply.setDisableClick,
-              brownBirdSupply.setResourceQuantity
-            );
-          }
-          continueBrownPower(brownBirdSupply);
-          break;
-        case "brownRepeat":
-          if (brownBirdSupply.brownBirdCopy.location !== location) {
-            console.log("location not match");
             brownBirdSupply.setCurrentActionText(
-              `Select a bird in the ${brownBirdSupply.brownBirdCopy.location} habitat.`
+              "Select another bird to lay an egg on."
             );
-          } else if (bird.power.color !== "brown") {
-            brownBirdSupply.setCurrentActionText(
-              `Select a bird with a brown power.`
-            );
-          } else {
+          }
+        }
+        return;
+      } else {
+        switch (brownBirdSupply.currentAction) {
+          case "grassland":
+            if (currentEggs == bird.egg_limit) {
+              brownBirdSupply.setCurrentActionText(
+                "Can't place any more eggs on this bird."
+              );
+            } else {
+              layEgg(
+                setHabitat,
+                space,
+                brownBirdSupply.setResourceQuantity,
+                setPlayerEggs
+              );
+              if (brownBirdSupply.resourceQuantity - 1 == 0) {
+                if (grasslandBrownBirds.length) {
+                  brownBirdSupply.setBrownBirdCopy((state) => ({
+                    ...state,
+                    location: "grassland",
+                  }));
+                  activateBrownPowers(
+                    brownBirdSupply.grassland,
+                    grasslandBrownBirds,
+
+                    brownBirdSupply
+                  );
+                } else {
+                  resetFromGrassland(
+                    brownBirdSupply.setDisableClick,
+                    brownBirdSupply.setCurrentAction,
+                    brownBirdSupply.setCurrentActionText
+                  );
+                }
+              }
+            }
+
+            break;
+          case "brownFood":
             if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
-              console.log("same bird");
               brownBirdSupply.setCurrentActionText(
-                "Can't select the same bird..."
+                "Can't remove egg from this bird."
               );
             } else {
-              console.log("good");
-              brownPowerCheck(habitat, space, brownBirdSupply);
+              removeEgg(
+                setHabitat,
+                space,
+
+                setPlayerEggs,
+                brownBirdSupply.setCurrentActionText,
+                brownBirdSupply.setDisableClick,
+                brownBirdSupply.setResourceQuantity,
+                brownBirdSupply.resourceQuantity
+              );
+              continueBrownPower(brownBirdSupply);
             }
-          }
-          break;
+
+            break;
+          case "brownEgg":
+            if (bird.egg_limit == currentEggs) {
+              brownBirdSupply.setCurrentActionText(
+                "Cannot place an egg on this bird. "
+              );
+            } else {
+              if (brownBirdSupply.brownBirdVariable === "this") {
+                console.log("brown egg and this");
+                if (
+                  brownBirdSupply.brownBirdCopy.currentSpace ===
+                    Number(space) &&
+                  brownBirdSupply.brownBirdCopy.location === location
+                ) {
+                } else {
+                  brownBirdSupply.setCurrentActionText(
+                    "Must place egg on correct bird."
+                  );
+                  break;
+                }
+              }
+              layEgg(
+                setHabitat,
+                space,
+                brownBirdSupply.setResourceQuantity,
+                setPlayerEggs
+              );
+              continueBrownPower(brownBirdSupply);
+            }
+
+            break;
+
+          case "playBird":
+            if (currentEggs == 0) {
+              brownBirdSupply.setCurrentActionText(
+                "This bird doesn't have any eggs. Select a different bird."
+              );
+            } else {
+              removeEgg(
+                setHabitat,
+                space,
+
+                setPlayerEggs,
+                brownBirdSupply.setCurrentActionText,
+                brownBirdSupply.setDisableClick,
+                brownBirdSupply.setResourceQuantity,
+                brownBirdSupply.resourceQuantity
+              );
+              setRemovedEggList((state) => {
+                state[location].push(space);
+              });
+            }
+            break;
+          case "wetland":
+            if (currentEggs > 0) {
+              discardEgg(
+                setHabitat,
+                space,
+
+                setPlayerEggs,
+
+                brownBirdSupply.setDisableClick,
+                brownBirdSupply.setResourceQuantity
+              );
+            }
+            break;
+          case "brownCard":
+            if (currentEggs > 0) {
+              discardEgg(
+                setHabitat,
+                space,
+
+                setPlayerEggs,
+
+                brownBirdSupply.setDisableClick,
+                brownBirdSupply.setResourceQuantity
+              );
+            }
+            continueBrownPower(brownBirdSupply);
+            break;
+          case "brownRepeat":
+            if (brownBirdSupply.brownBirdCopy.location !== location) {
+              console.log("location not match");
+              brownBirdSupply.setCurrentActionText(
+                `Select a bird in the ${brownBirdSupply.brownBirdCopy.location} habitat.`
+              );
+            } else if (bird.power.color !== "brown") {
+              brownBirdSupply.setCurrentActionText(
+                `Select a bird with a brown power.`
+              );
+            } else {
+              if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
+                console.log("same bird");
+                brownBirdSupply.setCurrentActionText(
+                  "Can't select the same bird..."
+                );
+              } else {
+                console.log("good");
+                brownPowerCheck(habitat, space, brownBirdSupply);
+              }
+            }
+            break;
+        }
       }
     }
   };

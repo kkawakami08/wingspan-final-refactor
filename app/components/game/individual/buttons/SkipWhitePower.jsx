@@ -1,12 +1,12 @@
 import { useAtom } from "jotai";
-import { playerBirdHandAtom } from "../../../../utils/jotaiStore";
+import { playBirdAtom } from "../../../../utils/jotaiStore";
 import {
-  eggReqCheck,
+  playBird,
   resetPlayBirdAction,
 } from "../../../../utils/gameFunctions/playABirdFunctions";
 
-const SkipWhitePower = ({ brownBirdSupply, moveBirdSupply }) => {
-  const [birdHand] = useAtom(playerBirdHandAtom);
+const SkipWhitePower = ({ brownBirdSupply }) => {
+  const [playBirdState] = useAtom(playBird);
 
   const skipWhitePower = () => {
     brownBirdSupply.setBrownPowerContinueBtn(false);
@@ -25,14 +25,24 @@ const SkipWhitePower = ({ brownBirdSupply, moveBirdSupply }) => {
       state.bird = null;
       return state;
     });
-    brownBirdSupply.setDisableClick((state) => ({
-      ...state,
-      birdHand: false,
-    }));
-    console.log("playing additional bird");
-    brownBirdSupply.setCurrentActionText(
-      `Select a bird to play in ${brownBirdSupply.brownBirdVariable}.`
-    );
+
+    if (playBirdState.eggReq) {
+      brownBirdSupply.setCurrentActionText(
+        `Discard ${playBirdState.eggReq} eggs.`
+      );
+      brownBirdSupply.setDisableClick((state) => ({
+        ...state,
+        playedBird: false,
+      }));
+    } else {
+      brownBirdSupply.setDisableClick((state) => ({
+        ...state,
+        birdHand: false,
+      }));
+      brownBirdSupply.setCurrentActionText(
+        `Select a bird to play in ${brownBirdSupply.brownBirdVariable}.`
+      );
+    }
     brownBirdSupply.setBrownPowerContinueBtn(false);
   };
 

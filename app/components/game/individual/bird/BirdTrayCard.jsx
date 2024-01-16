@@ -3,19 +3,13 @@ import {
   selectedBirdsAtom,
   birdTrayAtom,
   disableClickAtom,
-  playerBirdHandAtom,
-  birdDeckAtom,
 } from "../../../../utils/jotaiStore";
 import { selectCard } from "../../../../utils/gameFunctions/cardFunctions";
-import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
-import { refillTray } from "../../../../utils/gameFunctions/birdTrayFunctions";
 
-const BirdTrayCard = ({ bird, brownBirdSupply }) => {
+const BirdTrayCard = ({ bird }) => {
   const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
-  const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
-  const [, setBirdHand] = useAtom(playerBirdHandAtom);
+  const [, setBirdTray] = useAtom(birdTrayAtom);
   const [disableClick] = useAtom(disableClickAtom);
-  const [birdDeck] = useAtom(birdDeckAtom);
   const disableBirdTray = disableClick.birdTray;
 
   const BirdTrayCardClick = () => {

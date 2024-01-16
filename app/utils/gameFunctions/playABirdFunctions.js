@@ -19,17 +19,11 @@ export const eggReqCheck = (
     eggReq = 2;
   }
   setResourceQuantity(eggReq);
-
   if (playerEggs < eggReq) {
-    if (currentAction == "whiteBird") {
-      setCurrentActionText(
-        `Not enough eggs to play in ${location}. Click Skip Bird's power.`
-      );
-    } else {
-      setCurrentActionText(
-        `Not enough eggs to play in ${location}. Select a different habitat`
-      );
-    }
+    setCurrentActionText(
+      `Not enough eggs to play in ${location}. Select a different habitat`
+    );
+
     return false;
   }
   if (checkFoodSupply(birdHand, playerFoodSupply, location)) {
@@ -54,15 +48,10 @@ export const eggReqCheck = (
     });
     return true;
   } else {
-    if (currentAction == "whiteBird") {
-      setCurrentActionText(
-        `Not enough food to play in ${location}. Click Skip Bird's power.`
-      );
-    } else {
-      setCurrentActionText(
-        `Not enough food to play in ${location}. Select a different habitat`
-      );
-    }
+    setCurrentActionText(
+      `Not enough food to play in ${location}. Select a different habitat`
+    );
+
     return false;
   }
 };
