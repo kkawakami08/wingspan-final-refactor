@@ -32,6 +32,7 @@ import {
   grasslandBrownBirdsAtom,
   wetlandBrownBirdsAtom,
   wetlandBirdCountAtom,
+  playBirdAtom,
 } from "../utils/jotaiStore";
 
 const Wingspan = () => {
@@ -51,6 +52,7 @@ const Wingspan = () => {
     brownBirdVariableAtom
   );
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [, setPlayBirdState] = useAtom(playBirdAtom);
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [brownPowerEnd, setBrownPowerEnd] = useAtom(brownPowerEndAtom);
@@ -93,6 +95,7 @@ const Wingspan = () => {
     setWetland: setWetland,
 
     birdFeeder: birdFeeder,
+    setPlayBirdState: setPlayBirdState,
 
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,

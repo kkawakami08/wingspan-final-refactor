@@ -17,6 +17,7 @@ import {
   continueBrownPower,
   tuckCard,
 } from "../../../utils/gameFunctions/birdPowerFunctions";
+import { resetPlayBirdAction } from "../../../utils/gameFunctions/playABirdFunctions";
 
 const BirdDeck = ({ brownBirdSupply }) => {
   const [birdDeck] = useAtom(birdDeckAtom);
@@ -71,6 +72,23 @@ const BirdDeck = ({ brownBirdSupply }) => {
           brownBirdSupply.setResourceQuantity((state) => state - 1);
           if (brownBirdSupply.resourceQuantity - 1 == 0) {
             continueBrownPower(brownBirdSupply);
+            return;
+          } else {
+            return;
+          }
+        case "whiteCard":
+          //1 resource quantity
+
+          drawCard(birdDeck, setPlayerBirdHand);
+          brownBirdSupply.setResourceQuantity((state) => state - 1);
+          if (brownBirdSupply.resourceQuantity - 1 == 0) {
+            resetPlayBirdAction(
+              brownBirdSupply.setDisableClick,
+              brownBirdSupply.setResourceQuantity,
+              brownBirdSupply.setCurrentAction,
+              brownBirdSupply.setPlayBirdState,
+              brownBirdSupply.setCurrentActionText
+            );
             return;
           } else {
             return;

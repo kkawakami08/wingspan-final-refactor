@@ -80,3 +80,18 @@ export const power16 = (brownBirdSupply, powerVariable) => {
 
   return true;
 };
+
+export const power21 = (
+  setCurrentActionText,
+  setResourceQuantity,
+  setDisableClick
+) => {
+  // Draw 2 bird cards
+  setCurrentActionText("Draw 2 cards from the bird deck.");
+  setResourceQuantity(2);
+  setDisableClick((state) => ({
+    ...state,
+    birdDeck: false,
+  }));
+  return true;
+};

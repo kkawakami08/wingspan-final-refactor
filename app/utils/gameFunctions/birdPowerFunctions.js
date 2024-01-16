@@ -25,7 +25,7 @@ import {
   power38,
   power39,
 } from "./brownPowerFunctions";
-import { power16, power2, power7 } from "./whitePowerFunctions";
+import { power16, power2, power21, power7 } from "./whitePowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs, moveBirdSource } from "./brownPowerHelperFunctions";
 
@@ -147,6 +147,13 @@ export const whitePowerCheck = (playedBird, brownBirdSupply) => {
     case 16:
       console.log("checking power 16");
       return power16(brownBirdSupply, playedBird.power.variable);
+    case 21:
+      console.log("checking power 21");
+      return power21(
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setDisableClick
+      );
   }
 };
 
