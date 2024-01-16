@@ -6,6 +6,7 @@ import SelectBtn from "../individual/buttons/SelectBtn";
 import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
 import BrownSelectBtn from "../individual/buttons/brownSelectBtn";
 BrownDiscardBtn;
+import WhiteSelectBtn from "../individual/buttons/WhiteSelectBtn";
 
 const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedBirds] = useAtom(selectedBirdsAtom);
@@ -28,6 +29,7 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
       case "playBird":
         return <SelectBtn brownBirdSupply={brownBirdSupply} />;
+
       case "discard":
         return <BrownDiscardBtn brownBirdSupply={brownBirdSupply} />;
       case "brownTuck":
@@ -46,6 +48,9 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
         {selectedBirdsContent}
       </div>
       {!playBirdState.bird && btnDisplay()}
+      {brownBirdSupply.currentAction == "whiteSelect" && (
+        <WhiteSelectBtn brownBirdSupply={brownBirdSupply} />
+      )}
     </div>
   );
 };

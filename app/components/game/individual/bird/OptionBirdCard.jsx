@@ -1,46 +1,22 @@
 import { useAtom } from "jotai";
 import {
   selectedBirdsAtom,
-  birdTrayAtom,
-  currentActionAtom,
-  playerBirdHandAtom,
   selectedCardsAtom,
 } from "../../../../utils/jotaiStore";
 import { selectCard } from "../../../../utils/gameFunctions/cardFunctions";
 
-const SelectedBirdCard = ({ bird }) => {
-  const [, setBirdTray] = useAtom(birdTrayAtom);
+const OptionBirdCard = ({ bird }) => {
   const [, setSelectedCards] = useAtom(selectedCardsAtom);
-  const [, setBirdHand] = useAtom(playerBirdHandAtom);
   const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
-  const [currentAction] = useAtom(currentActionAtom);
 
   const SelectedBirdCardClick = () => {
-    if (currentAction === "wetland") {
-      selectCard(
-        setSelectedBirds,
-        setBirdTray,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-    } else if (currentAction === "whiteSelect") {
-      selectCard(
-        setSelectedBirds,
-        setSelectedCards,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-    } else {
-      selectCard(
-        setSelectedBirds,
-        setBirdHand,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-    }
+    selectCard(
+      setSelectedCards,
+      setSelectedBirds,
+      "common_name",
+      bird.common_name,
+      bird
+    );
   };
 
   const foodContent = bird.food.map((food, index) => (
@@ -95,4 +71,4 @@ const SelectedBirdCard = ({ bird }) => {
   );
 };
 
-export default SelectedBirdCard;
+export default OptionBirdCard;

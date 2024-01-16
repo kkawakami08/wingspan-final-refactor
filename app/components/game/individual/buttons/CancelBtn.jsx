@@ -47,7 +47,7 @@ const CancelBtn = ({ brownBirdSupply }) => {
       brownBirdSupply.setDisableClick,
       brownBirdSupply.setResourceQuantity,
       brownBirdSupply.setCurrentAction,
-      setPlayBirdState,
+      brownBirdSupply.setPlayBirdState,
       brownBirdSupply.setCurrentActionText
     );
   };

@@ -12,6 +12,7 @@ import { useAtom } from "jotai";
 import {
   playerEggSupplyAtom,
   brownPowerContinueBtnAtom,
+  selectedBirdsAtom,
   brownBirdCopyAtom,
   currentActionAtom,
   birdFeederAtom,
@@ -33,7 +34,9 @@ import {
   wetlandBrownBirdsAtom,
   wetlandBirdCountAtom,
   playBirdAtom,
+  selectedCardsAtom,
 } from "../utils/jotaiStore";
+import BirdCardOptions from "./game/card/BirdCardOptions";
 
 const Wingspan = () => {
   const [playerEggs] = useAtom(playerEggSupplyAtom);
@@ -52,6 +55,8 @@ const Wingspan = () => {
     brownBirdVariableAtom
   );
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
+  const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
+  const [, setSelectedCards] = useAtom(selectedCardsAtom);
   const [, setPlayBirdState] = useAtom(playBirdAtom);
   const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
@@ -96,6 +101,7 @@ const Wingspan = () => {
 
     birdFeeder: birdFeeder,
     setPlayBirdState: setPlayBirdState,
+    setSelectedCards: setSelectedCards,
 
     setDisableClick: setDisableClick,
     setCurrentActionText: setCurrentActionText,
@@ -138,6 +144,7 @@ const Wingspan = () => {
       />
       <BirdFeeder />
       <PlayerFoodSupply />
+      {brownBirdSupply.currentAction === "whiteSelect" && <BirdCardOptions />}
       <SelectedFood
         brownBirdSupply={brownBirdSupply}
         moveBirdSupply={moveBirdSupply}

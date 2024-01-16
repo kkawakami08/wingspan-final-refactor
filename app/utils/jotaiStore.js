@@ -85,3 +85,4 @@ export const discardQuantityAtom = atom(0);
 export const brownBirdVariableAtom = atom(null);
 
 export const eggTrackerAtom = atom([]);
+export const selectedCardsAtom = atom([]);

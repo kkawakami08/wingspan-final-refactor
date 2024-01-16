@@ -4,6 +4,7 @@ import {
   birdDiscardAtom,
   selectedFoodAtom,
   playBirdAtom,
+  birdDeckAtom,
 } from "../../../../utils/jotaiStore";
 import { discardSelection } from "../../../../utils/gameFunctions/generalFunctions";
 import { discardFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
@@ -24,6 +25,7 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
+  const [birdDeck] = useAtom(birdDeckAtom);
 
   const forestState = {
     setHabitat: brownBirdSupply.setForest,
@@ -106,7 +108,8 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
         if (playBirdState.bird.power.color === "white") {
           const canActivate = whitePowerCheck(
             playBirdState.bird,
-            brownBirdSupply
+            brownBirdSupply,
+            birdDeck
           );
           if (canActivate) {
             return;
@@ -117,7 +120,7 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
           brownBirdSupply.setDisableClick,
           brownBirdSupply.setResourceQuantity,
           brownBirdSupply.setCurrentAction,
-          setPlayBirdState,
+          brownBirdSupply.setPlayBirdState,
           brownBirdSupply.setCurrentActionText
         );
         break;

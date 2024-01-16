@@ -25,7 +25,13 @@ import {
   power38,
   power39,
 } from "./brownPowerFunctions";
-import { power16, power2, power21, power7 } from "./whitePowerFunctions";
+import {
+  power16,
+  power2,
+  power21,
+  power27,
+  power7,
+} from "./whitePowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
 import { checkOtherEggs, moveBirdSource } from "./brownPowerHelperFunctions";
 
@@ -33,7 +39,7 @@ const birdFeederPowers = [1, 2, 3, 4, 13];
 const foodPowers = [6, 7, 8, 9, 10];
 const cachePowers = [12, 36, 37];
 const eggPowers = [18, 19];
-const cardPowers = [20, 21, 22, 23, 24, 25, 26, 27, 28, 41];
+const cardPowers = [20, 21, 22, 23, 24, 25, 26, 28, 41];
 const nestPowers = [16, 17];
 
 export const activateBrownPowers = (
@@ -115,7 +121,7 @@ export const currentActionNamer = (powerID, powerColor, brownBirdSupply) => {
   }
 };
 
-export const whitePowerCheck = (playedBird, brownBirdSupply) => {
+export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
   console.log(`Checking ${playedBird.common_name}'s white power`);
 
   currentActionNamer(
@@ -153,6 +159,15 @@ export const whitePowerCheck = (playedBird, brownBirdSupply) => {
         brownBirdSupply.setCurrentActionText,
         brownBirdSupply.setResourceQuantity,
         brownBirdSupply.setDisableClick
+      );
+    case 27:
+      console.log("checking power 27");
+      brownBirdSupply.setCurrentAction("whiteSelect");
+      return power27(
+        birdDeck,
+        brownBirdSupply.setSelectedCards,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setResourceQuantity
       );
   }
 };

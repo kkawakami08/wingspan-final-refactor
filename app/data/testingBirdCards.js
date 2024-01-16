@@ -1,34 +1,5 @@
 export const forestBirds = [
   {
-    common_name: "Red-Shouldered Hawk",
-    scientific_name: "Buteo lineatus",
-    vp: 3,
-    nest: "platform",
-    egg_limit: 2,
-    wingspan: 102,
-    power: {
-      color: "brown",
-      description:
-        "Look at a card from the deck. If less than 75cm, tuck it behind this bird. If not, discard it.",
-      id: 35,
-      variable: 75,
-    },
-    habitat: ["forest"],
-    food: ["rodent"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Backyard Birder",
-      "Falconer",
-      "Forester",
-      "Large Bird Specialist",
-      "Platform Builder",
-      "Rodentologist",
-    ],
-  },
-  {
     common_name: "Vaux's Swift",
     scientific_name: "Chaetura vauxi",
     vp: 2,
@@ -605,6 +576,32 @@ export const wetlandBirds = [
 
 export const playerBirdHand = [
   {
+    common_name: "American Oystercatcher",
+    scientific_name: "Haematopus palliatus",
+    vp: 5,
+    nest: "ground",
+    egg_limit: 2,
+    wingspan: 81,
+    power: {
+      color: "white",
+      description:
+        "Draw card equal to the number of players +1. Starting with you and proceeding clockwise, each player selects 1 of those cards and places it in their hand. You keep the extra card.",
+      id: 27,
+      variable: "none",
+    },
+    habitat: ["wetland"],
+    food: ["invertebrate", "invertebrate"],
+    food_count: 2,
+    locations: ["North America", "Central America", "South America"],
+    bonus_cards: [
+      "Cartographer",
+      "Enclosure Builder",
+      "Food Web Expert",
+      "Large Bird Specialist",
+      "Wetland Scientist",
+    ],
+  },
+  {
     common_name: "Inca Dove",
     scientific_name: "Columbina inca",
     vp: 2,
@@ -757,6 +754,35 @@ export const playerBirdHand = [
   },
 ];
 export const birdTray = [
+  {
+    common_name: "Red-Shouldered Hawk",
+    scientific_name: "Buteo lineatus",
+    vp: 3,
+    nest: "platform",
+    egg_limit: 2,
+    wingspan: 102,
+    power: {
+      color: "brown",
+      description:
+        "Look at a card from the deck. If less than 75cm, tuck it behind this bird. If not, discard it.",
+      id: 35,
+      variable: 75,
+    },
+    habitat: ["forest"],
+    food: ["rodent"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Backyard Birder",
+      "Falconer",
+      "Forester",
+      "Large Bird Specialist",
+      "Platform Builder",
+      "Rodentologist",
+    ],
+  },
   {
     common_name: "Northern Cardinal",
     scientific_name: "Cardinalis cardinalis",
@@ -3616,32 +3642,7 @@ export const birdDeck = [
       "Wetland Scientist",
     ],
   },
-  {
-    common_name: "American Oystercatcher",
-    scientific_name: "Haematopus palliatus",
-    vp: 5,
-    nest: "ground",
-    egg_limit: 2,
-    wingspan: 81,
-    power: {
-      color: "white",
-      description:
-        "Draw card equal to the number of players +1. Starting with you and proceeding clockwise, each player selects 1 of those cards and places it in their hand. You keep the extra card.",
-      id: 27,
-      variable: "none",
-    },
-    habitat: ["wetland"],
-    food: ["invertebrate", "invertebrate"],
-    food_count: 2,
-    locations: ["North America", "Central America", "South America"],
-    bonus_cards: [
-      "Cartographer",
-      "Enclosure Builder",
-      "Food Web Expert",
-      "Large Bird Specialist",
-      "Wetland Scientist",
-    ],
-  },
+
   {
     common_name: "Brant",
     scientific_name: "Branta bernicla",

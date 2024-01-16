@@ -95,3 +95,21 @@ export const power21 = (
   }));
   return true;
 };
+
+export const power27 = (
+  birdDeck,
+  setSelectedCards,
+  setCurrentActionText,
+  setResourceQuantity
+) => {
+  // Draw bird cards equal to the number of players +1. Starting with you and proceeding clockwise, each player selects 1 of those cards and places it into their hand. You keep the extra card
+  //draw 3, pick 2
+  let drawnCards = [];
+  for (let i = 0; i < 3; i++) {
+    drawnCards.push(birdDeck.pop());
+  }
+  setSelectedCards([...drawnCards]);
+  setCurrentActionText("Select 2 of the 3 drawn bird cards.");
+  setResourceQuantity(2);
+  return true;
+};

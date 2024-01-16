@@ -5,6 +5,7 @@ import {
   selectedFoodAtom,
   playerFoodSupplyAtom,
   playBirdAtom,
+  playerBirdHandAtom,
 } from "../../../../utils/jotaiStore";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
 import {
@@ -13,6 +14,7 @@ import {
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
+import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
 
 const WhiteSelectBtn = ({ brownBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
@@ -20,6 +22,7 @@ const WhiteSelectBtn = ({ brownBirdSupply }) => {
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
   const [, setPlayBirdState] = useAtom(playBirdAtom);
+  const [, setBirdHand] = useAtom(playerBirdHandAtom);
 
   let disableSave;
   const updateDisable = () => {
@@ -28,6 +31,9 @@ const WhiteSelectBtn = ({ brownBirdSupply }) => {
         disableSave =
           selectedFood.length == brownBirdSupply.resourceQuantity &&
           birdFeederCheck(brownBirdSupply.brownBirdVariable, selectedFood);
+        break;
+      case "whiteSelect":
+        disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
         break;
       // case "brownFood":
       //   disableSave =
@@ -54,14 +60,16 @@ const WhiteSelectBtn = ({ brownBirdSupply }) => {
       //   tuckCard(brownBirdSupply);
       //   setSelectedBirds([]);
       // }
-      resetPlayBirdAction(
-        brownBirdSupply.setDisableClick,
-        brownBirdSupply.setResourceQuantity,
-        brownBirdSupply.setCurrentAction,
-        setPlayBirdState,
-        brownBirdSupply.setCurrentActionText
-      );
+    } else {
+      saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
     }
+    resetPlayBirdAction(
+      brownBirdSupply.setDisableClick,
+      brownBirdSupply.setResourceQuantity,
+      brownBirdSupply.setCurrentAction,
+      brownBirdSupply.setPlayBirdState,
+      brownBirdSupply.setCurrentActionText
+    );
   };
 
   useEffect(() => {
