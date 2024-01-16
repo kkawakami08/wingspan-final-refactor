@@ -31,6 +31,7 @@ import {
   power21,
   power27,
   power28,
+  power42,
   power7,
 } from "./whitePowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
@@ -122,19 +123,25 @@ export const currentActionNamer = (powerID, powerColor, brownBirdSupply) => {
   }
 };
 
-export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
-  console.log(`Checking ${playedBird.common_name}'s white power`);
+export const whitePowerCheck = (
+  playedBirdState,
+  brownBirdSupply,
+  moveBirdSupply,
+  birdDeck,
+  birdHand
+) => {
+  console.log(`Checking ${playedBirdState.bird.common_name}'s white power`);
 
   currentActionNamer(
-    playedBird.power.id,
-    playedBird.power.color,
+    playedBirdState.bird.power.id,
+    playedBirdState.bird.power.color,
     brownBirdSupply
   );
-  switch (playedBird.power.id) {
+  switch (playedBirdState.bird.power.id) {
     case 2:
       console.log("checking power 2");
       return power2(
-        playedBird.power.variable,
+        playedBirdState.bird.power.variable,
         brownBirdSupply.birdFeeder,
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText,
@@ -144,7 +151,7 @@ export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
     case 7:
       console.log("checking power 7");
       return power7(
-        playedBird.power.variable,
+        playedBirdState.bird.power.variable,
 
         brownBirdSupply.setDisableClick,
         brownBirdSupply.setCurrentActionText,
@@ -153,7 +160,7 @@ export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
       );
     case 16:
       console.log("checking power 16");
-      return power16(brownBirdSupply, playedBird.power.variable);
+      return power16(brownBirdSupply, playedBirdState.bird.power.variable);
     case 21:
       console.log("checking power 21");
       return power21(
@@ -177,6 +184,16 @@ export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
 
         brownBirdSupply.setResourceQuantity,
         brownBirdSupply.setCurrentActionText
+      );
+    case 42:
+      console.log("checking power 42");
+      brownBirdSupply.setCurrentAction("whiteBird");
+      return power42(
+        playedBirdState.habitat,
+
+        brownBirdSupply,
+        moveBirdSupply,
+        birdHand
       );
   }
 };

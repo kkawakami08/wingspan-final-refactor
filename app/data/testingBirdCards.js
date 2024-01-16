@@ -576,6 +576,35 @@ export const wetlandBirds = [
 
 export const playerBirdHand = [
   {
+    common_name: "Ruby-Crowned Kinglet",
+    scientific_name: "Regulus calendula",
+    vp: 2,
+    nest: "bowl",
+    egg_limit: 3,
+    wingspan: 20,
+    power: {
+      color: "white",
+      description:
+        "Play an additional bird in your forest. Pay its normal cost.",
+      id: 42,
+      variable: "forest",
+    },
+    habitat: ["forest"],
+    food: ["invertebrate", "seed", "fruit"],
+    food_count: 1,
+    locations: ["North America", "Central America"],
+    bonus_cards: [
+      "Anatomist",
+      "Photographer",
+      "Backyard Birder",
+      "Bird Feeder",
+      "Forester",
+      "Passerine Specialist",
+      "Viticulturalist",
+      "Wildlife Gardener",
+    ],
+  },
+  {
     common_name: "Brant",
     scientific_name: "Branta bernicla",
     vp: 3,
@@ -1765,35 +1794,7 @@ export const birdDeck = [
       "Wetland Scientist",
     ],
   },
-  {
-    common_name: "Ruby-Crowned Kinglet",
-    scientific_name: "Regulus calendula",
-    vp: 2,
-    nest: "bowl",
-    egg_limit: 3,
-    wingspan: 20,
-    power: {
-      color: "white",
-      description:
-        "Play an additional bird in your forest. Pay its normal cost.",
-      id: 42,
-      variable: "forest",
-    },
-    habitat: ["forest"],
-    food: ["invertebrate", "seed", "fruit"],
-    food_count: 1,
-    locations: ["North America", "Central America"],
-    bonus_cards: [
-      "Anatomist",
-      "Photographer",
-      "Backyard Birder",
-      "Bird Feeder",
-      "Forester",
-      "Passerine Specialist",
-      "Viticulturalist",
-      "Wildlife Gardener",
-    ],
-  },
+
   {
     common_name: "Downy Woodpecker",
     scientific_name: "Picoides pubescens",

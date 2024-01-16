@@ -1,4 +1,5 @@
 import { birdFeederCheck } from "./brownPowerHelperFunctions";
+import { eggReqCheck } from "./playABirdFunctions";
 import { nestTypeCounter } from "./whitePowerHelperFunctions";
 
 export const power2 = (
@@ -127,4 +128,49 @@ export const power28 = (
   setResourceQuantity(3);
   setCurrentActionText("Pick up all 3 bird cards from the bird tray.");
   return true;
+};
+
+export const power41 = () => {
+  //
+};
+
+export const power42 = (
+  location,
+  brownBirdSupply,
+  moveBirdSupply,
+  birdHand
+) => {
+  // Play an additional bird in your [specific habitat]. Pay its normal cost
+  console.log("one");
+  let canPlay;
+  switch (location) {
+    case "forest":
+      console.log("two");
+      canPlay = eggReqCheck(
+        moveBirdSupply.forestBirdCount,
+        brownBirdSupply.setDisableClick,
+        brownBirdSupply.playerEggs,
+        brownBirdSupply.setCurrentActionText,
+        brownBirdSupply.setPlayBirdState,
+        location,
+        birdHand,
+        brownBirdSupply.playerFood,
+        brownBirdSupply.setResourceQuantity,
+        "whiteBird"
+      );
+      break;
+  }
+  if (canPlay) {
+    console.log("three");
+    brownBirdSupply.setBrownPowerContinueBtn(true);
+    brownBirdSupply.setCurrentActionText(
+      "Do you want to play an additional bird in this habitat (paying its normal costs)?"
+    );
+    brownBirdSupply.setBrownBirdCopy((state) => ({
+      ...state,
+      dialog: "skip",
+    }));
+    brownBirdSupply.setBrownBirdVariable(location);
+    return true;
+  }
 };

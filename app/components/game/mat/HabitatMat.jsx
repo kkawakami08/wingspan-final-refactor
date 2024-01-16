@@ -20,7 +20,10 @@ const HabitatMat = ({ brownBirdSupply, moveBirdSupply }) => {
         <NextPower brownBirdSupply={brownBirdSupply} />
       )}
       {brownBirdSupply.brownPowerContinueBtn && (
-        <BrownPowerDialog brownBirdSupply={brownBirdSupply} />
+        <BrownPowerDialog
+          brownBirdSupply={brownBirdSupply}
+          moveBirdSupply={moveBirdSupply}
+        />
       )}
 
       <div className="flex gap-20 items-center justify-center">
