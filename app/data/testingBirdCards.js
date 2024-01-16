@@ -576,6 +576,32 @@ export const wetlandBirds = [
 
 export const playerBirdHand = [
   {
+    common_name: "Brant",
+    scientific_name: "Branta bernicla",
+    vp: 3,
+    nest: "ground",
+    egg_limit: 2,
+    wingspan: 114,
+    power: {
+      color: "white",
+      description: "Draw the 3 face-up card in the bird tray.",
+      id: 28,
+      variable: "none",
+    },
+    habitat: ["wetland"],
+    food: ["seed", "wild"],
+    food_count: 2,
+    locations: ["North America", "Europe", "Asia"],
+    bonus_cards: [
+      "Backyard Birder",
+      "Bird Feeder",
+      "Enclosure Builder",
+      "Large Bird Specialist",
+      "Omnivore Expert",
+      "Wetland Scientist",
+    ],
+  },
+  {
     common_name: "American Oystercatcher",
     scientific_name: "Haematopus palliatus",
     vp: 5,
@@ -3643,32 +3669,6 @@ export const birdDeck = [
     ],
   },
 
-  {
-    common_name: "Brant",
-    scientific_name: "Branta bernicla",
-    vp: 3,
-    nest: "ground",
-    egg_limit: 2,
-    wingspan: 114,
-    power: {
-      color: "white",
-      description: "Draw the 3 face-up card in the bird tray.",
-      id: 28,
-      variable: "none",
-    },
-    habitat: ["wetland"],
-    food: ["seed", "wild"],
-    food_count: 2,
-    locations: ["North America", "Europe", "Asia"],
-    bonus_cards: [
-      "Backyard Birder",
-      "Bird Feeder",
-      "Enclosure Builder",
-      "Large Bird Specialist",
-      "Omnivore Expert",
-      "Wetland Scientist",
-    ],
-  },
   {
     common_name: "Horned Lark",
     scientific_name: "Eremophila alpestris",

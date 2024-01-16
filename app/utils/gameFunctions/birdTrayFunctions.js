@@ -3,6 +3,7 @@ export const refillTray = (birdTray, birdDeck, setBirdTray) => {
   for (let i = birdTray.length; i < 3; i++) {
     newTray.push(birdDeck.pop());
   }
+  console.log(newTray);
   setBirdTray((tray) => {
     tray.push(...newTray);
     return tray;

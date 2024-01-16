@@ -30,6 +30,7 @@ import {
   power2,
   power21,
   power27,
+  power28,
   power7,
 } from "./whitePowerFunctions";
 import { initialDisableClick } from "../jotaiStore";
@@ -168,6 +169,14 @@ export const whitePowerCheck = (playedBird, brownBirdSupply, birdDeck) => {
         brownBirdSupply.setSelectedCards,
         brownBirdSupply.setCurrentActionText,
         brownBirdSupply.setResourceQuantity
+      );
+    case 28:
+      console.log("checking power 28");
+      return power28(
+        brownBirdSupply.setDisableClick,
+
+        brownBirdSupply.setResourceQuantity,
+        brownBirdSupply.setCurrentActionText
       );
   }
 };

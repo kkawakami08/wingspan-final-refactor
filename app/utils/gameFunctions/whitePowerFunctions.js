@@ -113,3 +113,18 @@ export const power27 = (
   setResourceQuantity(2);
   return true;
 };
+
+export const power28 = (
+  setDisableClick,
+  setResourceQuantity,
+  setCurrentActionText
+) => {
+  // Draw the 3 face-up bird cards from the bird tray
+  setDisableClick((state) => ({
+    ...state,
+    birdTray: false,
+  }));
+  setResourceQuantity(3);
+  setCurrentActionText("Pick up all 3 bird cards from the bird tray.");
+  return true;
+};

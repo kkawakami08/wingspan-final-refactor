@@ -135,7 +135,7 @@ const Wingspan = () => {
     <div className="grid grid-cols-12 p-5 gap-5">
       <PlayerBirdHand />
 
-      <BirdTray />
+      <BirdTray brownBirdSupply={brownBirdSupply} />
       <BirdDeck brownBirdSupply={brownBirdSupply} />
 
       <SelectedBirds

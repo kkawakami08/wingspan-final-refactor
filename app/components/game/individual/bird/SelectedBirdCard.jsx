@@ -16,30 +16,36 @@ const SelectedBirdCard = ({ bird }) => {
   const [currentAction] = useAtom(currentActionAtom);
 
   const SelectedBirdCardClick = () => {
-    if (currentAction === "wetland") {
-      selectCard(
-        setSelectedBirds,
-        setBirdTray,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-    } else if (currentAction === "whiteSelect") {
-      selectCard(
-        setSelectedBirds,
-        setSelectedCards,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-    } else {
-      selectCard(
-        setSelectedBirds,
-        setBirdHand,
-        "common_name",
-        bird.common_name,
-        bird
-      );
+    switch (currentAction) {
+      case "wetland":
+        selectCard(
+          setSelectedBirds,
+          setBirdTray,
+          "common_name",
+          bird.common_name,
+          bird
+        );
+        break;
+      case "whiteSelect":
+        selectCard(
+          setSelectedBirds,
+          setSelectedCards,
+          "common_name",
+          bird.common_name,
+          bird
+        );
+        break;
+      case "whiteCard":
+        console.log("Disabled");
+        break;
+      default:
+        selectCard(
+          setSelectedBirds,
+          setBirdHand,
+          "common_name",
+          bird.common_name,
+          bird
+        );
     }
   };
 
