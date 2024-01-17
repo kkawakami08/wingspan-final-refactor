@@ -56,13 +56,13 @@ const BirdCard = ({ bird }) => {
 
   return (
     <div
-      className="bg-emerald-500 w-72 h-96 rounded-lg  flex flex-col justify-around text-center border-2 border-emerald-700"
+      className="bg-emerald-500 w-72 h-96 rounded-lg  flex flex-col  text-center border-2 border-emerald-700"
       onClick={birdCardClick}
     >
-      <div className="p-3 flex flex-col gap-5">
+      <div className="p-3 flex flex-col gap-3 items-center">
         <p className="text-xl font-semibold text-white">{bird.common_name}</p>
         <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
-        <div>{habitatContent}</div>
+        <div className="flex flex-wrap gap-3">{habitatContent}</div>
         <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
         <p className="text-white text-lg">PowerId: {bird.power.id}</p>
       </div>

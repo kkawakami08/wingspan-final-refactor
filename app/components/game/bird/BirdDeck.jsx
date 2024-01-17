@@ -42,9 +42,7 @@ const BirdDeck = ({ brownBirdSupply }) => {
   };
 
   const birdDeckClick = () => {
-    if (disableBirdDeck) {
-      console.log("Disabled");
-    } else {
+    if (!disableBirdDeck) {
       if (brownBirdSupply.currentAction.includes("Card")) {
         //1 resource quantity
         drawCard(birdDeck, setPlayerBirdHand);
@@ -67,9 +65,7 @@ const BirdDeck = ({ brownBirdSupply }) => {
         switch (brownBirdSupply.currentAction) {
           case "wetland":
             const continueDrawing = drawBirdDeck(wetlandAction);
-            if (continueDrawing) {
-              return;
-            } else {
+            if (!continueDrawing) {
               if (wetlandBrownBirds.length) {
                 brownBirdSupply.setBrownBirdCopy((state) => ({
                   ...state,
@@ -81,9 +77,16 @@ const BirdDeck = ({ brownBirdSupply }) => {
                   wetlandBrownBirds,
                   brownBirdSupply
                 );
-                return;
-              } else break;
+              } else {
+                resetAction(
+                  brownBirdSupply.setDisableClick,
+                  brownBirdSupply.setResourceQuantity,
+                  brownBirdSupply.setCurrentAction,
+                  brownBirdSupply.setCurrentActionText
+                );
+              }
             }
+            return;
 
           case "brownWing":
             const currentCard = birdDeck.pop();
@@ -110,17 +113,9 @@ const BirdDeck = ({ brownBirdSupply }) => {
             brownBirdSupply.setResourceQuantity((state) => state - 1);
             if (brownBirdSupply.resourceQuantity - 1 == 0) {
               continueBrownPower(brownBirdSupply);
-              return;
-            } else {
-              return;
             }
+            return;
         }
-        resetAction(
-          brownBirdSupply.setDisableClick,
-          brownBirdSupply.setResourceQuantity,
-          brownBirdSupply.setCurrentAction,
-          brownBirdSupply.setCurrentActionText
-        );
       }
     }
   };

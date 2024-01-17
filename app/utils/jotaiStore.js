@@ -12,6 +12,7 @@ import {
 export const birdDeckAtom = atom(birdDeck);
 export const birdDiscardAtom = atom([]);
 export const birdTrayAtom = atomWithImmer(birdTray);
+
 const initialRoll = rollBirdFeeder();
 export const birdFeederAtom = atom(initialRoll);
 
@@ -62,13 +63,13 @@ export const initialPlayBird = {
 
 export const playBirdAtom = atomWithImmer(initialPlayBird);
 
-export const forestBirdCountAtom = atom(1);
-export const grasslandBirdCountAtom = atom(1);
-export const wetlandBirdCountAtom = atom(2);
+export const forestBirdCountAtom = atom(0);
+export const grasslandBirdCountAtom = atom(0);
+export const wetlandBirdCountAtom = atom(0);
 
-export const forestBrownBirdsAtom = atomWithImmer([0]);
-export const grasslandBrownBirdsAtom = atomWithImmer([0]);
-export const wetlandBrownBirdsAtom = atomWithImmer([0, 1]);
+export const forestBrownBirdsAtom = atomWithImmer([]);
+export const grasslandBrownBirdsAtom = atomWithImmer([]);
+export const wetlandBrownBirdsAtom = atomWithImmer([]);
 
 export const brownBirdCopyAtom = atom({
   location: "",
@@ -86,3 +87,5 @@ export const brownBirdVariableAtom = atom(null);
 
 export const eggTrackerAtom = atom([]);
 export const selectedCardsAtom = atom([]);
+
+export const totalVPAtom = atom(0);

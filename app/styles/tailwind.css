@@ -692,6 +692,10 @@ video {
   justify-items: center;
 }
 
+.gap-10 {
+  gap: 2.5rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -706,10 +710,6 @@ video {
 
 .gap-5 {
   gap: 1.25rem;
-}
-
-.gap-10 {
-  gap: 2.5rem;
 }
 
 .place-self-end {

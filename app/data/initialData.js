@@ -49,17 +49,17 @@ const createInitialHabitat = (resource, discard, startingQuantity) => {
 };
 
 export let initialForest = createInitialHabitat("dice", "card", 1);
-initialForest[0].bird = forestBirds[0];
+// initialForest[0].bird = forestBirds[0];
 // initialForest[1].bird = forestBirds[1];
 // initialForest[2].bird = forestBirds[2];
 // initialForest[3].bird = forestBirds[3];
 export let initialGrassland = createInitialHabitat("eggs", "food", 2);
-initialGrassland[0].bird = grasslandBirds[0];
+// initialGrassland[0].bird = grasslandBirds[0];
 // initialGrassland[1].bird = grasslandBirds[1];
 // initialGrassland[2].bird = grasslandBirds[2];
 export const initialWetland = createInitialHabitat("cards", "egg", 1);
-initialWetland[0].bird = wetlandBirds[0];
-initialWetland[1].bird = wetlandBirds[1];
+// initialWetland[0].bird = wetlandBirds[0];
+// initialWetland[1].bird = wetlandBirds[1];
 
 const initialRoll = rollBirdFeeder();
 const initialDisableRolling = initialRoll.every(
