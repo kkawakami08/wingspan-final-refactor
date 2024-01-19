@@ -43,23 +43,34 @@ const PlayedBirdCard = ({
   const currentActionDivider = ["grassland", "brownEgg", "brownNest"];
 
   let noMoreEggsConditions =
-    eggTracker.includes(bird.common_name) || bird.egg_limit == currentEggs;
+    !eggTracker.includes(bird.common_name) || !bird.egg_limit == currentEggs;
 
   const thisVariableCheck =
     brownBirdSupply.brownBirdCopy.currentSpace == Number(space) &&
     brownBirdSupply.brownBirdCopy.location == location;
 
   const birdCardClick = () => {
+    console.log(`${bird.common_name} with ${bird.nest} nest type`);
     if (!disableBirdCard) {
       //can click on playedBird
       if (currentActionDivider.includes(brownBirdSupply.currentAction)) {
         //current action == grassland/brownEgg/brownNest
-        if (brownBirdSupply.currentAction == "brownNest")
+        if (brownBirdSupply.currentAction == "brownNest") {
+          console.log("brownNest Bird");
+          console.log("nomoreeggconditions", noMoreEggsConditions); //false
+          console.log("current nest", brownBirdSupply.brownBirdVariable);
+          console.log("current bird nest", bird.nest);
+          console.log(
+            "nomoreeggconditions with nest",
+            noMoreEggsConditions &&
+              bird.nest == brownBirdSupply.brownBirdVariable //false
+          );
           //verifies that current bird has specified nest to lay eggs
           noMoreEggsConditions =
             noMoreEggsConditions &&
             bird.nest == brownBirdSupply.brownBirdVariable;
-        if (!noMoreEggsConditions) {
+        }
+        if (noMoreEggsConditions) {
           //current bird not in egg tracker / bird nest == brownbirdvariable / egg_limit < egg Count
           if (brownBirdSupply.brownBirdVariable == "this") {
             if (!thisVariableCheck) {
@@ -76,6 +87,11 @@ const PlayedBirdCard = ({
             space,
             brownBirdSupply.setResourceQuantity,
             setPlayerEggs
+          );
+          console.log(
+            "resoure after lay egg",
+            brownBirdSupply.resourceQuantity - 1,
+            brownBirdSupply.resourceQuantity
           );
           if (brownBirdSupply.currentAction !== "grassland") {
             setEggTracker((state) => [...state, bird.common_name]);
