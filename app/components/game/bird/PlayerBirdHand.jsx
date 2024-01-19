@@ -1,12 +1,22 @@
 import { useAtom } from "jotai";
-import { playerBirdHandAtom } from "../../../utils/jotaiStore";
-import BirdCard from "../individual/bird/BirdCard";
+import {
+  playerBirdHandAtom,
+  disableClickAtom,
+} from "../../../utils/jotaiStore";
+import GeneralBirdCard from "../individual/bird/GeneralBirdCard";
 
 const PlayerBirdHand = () => {
-  const [birdHand] = useAtom(playerBirdHandAtom);
+  const [birdHand, setBirdHand] = useAtom(playerBirdHandAtom);
+  const [disableClick] = useAtom(disableClickAtom);
 
   const birdHandContent = birdHand.map((bird) => (
-    <BirdCard key={bird.common_name} bird={bird} />
+    <GeneralBirdCard
+      key={bird.common_name}
+      bird={bird}
+      type={setBirdHand}
+      disabled={disableClick.birdHand}
+      selected={false}
+    />
   ));
 
   return (

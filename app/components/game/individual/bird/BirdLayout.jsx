@@ -1,29 +1,4 @@
-import { useAtom } from "jotai";
-import {
-  selectedBirdsAtom,
-  birdTrayAtom,
-  disableClickAtom,
-} from "../../../../utils/jotaiStore";
-import { selectCard } from "../../../../utils/gameFunctions/cardFunctions";
-
-const BirdTrayCard = ({ bird }) => {
-  const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
-  const [, setBirdTray] = useAtom(birdTrayAtom);
-  const [disableClick] = useAtom(disableClickAtom);
-  const disableBirdTray = disableClick.birdTray;
-
-  const BirdTrayCardClick = () => {
-    if (disableBirdTray) console.log("Disabled");
-    else
-      selectCard(
-        setBirdTray,
-        setSelectedBirds,
-        "common_name",
-        bird.common_name,
-        bird
-      );
-  };
-
+const BirdLayout = ({ bird }) => {
   const foodContent = bird.food.map((food, index) => (
     <p className="bg-emerald-900 text-white p-2 rounded-lg" key={index}>
       {food}
@@ -52,20 +27,19 @@ const BirdTrayCard = ({ bird }) => {
       break;
   }
 
+  // w-72 h-96
   return (
-    <div
-      className="bg-emerald-700 w-72 h-96 rounded-lg  flex flex-col gap-5 text-center border-2 border-emerald-700"
-      onClick={BirdTrayCardClick}
-    >
-      <div className="p-3 flex flex-col gap-5">
+    <div className=" bg-emerald-500  rounded-lg  flex flex-col  text-center border-2 border-emerald-700">
+      <div className="p-3 flex flex-col gap-3 items-center">
         <p className="text-xl font-semibold text-white">{bird.common_name}</p>
         <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
-        <div>{habitatContent}</div>
+        <div className="flex flex-wrap gap-3">{habitatContent}</div>
         <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
+        <p className="text-white text-lg">PowerId: {bird.power.id}</p>
       </div>
       <div className={powerCSS}>
         <p className="font-semibold text-lg">
-          {powerPrefix}{" "}
+          {powerPrefix}
           <span className="font-normal text-md">{bird.power.description}</span>
         </p>
       </div>
@@ -73,4 +47,4 @@ const BirdTrayCard = ({ bird }) => {
   );
 };
 
-export default BirdTrayCard;
+export default BirdLayout;

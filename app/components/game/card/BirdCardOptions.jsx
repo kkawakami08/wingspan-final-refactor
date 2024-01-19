@@ -1,14 +1,18 @@
 import { useAtom } from "jotai";
 import { selectedCardsAtom } from "../../../utils/jotaiStore";
-import BrownDiscardBtn from "../individual/buttons/brownDiscardBtn";
-BrownDiscardBtn;
-import OptionBirdCard from "../individual/bird/OptionBirdCard";
+import GeneralBirdCard from "../individual/bird/GeneralBirdCard";
 
 const BirdCardOptions = ({}) => {
-  const [selectedCards] = useAtom(selectedCardsAtom);
+  const [selectedCards, setSelectedCards] = useAtom(selectedCardsAtom);
 
   const birdCardOptionsContent = selectedCards.map((bird) => (
-    <OptionBirdCard key={bird.common_name} bird={bird} />
+    <GeneralBirdCard
+      key={bird.common_name}
+      bird={bird}
+      type={setSelectedCards}
+      disabled={false}
+      selected={false}
+    />
   ));
 
   return (

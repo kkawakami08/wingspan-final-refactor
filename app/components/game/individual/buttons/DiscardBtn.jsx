@@ -115,6 +115,10 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
             birdDeck,
             birdHand
           );
+          setPlayBirdState((state) => {
+            state.bird = null;
+            return state;
+          });
           if (canActivate) {
             return;
           }

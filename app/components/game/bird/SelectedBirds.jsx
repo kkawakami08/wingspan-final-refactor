@@ -34,7 +34,10 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
         return <BrownDiscardBtn brownBirdSupply={brownBirdSupply} />;
       case "brownTuck":
         return <BrownSelectBtn brownBirdSupply={brownBirdSupply} />;
-
+      case "whiteSelect":
+        return <WhiteSelectBtn brownBirdSupply={brownBirdSupply} />;
+      case "whiteCard":
+        return <WhiteSelectBtn brownBirdSupply={brownBirdSupply} />;
       default:
         break;
     }
@@ -49,10 +52,6 @@ const SelectedBirds = ({ brownBirdSupply, moveBirdSupply }) => {
         {selectedBirdsContent}
       </div>
       {!playBirdState.bird && btnDisplay()}
-      {brownBirdSupply.currentAction == "whiteSelect" ||
-        (brownBirdSupply.currentAction == "whiteCard" && (
-          <WhiteSelectBtn brownBirdSupply={brownBirdSupply} />
-        ))}
     </div>
   );
 };

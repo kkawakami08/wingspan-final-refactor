@@ -5,7 +5,6 @@ import {
   removedEggListAtom,
   grasslandBrownBirdsAtom,
   eggTrackerAtom,
-  playBirdAtom,
 } from "../../../../utils/jotaiStore";
 import {
   layEgg,
@@ -21,6 +20,7 @@ import {
   brownPowerCheck,
   continueBrownPower,
 } from "../../../../utils/gameFunctions/birdPowerFunctions";
+import BirdLayout from "./BirdLayout";
 
 const PlayedBirdCard = ({
   habitat,
@@ -31,8 +31,6 @@ const PlayedBirdCard = ({
 }) => {
   const bird = habitat[space].bird;
   const currentEggs = habitat[space].eggCount;
-  const currentCache = habitat[space].cacheCount;
-  const currentTucked = habitat[space].tuckedCount;
 
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
@@ -42,30 +40,73 @@ const PlayedBirdCard = ({
   const [disableClick] = useAtom(disableClickAtom);
   const disableBirdCard = disableClick.playedBird;
 
+  const currentActionDivider = ["grassland", "brownEgg", "brownNest"];
+
+  let noMoreEggsConditions =
+    eggTracker.includes(bird.common_name) || bird.egg_limit == currentEggs;
+
+  const thisVariableCheck =
+    brownBirdSupply.brownBirdCopy.currentSpace == Number(space) &&
+    brownBirdSupply.brownBirdCopy.location == location;
+
   const birdCardClick = () => {
-    if (disableBirdCard) console.log("Disabled");
-    else {
-      if (brownBirdSupply.currentAction.includes("Nest")) {
-        if (
-          eggTracker.includes(bird.common_name) ||
-          bird.nest !== brownBirdSupply.brownBirdVariable ||
-          bird.egg_limit == currentEggs
-        ) {
-          brownBirdSupply.setCurrentActionText(
-            "Cannot place an egg on this bird. Select a different one."
-          );
-        } else {
+    if (!disableBirdCard) {
+      //can click on playedBird
+      if (currentActionDivider.includes(brownBirdSupply.currentAction)) {
+        //current action == grassland/brownEgg/brownNest
+        if (brownBirdSupply.currentAction == "brownNest")
+          //verifies that current bird has specified nest to lay eggs
+          noMoreEggsConditions =
+            noMoreEggsConditions &&
+            bird.nest == brownBirdSupply.brownBirdVariable;
+        if (!noMoreEggsConditions) {
+          //current bird not in egg tracker / bird nest == brownbirdvariable / egg_limit < egg Count
+          if (brownBirdSupply.brownBirdVariable == "this") {
+            if (!thisVariableCheck) {
+              //if current bird is not specified bird
+              brownBirdSupply.setCurrentActionText(
+                "Must place on specified bird."
+              );
+              return;
+            }
+          }
+          //either specified bird or meets egg laying req
           layEgg(
             setHabitat,
             space,
             brownBirdSupply.setResourceQuantity,
             setPlayerEggs
           );
-          setEggTracker((state) => [...state, bird.common_name]);
+          if (brownBirdSupply.currentAction !== "grassland") {
+            setEggTracker((state) => [...state, bird.common_name]);
+          }
           if (brownBirdSupply.resourceQuantity - 1 == 0) {
             setEggTracker([]);
+
             if (brownBirdSupply.currentAction.includes("brown")) {
+              //brown nest / brown egg
+
               continueBrownPower(brownBirdSupply);
+            } else if (brownBirdSupply.currentAction == "grassland") {
+              if (grasslandBrownBirds.length) {
+                brownBirdSupply.setBrownBirdCopy((state) => ({
+                  ...state,
+                  location: "grassland",
+                }));
+                activateBrownPowers(
+                  brownBirdSupply.grassland,
+                  grasslandBrownBirds,
+
+                  brownBirdSupply
+                );
+              } else {
+                resetFromGrassland(
+                  brownBirdSupply.setDisableClick,
+                  brownBirdSupply.setCurrentAction,
+                  brownBirdSupply.setCurrentActionText
+                );
+              }
+              //end of grassland
             } else {
               resetPlayBirdAction(
                 brownBirdSupply.setDisableClick,
@@ -74,51 +115,21 @@ const PlayedBirdCard = ({
                 brownBirdSupply.setPlayBirdState,
                 brownBirdSupply.setCurrentActionText
               );
+              //end of white power
             }
+            //end of resourceQuantity > 0 check
           } else {
             brownBirdSupply.setCurrentActionText(
               "Select another bird to lay an egg on."
             );
           }
+          //end of noMoreEggsCheck
+        } else {
+          brownBirdSupply.setCurrentActionText("Can't lay eggs on this bird.");
         }
-        return;
       } else {
+        //current action !== grassland / brownEgg / brownNest
         switch (brownBirdSupply.currentAction) {
-          case "grassland":
-            if (currentEggs == bird.egg_limit) {
-              brownBirdSupply.setCurrentActionText(
-                "Can't place any more eggs on this bird."
-              );
-            } else {
-              layEgg(
-                setHabitat,
-                space,
-                brownBirdSupply.setResourceQuantity,
-                setPlayerEggs
-              );
-              if (brownBirdSupply.resourceQuantity - 1 == 0) {
-                if (grasslandBrownBirds.length) {
-                  brownBirdSupply.setBrownBirdCopy((state) => ({
-                    ...state,
-                    location: "grassland",
-                  }));
-                  activateBrownPowers(
-                    brownBirdSupply.grassland,
-                    grasslandBrownBirds,
-
-                    brownBirdSupply
-                  );
-                } else {
-                  resetFromGrassland(
-                    brownBirdSupply.setDisableClick,
-                    brownBirdSupply.setCurrentAction,
-                    brownBirdSupply.setCurrentActionText
-                  );
-                }
-              }
-            }
-
-            break;
           case "brownFood":
             if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
               brownBirdSupply.setCurrentActionText(
@@ -139,37 +150,6 @@ const PlayedBirdCard = ({
             }
 
             break;
-          case "brownEgg":
-            if (bird.egg_limit == currentEggs) {
-              brownBirdSupply.setCurrentActionText(
-                "Cannot place an egg on this bird. "
-              );
-            } else {
-              if (brownBirdSupply.brownBirdVariable === "this") {
-                console.log("brown egg and this");
-                if (
-                  brownBirdSupply.brownBirdCopy.currentSpace ===
-                    Number(space) &&
-                  brownBirdSupply.brownBirdCopy.location === location
-                ) {
-                } else {
-                  brownBirdSupply.setCurrentActionText(
-                    "Must place egg on correct bird."
-                  );
-                  break;
-                }
-              }
-              layEgg(
-                setHabitat,
-                space,
-                brownBirdSupply.setResourceQuantity,
-                setPlayerEggs
-              );
-              continueBrownPower(brownBirdSupply);
-            }
-
-            break;
-
           case "playBird":
             if (currentEggs == 0) {
               brownBirdSupply.setCurrentActionText(
@@ -220,7 +200,6 @@ const PlayedBirdCard = ({
             break;
           case "brownRepeat":
             if (brownBirdSupply.brownBirdCopy.location !== location) {
-              console.log("location not match");
               brownBirdSupply.setCurrentActionText(
                 `Select a bird in the ${brownBirdSupply.brownBirdCopy.location} habitat.`
               );
@@ -230,72 +209,24 @@ const PlayedBirdCard = ({
               );
             } else {
               if (brownBirdSupply.brownBirdCopy.currentSpace == space) {
-                console.log("same bird");
                 brownBirdSupply.setCurrentActionText(
                   "Can't select the same bird..."
                 );
               } else {
-                console.log("good");
                 brownPowerCheck(habitat, space, brownBirdSupply);
               }
             }
             break;
         }
       }
+      return;
     }
   };
 
-  const foodContent = bird.food.map((food, index) => (
-    <p className="bg-emerald-900 text-white p-2 rounded-lg" key={index}>
-      {food}
-    </p>
-  ));
-  const habitatContent = bird.habitat.map((habitat, index) => (
-    <p className="bg-white text-emerald-900 p-2 rounded-lg" key={index}>
-      {habitat}
-    </p>
-  ));
-
-  let powerCSS = "";
-  let powerPrefix = "";
-  switch (bird.power.color) {
-    case "brown":
-      powerCSS = "p-2 w-full bg-amber-500";
-      powerPrefix = "When Activated: ";
-      break;
-    case "pink":
-      powerCSS = "p-2 w-full bg-pink-500";
-      powerPrefix = "Once Between Turns: ";
-      break;
-    case "white":
-      powerCSS = "p-2 w-full bg-white";
-      powerPrefix = "When Played: ";
-      break;
-  }
-
   return (
-    <div
-      className="col-span-2 w-full h-full bg-emerald-500  rounded-lg  flex flex-col text-center"
-      onClick={birdCardClick}
-    >
-      <div className="p-3 flex flex-col gap-2">
-        <p className="text-xl font-semibold text-emerald-900">
-          {bird.common_name}
-        </p>
-        {/* <div className="flex gap-3 justify-center flex-wrap">{foodContent}</div>
-      <div>{habitatContent}</div> */}
-        <p className="text-white text-lg">Nest Type: {bird.nest}</p>
-        <p className="text-white text-lg">Eggs laid: {currentEggs}</p>
-        <p className="text-white text-lg">Egg limit: {bird.egg_limit}</p>
-        <p className="text-white text-lg">Cache Count: {currentCache}</p>
-        <p className="text-white text-lg">Tuck Count: {currentTucked}</p>
-      </div>
-      <div className={powerCSS}>
-        <p className="font-semibold text-lg text-black">
-          {powerPrefix}
-          <span className="font-normal text-md">{bird.power.description}</span>
-        </p>
-      </div>
+    <div className="col-span-2  " onClick={birdCardClick}>
+      <p>Current Eggs: {currentEggs}</p>
+      <BirdLayout bird={bird} />
     </div>
   );
 };

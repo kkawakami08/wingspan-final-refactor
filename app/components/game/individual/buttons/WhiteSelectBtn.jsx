@@ -43,31 +43,12 @@ const WhiteSelectBtn = ({ brownBirdSupply }) => {
       case "whiteCard":
         disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
         break;
-      // case "brownFood":
-      //   disableSave =
-      //     selectedFood.length == brownBirdSupply.resourceQuantity &&
-      //     selectedFood.some((item) =>
-      //       item.type.includes(brownBirdSupply.brownBirdVariable)
-      //     );
-      //   break;
-      // case "brownTuck":
-      //   disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
-      //   break;
     }
   };
   updateDisable();
-
   const selectBtnClick = () => {
-    if (
-      // brownBirdSupply.currentAction === "brownFood" ||
-      brownBirdSupply.currentAction === "whiteFeeder"
-    ) {
+    if (brownBirdSupply.currentAction === "whiteFeeder") {
       saveFoodSelection(setPlayerFood, selectedFood, setSelectedFood);
-      // } else {
-      //   //tucking
-      //   tuckCard(brownBirdSupply);
-      //   setSelectedBirds([]);
-      // }
     } else {
       saveSelection(setBirdHand, selectedBirds, setSelectedBirds);
     }

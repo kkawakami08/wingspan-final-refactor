@@ -1,12 +1,19 @@
 import { useAtom } from "jotai";
-import { birdTrayAtom } from "../../../utils/jotaiStore";
-import BirdTrayCard from "../individual/bird/BirdTrayCard";
+import { birdTrayAtom, disableClickAtom } from "../../../utils/jotaiStore";
+import GeneralBirdCard from "../individual/bird/GeneralBirdCard";
 
 const BirdTray = ({}) => {
-  const [birdTray] = useAtom(birdTrayAtom);
+  const [birdTray, setBirdTray] = useAtom(birdTrayAtom);
+  const [disableClick] = useAtom(disableClickAtom);
 
   const birdTrayContent = birdTray.map((bird) => (
-    <BirdTrayCard key={bird.common_name} bird={bird} />
+    <GeneralBirdCard
+      key={bird.common_name}
+      bird={bird}
+      type={setBirdTray}
+      disabled={disableClick.birdTray}
+      selected={false}
+    />
   ));
 
   return (
