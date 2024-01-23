@@ -10,7 +10,7 @@ const PlayerFoodSupply = () => {
   ));
 
   return (
-    <div className="row-start-4 col-span-7 flex flex-col items-center gap-3">
+    <div className="col-span-6 flex flex-col items-center gap-3">
       <p className="text-indigo-900 font-semibold text-lg text-center   ">
         Player Food Supply
       </p>

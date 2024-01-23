@@ -21,8 +21,7 @@ const Forest = ({ moveBirdSupply, brownBirdSupply }) => {
   const [birdHand] = useAtom(playerBirdHandAtom);
 
   const forestClick = () => {
-    if (disableForest) console.log("Disabled");
-    else {
+    if (!disableForest) {
       if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
           moveBirdSupply.forestBirdCount,

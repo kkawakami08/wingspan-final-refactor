@@ -12,7 +12,7 @@ import NextPower from "../individual/buttons/NextPower";
 
 const HabitatMat = ({ brownBirdSupply, moveBirdSupply }) => {
   return (
-    <div className="row-start-6 col-span-12 flex flex-col gap-3">
+    <div className="col-span-12 flex flex-col gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center  ">
         Habitat mat
       </p>

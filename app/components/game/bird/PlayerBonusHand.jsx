@@ -5,7 +5,7 @@ import {
 } from "../../../utils/jotaiStore";
 import GeneralBirdCard from "../individual/bird/GeneralBirdCard";
 
-const PlayerBirdHand = () => {
+const PlayerBonusHand = () => {
   const [birdHand, setBirdHand] = useAtom(playerBirdHandAtom);
   const [disableClick] = useAtom(disableClickAtom);
 
@@ -20,9 +20,9 @@ const PlayerBirdHand = () => {
   ));
 
   return (
-    <div className="col-span-12">
+    <div className="">
       <p className="text-emerald-900 font-semibold text-lg text-center pb-3">
-        Player Bird Hand
+        Player Bonus Hand
       </p>
 
       <div className="flex gap-5 flex-wrap items-center justify-center">
@@ -32,4 +32,4 @@ const PlayerBirdHand = () => {
   );
 };
 
-export default PlayerBirdHand;
+export default PlayerBonusHand;

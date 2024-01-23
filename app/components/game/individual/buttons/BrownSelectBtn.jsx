@@ -36,9 +36,6 @@ const BrownSelectBtn = ({ brownBirdSupply }) => {
       case "brownTuck":
         disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
         break;
-      case "brownTuck":
-        disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
-        break;
     }
   };
   updateDisable();

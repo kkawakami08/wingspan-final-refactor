@@ -2,7 +2,7 @@ import FoodSupplyBoxes from "../individual/food/FoodSupplyBoxes";
 
 const FoodSupply = ({ brownBirdSupply }) => {
   return (
-    <div className="row-start-5 col-span-12 text-center">
+    <div className="text-center col-span-8">
       <p className="text-emerald-900 font-semibold text-lg pb-5 ">
         Food Supply
       </p>

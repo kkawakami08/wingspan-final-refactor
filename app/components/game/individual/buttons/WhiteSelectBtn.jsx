@@ -10,10 +10,7 @@ import {
   birdDeckAtom,
 } from "../../../../utils/jotaiStore";
 import { saveFoodSelection } from "../../../../utils/gameFunctions/foodFunctions";
-import {
-  continueBrownPower,
-  tuckCard,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
+
 import { birdFeederCheck } from "../../../../utils/gameFunctions/brownPowerHelperFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { saveSelection } from "../../../../utils/gameFunctions/generalFunctions";
@@ -26,23 +23,16 @@ const WhiteSelectBtn = ({ brownBirdSupply }) => {
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
-  const [, setPlayBirdState] = useAtom(playBirdAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
 
   let disableSave;
   const updateDisable = () => {
-    switch (brownBirdSupply.currentAction) {
-      case "whiteFeeder":
-        disableSave =
-          selectedFood.length == brownBirdSupply.resourceQuantity &&
-          birdFeederCheck(brownBirdSupply.brownBirdVariable, selectedFood);
-        break;
-      case "whiteSelect":
-        disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
-        break;
-      case "whiteCard":
-        disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
-        break;
+    if (brownBirdSupply.currentAction === "whiteFeeder") {
+      disableSave =
+        selectedFood.length == brownBirdSupply.resourceQuantity &&
+        birdFeederCheck(brownBirdSupply.brownBirdVariable, selectedFood);
+    } else {
+      disableSave = selectedBirds.length == brownBirdSupply.resourceQuantity;
     }
   };
   updateDisable();

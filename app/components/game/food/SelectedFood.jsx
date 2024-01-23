@@ -45,7 +45,7 @@ const SelectedFood = ({ brownBirdSupply, moveBirdSupply }) => {
   };
 
   return (
-    <div className=" col-start-8 col-span-5 row-start-3 row-span-2 bg-slate-200 rounded-lg p-3 flex flex-col items-center justify-between gap-3">
+    <div className="col-span-6 bg-slate-200 rounded-lg p-3 flex flex-col items-center justify-between gap-3">
       <p className="text-indigo-900 font-semibold text-lg text-center pb-3">
         Selected Food
       </p>

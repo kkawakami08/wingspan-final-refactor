@@ -23,7 +23,7 @@ const GeneralBirdCard = ({ bird, type, disabled, selected }) => {
   };
 
   return (
-    <div onClick={birdCardClick} className="">
+    <div onClick={birdCardClick} className="w-[17rem]">
       <BirdLayout bird={bird} />
     </div>
   );

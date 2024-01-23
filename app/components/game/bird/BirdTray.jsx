@@ -17,7 +17,7 @@ const BirdTray = ({}) => {
   ));
 
   return (
-    <div className="flex gap-5 col-span-7 items-center justify-center">
+    <div className=" bg-blue-500 flex gap-5 items-center justify-center">
       {birdTrayContent}
     </div>
   );

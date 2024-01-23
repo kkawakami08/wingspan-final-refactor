@@ -122,7 +122,7 @@ const BirdDeck = ({ brownBirdSupply }) => {
 
   return (
     <div
-      className="bg-emerald-900 w-56 h-72 rounded-lg text-white font-bold text-2xl flex items-center justify-center col-span-2"
+      className=" bg-emerald-900  rounded-lg text-white font-bold text-2xl flex items-center justify-center "
       onClick={birdDeckClick}
     >
       BirdDeck

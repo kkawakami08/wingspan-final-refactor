@@ -14,18 +14,14 @@ import {
   playBird,
 } from "../../../../utils/gameFunctions/playABirdFunctions";
 import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
-import {
-  activateWhitePowers,
-  brownPowerCheck,
-  whitePowerCheck,
-} from "../../../../utils/gameFunctions/birdPowerFunctions";
+import { whitePowerCheck } from "../../../../utils/gameFunctions/birdPowerFunctions";
 
 const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdDiscard] = useAtom(birdDiscardAtom);
 
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
-  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
+  const [playBirdState] = useAtom(playBirdAtom);
   const [birdDeck] = useAtom(birdDeckAtom);
   const [birdHand] = useAtom(playerBirdHandAtom);
 
@@ -115,7 +111,7 @@ const DiscardBtn = ({ brownBirdSupply, moveBirdSupply }) => {
             birdDeck,
             birdHand
           );
-          setPlayBirdState((state) => {
+          brownBirdSupply.setPlayBirdState((state) => {
             state.bird = null;
             return state;
           });

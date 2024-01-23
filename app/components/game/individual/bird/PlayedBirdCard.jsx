@@ -31,6 +31,7 @@ const PlayedBirdCard = ({
 }) => {
   const bird = habitat[space].bird;
   const currentEggs = habitat[space].eggCount;
+  const currentTucked = habitat[space].tuckedCount;
 
   const [, setPlayerEggs] = useAtom(playerEggSupplyAtom);
   const [, setRemovedEggList] = useAtom(removedEggListAtom);
@@ -44,8 +45,6 @@ const PlayedBirdCard = ({
 
   let noMoreEggsConditions =
     !eggTracker.includes(bird.common_name) && bird.egg_limit !== currentEggs;
-
-  console.log(noMoreEggsConditions);
 
   const thisVariableCheck =
     brownBirdSupply.brownBirdCopy.currentSpace == Number(space) &&
@@ -189,20 +188,7 @@ const PlayedBirdCard = ({
               );
             }
             break;
-          case "brownCard":
-            if (currentEggs > 0) {
-              discardEgg(
-                setHabitat,
-                space,
 
-                setPlayerEggs,
-
-                brownBirdSupply.setDisableClick,
-                brownBirdSupply.setResourceQuantity
-              );
-            }
-            continueBrownPower(brownBirdSupply);
-            break;
           case "brownRepeat":
             if (brownBirdSupply.brownBirdCopy.location !== location) {
               brownBirdSupply.setCurrentActionText(
@@ -230,7 +216,8 @@ const PlayedBirdCard = ({
 
   return (
     <div className="col-span-2  " onClick={birdCardClick}>
-      <p>Current Eggs: {currentEggs}</p>
+      <p>Eggs on bird: {currentEggs}</p>
+      <p>Tucked Cards: {currentTucked}</p>
       <BirdLayout bird={bird} />
     </div>
   );

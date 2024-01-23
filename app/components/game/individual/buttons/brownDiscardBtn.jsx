@@ -14,31 +14,25 @@ const BrownDiscardBtn = ({ brownBirdSupply }) => {
 
   let disableSave;
   const updateDisable = () => {
-    switch (brownBirdSupply.currentAction) {
-      case "discard":
-        disableSave = selectedBirds.length == brownBirdSupply.discardQuantity;
-        break;
-      default:
-        disableSave =
-          selectedFood.length == brownBirdSupply.resourceQuantity &&
-          selectedFood.some((item) =>
-            item.type.includes(brownBirdSupply.brownBirdVariable)
-          );
-        break;
+    if (brownBirdSupply.currentAction == "discard") {
+      disableSave = selectedBirds.length == brownBirdSupply.discardQuantity;
+    } else {
+      disableSave =
+        selectedFood.length == brownBirdSupply.resourceQuantity &&
+        selectedFood.some((item) =>
+          item.type.includes(brownBirdSupply.brownBirdVariable)
+        );
     }
   };
 
   updateDisable();
 
   const discardBtnClick = () => {
-    switch (brownBirdSupply.currentAction) {
-      case "discard":
-        setSelectedBirds([]);
-        brownBirdSupply.setBrownPowerEnd(false);
-        break;
-      default:
-        setSelectedFood([]);
-        break;
+    if (brownBirdSupply.currentAction == "discard") {
+      setSelectedBirds([]);
+      brownBirdSupply.setBrownPowerEnd(false);
+    } else {
+      setSelectedFood([]);
     }
     continueBrownPower(brownBirdSupply);
   };

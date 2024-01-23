@@ -26,8 +26,7 @@ const Grassland = ({ brownBirdSupply, moveBirdSupply }) => {
   const [grasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
 
   const grasslandClick = () => {
-    if (disableGrassland) console.log("Disabled");
-    else {
+    if (!disableGrassland) {
       if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
           moveBirdSupply.grasslandBirdCount,

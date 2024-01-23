@@ -1,12 +1,9 @@
 import { useAtom } from "jotai";
 import { playBirdAtom } from "../../../../utils/jotaiStore";
-import {
-  playBird,
-  resetPlayBirdAction,
-} from "../../../../utils/gameFunctions/playABirdFunctions";
+import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const SkipWhitePower = ({ brownBirdSupply }) => {
-  const [playBirdState] = useAtom(playBird);
+  const [playBirdState] = useAtom(playBirdAtom);
 
   const skipWhitePower = () => {
     brownBirdSupply.setBrownPowerContinueBtn(false);

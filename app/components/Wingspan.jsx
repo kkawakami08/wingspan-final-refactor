@@ -7,12 +7,14 @@ import HabitatMat from "./game/mat/HabitatMat";
 import SelectedFood from "./game/food/SelectedFood";
 import PlayerFoodSupply from "./game/food/PlayerFoodSupply";
 import FoodSupply from "./game/food/FoodSupply";
+import BonusDeck from "./game/bird/BonusDeck";
+import BirdDiscard from "./game/bird/BirdDiscard";
+import BonusDiscard from "./game/bird/BonusDiscard";
 
 import { useAtom } from "jotai";
 import {
   playerEggSupplyAtom,
   brownPowerContinueBtnAtom,
-  selectedBirdsAtom,
   brownBirdCopyAtom,
   currentActionAtom,
   birdFeederAtom,
@@ -55,10 +57,9 @@ const Wingspan = () => {
     brownBirdVariableAtom
   );
   const [, setSelectedFood] = useAtom(selectedFoodAtom);
-  const [, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setSelectedCards] = useAtom(selectedCardsAtom);
   const [, setPlayBirdState] = useAtom(playBirdAtom);
-  const [birdFeeder, setBirdFeeder] = useAtom(birdFeederAtom);
+  const [birdFeeder] = useAtom(birdFeederAtom);
   const [brownBirdCopy, setBrownBirdCopy] = useAtom(brownBirdCopyAtom);
   const [brownPowerEnd, setBrownPowerEnd] = useAtom(brownPowerEndAtom);
   const [discardQuantity, setDiscardQuantity] = useAtom(discardQuantityAtom);
@@ -69,13 +70,9 @@ const Wingspan = () => {
   );
   const [wetlandBirdCount, setWetlandBirdCount] = useAtom(wetlandBirdCountAtom);
 
-  const [forestBrownBirds, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
-  const [grasslandBrownBirds, setGrasslandBrownBirds] = useAtom(
-    grasslandBrownBirdsAtom
-  );
-  const [wetlandBrownBirds, setWetlandBrownBirds] = useAtom(
-    wetlandBrownBirdsAtom
-  );
+  const [, setForestBrownBirds] = useAtom(forestBrownBirdsAtom);
+  const [, setGrasslandBrownBirds] = useAtom(grasslandBrownBirdsAtom);
+  const [, setWetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
 
   const moveBirdSupply = {
     forestBirdCount: forestBirdCount,
@@ -138,27 +135,34 @@ const Wingspan = () => {
 
   return (
     <div className="grid grid-cols-12 p-5 gap-5">
-      <PlayerBirdHand />
-
-      <BirdTray />
-      <BirdDeck brownBirdSupply={brownBirdSupply} />
-
+      {/* //overlay over components */}
       <SelectedBirds
         brownBirdSupply={brownBirdSupply}
         moveBirdSupply={moveBirdSupply}
       />
-      <BirdFeeder />
-      <PlayerFoodSupply />
       {brownBirdSupply.currentAction === "whiteSelect" && <BirdCardOptions />}
       <SelectedFood
         brownBirdSupply={brownBirdSupply}
         moveBirdSupply={moveBirdSupply}
       />
+      <BirdFeeder />
       <FoodSupply brownBirdSupply={brownBirdSupply} />
+      <div className="col-span-12 flex justify-around ">
+        <BirdDeck brownBirdSupply={brownBirdSupply} />
+        <BirdDiscard />
+        <BirdTray />
+        <BonusDeck />
+        <BonusDiscard />
+      </div>
+
       <HabitatMat
         brownBirdSupply={brownBirdSupply}
         moveBirdSupply={moveBirdSupply}
       />
+      {/* //separate tab */}
+
+      <PlayerFoodSupply />
+      <PlayerBirdHand />
     </div>
   );
 };

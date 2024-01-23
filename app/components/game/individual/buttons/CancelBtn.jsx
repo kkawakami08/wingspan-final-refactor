@@ -10,7 +10,7 @@ import { resetPlayBirdAction } from "../../../../utils/gameFunctions/playABirdFu
 import { replaceEggs } from "../../../../utils/gameFunctions/playABirdFunctions";
 
 const CancelBtn = ({ brownBirdSupply }) => {
-  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
+  const [playBirdState] = useAtom(playBirdAtom);
 
   const [selectedBirds, setSelectedBirds] = useAtom(selectedBirdsAtom);
   const [, setBirdHand] = useAtom(playerBirdHandAtom);
@@ -23,10 +23,7 @@ const CancelBtn = ({ brownBirdSupply }) => {
         hand.push(...selectedBirds);
         return hand;
       });
-      setSelectedBirds((state) => {
-        state = [];
-        return state;
-      });
+      setSelectedBirds([]);
     }
     if (brownBirdSupply.resourceQuantity == 0) {
       setPlayerEggs((eggs) => eggs + playBirdState.eggReq);

@@ -16,7 +16,7 @@ const BirdCardOptions = ({}) => {
   ));
 
   return (
-    <div className=" col-start-1 col-span-5 row-start-6 bg-slate-200 rounded-lg p-3 flex flex-col items-center justify-between gap-3">
+    <div className="  bg-slate-200 rounded-lg p-3 flex flex-col items-center justify-between gap-3">
       <p className="text-emerald-900 font-semibold text-lg text-center pb-3">
         Bird Choices
       </p>

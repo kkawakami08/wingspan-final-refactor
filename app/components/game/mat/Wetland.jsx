@@ -21,8 +21,7 @@ const Wetland = ({ moveBirdSupply, brownBirdSupply }) => {
   const [birdHand] = useAtom(playerBirdHandAtom);
 
   const wetlandClick = () => {
-    if (disableWetland) console.log("Disabled");
-    else {
+    if (!disableWetland) {
       if (brownBirdSupply.currentAction === "playBird") {
         eggReqCheck(
           moveBirdSupply.wetlandBirdCount,

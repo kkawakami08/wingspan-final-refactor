@@ -26,7 +26,7 @@ const SelectBtn = ({ brownBirdSupply }) => {
   const [selectedFood, setSelectedFood] = useAtom(selectedFoodAtom);
   const [, setPlayerFood] = useAtom(playerFoodSupplyAtom);
 
-  const [playBirdState, setPlayBirdState] = useAtom(playBirdAtom);
+  const [playBirdState] = useAtom(playBirdAtom);
 
   const [forestBrownBirds] = useAtom(forestBrownBirdsAtom);
   const [wetlandBrownBirds] = useAtom(wetlandBrownBirdsAtom);
@@ -89,7 +89,7 @@ const SelectBtn = ({ brownBirdSupply }) => {
         }
 
       case "playBird":
-        setPlayBirdState((state) => {
+        brownBirdSupply.setPlayBirdState((state) => {
           state.bird = selectedBirds[0];
         });
         brownBirdSupply.setDisableClick((state) => ({
